@@ -1,4 +1,4 @@
-Brainshare for now is a web application where authors share ideas on things they know about.
+<h1>Brainshare</h1> for now is a web application where authors share ideas on things they know about.
 be it Politics, history, programming.. name it.
 
 AUTHORS:
