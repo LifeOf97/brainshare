@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block  title %}{% endblock title %}</title>
+</head>
+<body>
+
+    <header>
+    {% block header %}
+        <div>
+            {% if user.is_authenticated %}
+            <div>
+                <span>USER: <b>{{user.username}}</b></span> 
+                <a href="{% url 'userapp:user-profile' user.slug %}">Profile</a>
+            </div>
+            <div>
+                <a href="{% url 'userapp:sign-out' %}">Sign Out</a>
+            </div>
+            {% else %}
+            <div>
+                <a href="{% url 'userapp:sign-in' %}">Sign In</a>
+                <a href="{% url 'userapp:sign-up' %}">Sign Up</a>
+            </div>
+            {% endif %}
+            <div><a href="{% url 'blogapp:post-list' %}">Blog</a></div>
+        </div>    
+    {% endblock header %}
+    </header>
+    <nav>
+        {% block nav%}{% endblock nav %}
+    </nav>
+    <section>
+        {% block section %}{% endblock section %}
+    </section>
+    <article>
+        {% block article %}{% endblock article %}
+    </article>
+    <aside>
+        {% block aside %}{% endblock aside %}
+    </aside>
+    <footer>
+        {% block footer %}{% endblock footer %}
+    </footer>
+    
+</body>
+</html>
