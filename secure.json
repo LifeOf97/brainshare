@@ -1,0 +1,17 @@
+{
+    "HOST": "smtp.google.com",
+    "USER": "lrdmoyo@gmail.com",
+    "PASSWORD": "lmlmf914",
+    "SSL_PORT": 465,
+    "TLS_PORT": 587,
+    "TLS": true,
+    "SSL": true,
+    "BACKENDS": {
+        "SMTP": "django.core.mail.backends.smtp.EmailBackend",
+        "FILE": "django.core.mail.backends.filebased.EmailBackend",
+        "DUMMY": "django.core.mail.backends.dummy.EmailBackend",
+        "LOCMEM": "django.core.mail.backends.locmem.EmailBackend",
+        "CONSOLE": "django.core.mail.backends.console.EmailBackend"
+    },
+    "SECRET_KEY": "w$$r51%+tw-q$t!)z7ot%$cuigtcp9z)kx9*wv%%m!dd($rn*v"
+}

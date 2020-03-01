@@ -21,9 +21,9 @@ class MoreCotentStacked(admin.StackedInline):
     model = MoreContent
     extra = 0
     fieldsets = (
-        ('More Content', {
+        (None, {
             "fields": (
-                ('heading', 'text_content'), 'image',
+                ('heading', 'text_content'), ('image', 'copy_right'),
                 ('list_content', 'list_style'), 'code'
             )
         }),
@@ -107,9 +107,9 @@ class PostAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {"fields": ('author', )}),
-        ('Identifier', {"fields": (('title', 'slug'), 'banner')}),
+        ('Identifier', {"fields": (('title', 'slug'), ('banner', 'banner_copyright'))}),
         ('Content', {"fields": (
-            ('heading', 'text_content'), 'image',
+            ('heading', 'text_content'), ('image', 'image_copyright'),
             ('list_content', 'list_style'), 'code'
         )}),
         ('Tags', {"fields": ('tags', )}),

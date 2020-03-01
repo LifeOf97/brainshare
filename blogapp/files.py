@@ -12,20 +12,20 @@ pre_url = 'blogapp/authors'
 
 
 def AuthorBanner(instance, filename):
-    return F"{pre_url}/{instance.profile.username}/bio/ab{date}{filename}"
+    return F"{pre_url}/{instance.profile.id}/bio/ab{date}{filename}"
 
 
 def AuthorImage(instance, filename):
-    return F"{pre_url}/{instance.profile.username}/bio/ai{date}{filename}"
+    return F"{pre_url}/{instance.profile.id}/bio/ai{date}{filename}"
 
 
 def PostBanner(instance, filename):
-    return F"{pre_url}/{instance.author.profile.username}/posts/{instance.title}/pb{filename}"
+    return F"{pre_url}/{instance.author.profile.id}/posts/{instance.title}/pb{filename}"
 
 
 def PostImage(instance, filename):
-    return F"{pre_url}/{instance.author.profile.username}/posts/{instance.title}/pi{filename}"
+    return F"{pre_url}/{instance.author.profile.id}/posts/{instance.title}/pi{filename}"
 
 
 def MorePostImage(instance, filename):
-    return F"{pre_url}/{instance.post.author.profile.username}/posts/{instance.post.title}/mpi{filename}"
+    return F"{pre_url}/{instance.post.author.profile.id}/posts/{instance.post.title}/mpi{filename}"

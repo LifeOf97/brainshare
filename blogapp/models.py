@@ -1,12 +1,14 @@
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.conf import settings
+from django.urls import reverse
 from django.db import models
 from .files import (
     AuthorImage, AuthorBanner,
     PostImage, PostBanner,
     MorePostImage
 )
+import uuid
 # Create your models here.
 
 
@@ -17,6 +19,9 @@ class Author(models.Model):
     user details. Every author has a user model that contains
     bio data belonging to the author.
     """
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     profile = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
@@ -41,10 +46,16 @@ class Author(models.Model):
     def __str__(self):
         return F"{self.profile.username}"
 
+    def get_absolute_url(self):
+        return reverse("blogapp:author-detail", kwargs={"slug": self.slug})
+
     def number_of_post(self):
         return Post.objects.filter(
             author__profile__username=self.profile.username
         ).count()
+
+    def get_full_name(self):
+        return F"{self.profile.first_name} {self.profile.last_name} {self.profile.other_name}"
 
 
 class Social(models.Model):
@@ -52,11 +63,21 @@ class Social(models.Model):
     A social model used to add social media links to
     the author so their readers can follow them and more
     """
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    OPTIONS = (
+        ('Facebook', 'Facebook'), ('Twitter', 'Twitter'),
+        ('Instagram', 'Instagram'), ('Tumblr', 'Tumblr'),
+        ('LinkedIn', 'LinkedIn'), ('Pinterest', 'Pinterest'),
+        ('Telegram', 'Telegram'), ('YouTube', 'YouTube'),
+        ('Discord', 'Discord')
+    )
     platform = models.CharField(
-        _("Platform"), max_length=200,
+        _("Platform"), max_length=100, choices=OPTIONS,
         blank=True, null=True,
-        help_text=_('The name of the social media platform')
+        help_text=_('Select a social media platform')
     )
     handle = models.CharField(
         _("Handle"), max_length=200,
@@ -77,6 +98,9 @@ class Post(models.Model):
     """
     A post model used to create post by an author
     """
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     author = models.ForeignKey(
         Author, on_delete=models.CASCADE
     )
@@ -93,6 +117,11 @@ class Post(models.Model):
         _("Banner"), upload_to=PostBanner,
         blank=True, null=True,
         help_text=_('An image displayed along side the title')
+    )
+    banner_copyright = models.CharField(
+        _("Copyright"), max_length=255, default='',
+        blank=True, null=True,
+        help_text=_('Where this image was gotten from')
     )
     tags = models.TextField(
         _("Tags"), blank=True, null=True,
@@ -112,6 +141,11 @@ class Post(models.Model):
         help_text=_(
             '<p>If the post requires an image, upload one here</p><p>More images can be uploaded from the more section</p>'
         )
+    )
+    image_copyright = models.CharField(
+        _("Copyright"), max_length=255, default='',
+        blank=True, null=True,
+        help_text=_('Where this image was gotten from')
     )
     # to add list to post
     STYLE = (
@@ -138,10 +172,16 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return F"Title:{self.title} Author:{self.author.profile.username}"
+        return F"Title: {self.title} Author: {self.author.profile.username}"
+
+    def get_absolute_url(self):
+        return reverse("blogapp:post-detail", kwargs={"slug": self.slug})
 
 
 class MoreContent(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     heading = models.CharField(
         _("Heading"), max_length=255, blank=True, null=True,
@@ -155,6 +195,11 @@ class MoreContent(models.Model):
         _("Image"), upload_to=MorePostImage,
         blank=True, null=True,
         help_text=_('Add more images to the post')
+    )
+    copy_right = models.CharField(
+        _("Copyright"), max_length=255, default='',
+        blank=True, null=True,
+        help_text=_('Where this image was gotten from')
     )
     # to add list to post
     STYLE = (
