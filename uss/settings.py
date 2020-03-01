@@ -1,4 +1,11 @@
 import os
+import json
+
+# Open secure files here
+# make sure to import json and load the file
+# to be able to read data if the file is json.
+with open('./secure.json', 'r') as secureFile:
+    config = json.load(secureFile)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -8,7 +15,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'w$$r51%+tw-q$t!)z7ot%$cuigtcp9z)kx9*wv%%m!dd($rn*v'
+SECRET_KEY = config['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -25,8 +32,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # other installed apps
-    'userapp',
+    # My installed apps. You can just write the
+    # name of the app like 'userapp'
+    'userapp.apps.UserappConfig',
+    'blogapp.apps.BlogappConfig',
+    # Third party installed apps
     'django_countries',
 ]
 
@@ -63,6 +73,7 @@ WSGI_APPLICATION = 'uss.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# currently making use of mysql database
 
 DATABASES = {
     'default': {
@@ -92,8 +103,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# User model used
+# My custom user model
 AUTH_USER_MODEL = 'userapp.User'
+
+# URLS to redirect to on successful actions
+# LOGIN_REDIRECT_URL = ''
+# LOGOUT_REDIRECT_URL = 'sign-in'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -117,3 +132,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Media files (Images, Files, and Others)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# My Email backend settings
+EMAIL_BACKEND = config['BACKENDS']['SMTP']
+EMAIL_HOST = config['HOST']
+EMAIL_PORT = config['TLS_PORT']
+EMAIL_HOST_USER = config['USER']
+EMAIL_HOST_PASSWORD = config['PASSWORD']
+EMAIL_USE_TLS = config['TLS']
+# EMAIL_USE_SSL =
