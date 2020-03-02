@@ -1,0 +1,13 @@
+{% extends '../basement.html' %}
+{% block title %} Sign Out | {{user.username}} {% endblock title %}
+
+{% block section %}
+<div>
+    <div><h1>Sign Out</h1></div>
+    <div>
+        <p>Are you sure you want to sign out?</p>
+        <a href="{% url 'userapp:home-page' %}">No</a> 
+        <a href="{% url 'userapp:sign-out-confirm' %}">Yes</a>
+    </div>
+</div>
+{% endblock section %}

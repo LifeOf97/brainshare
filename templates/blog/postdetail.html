@@ -1,0 +1,116 @@
+{% extends '../basement.html' %}
+{% load customfilters %}
+{% block title %}
+    {{postdetail.title}} By {{postdetail.author}}
+{% endblock title %}
+
+{% block section %}
+<div>
+    <div id="author">
+        <div>Posted by : <a href="{{postdetail.author.get_absolute_url}}">{{postdetail.author}}</a></div>
+        <div>
+            {% for social in postdetail.author.social_set.all %}
+            <a href="">{{social.platform}}</a>
+            {% endfor %}
+        </div>
+        <div>Date :{{postdetail.date_to_publish|date:"d M, Y."}}</div>
+    </div>
+
+    <div id="title">
+        <h1>{{postdetail.title}}</h1>
+    </div>
+
+    {% if postdetail.banner %}
+    <div id="banner">
+        <img src="{{postdetail.banner.url}}" alt="BANNER" width="400px" height="400px">
+            {% if postdetail.banner_copyright %}
+            <span>{{postdetail.banner_copyright}}</span>
+            {% endif %}
+    </div>
+    {% endif %}
+
+    <div id="tag">
+        {% for tag in postdetail.tags|listify %}
+        <span>{{tag}}</span>
+        {% endfor %}
+    </div>
+
+    <div id="text">
+        <div><h1>{{postdetail.heading}}</h1></div>
+        <div><p>{{postdetail.text_content}}</p></div>
+    </div>
+
+    {% if postdetail.image %}
+    <div id="image">
+        <img src="{{postdetail.image.url}}" alt="POST IMAGE" width="400px" height="400px">
+            {% if postdetail.image_copyright %}
+            <span>{{postdetail.image_copyright}}</span>
+            {% endif %}
+    </div>
+    {% endif %}
+
+    {% if postdetail.list_content %}
+    <div id="list">
+        {% if postdetail.list_style == 'Ordered List (numeric)' %}
+        <ol>
+            {% for item in postdetail.list_content|listify %}
+            <li>{{item|safe  }}</li>
+            {% endfor %}
+        </ol>
+        {% else %}
+        <ul>
+            {% for item in postdetail.list_content|listify %}
+            <li>{{item}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if postdetail.code %}
+    <div id="code"><pre>{{postdetail.code}}</pre></div>
+    {% endif %}
+
+    {% for morecontent in postdetail.morecontent_set.all %}
+
+        {% if morecontent.heading %}
+        <div><h3>{{morecontent.heading}}</h3></div>
+        {% endif %}
+        {% if morecontent.text_content %}
+        <div><p>{{morecontent.text_content}}</p></div>
+        {% endif %}
+
+        {% if morecontent.image %}
+        <div>
+            <img src="{{morecontent.image.url}}" alt="MORE IMAGE" width="400px" height="400px">
+            {% if morecontent.image_copyright %}
+            <span>copyright: {{morecontent.copy_right}}</span>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if morecontent.list_content %}
+        <div>
+            {% if morecontent.list_style == 'Ordered List (numeric)' %}
+            <ol>
+                {% for item in morecontent.list_content|listify %}
+                <li>{{item|safe }}</li>
+                {% endfor %}
+            </ol>
+            {% else %}
+            <ul>
+                {% for item in morecontent.list_content|listify %}
+                <li>{{item}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        {% if morecontent.code %}
+        <div><pre>{{morecontent.code}}</pre></div>
+        {% endif %}
+    {% endfor %}
+
+</div>
+{% endblock section %}

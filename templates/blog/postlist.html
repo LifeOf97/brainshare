@@ -1,0 +1,22 @@
+{% extends '../basement.html' %}
+{% block title %} Welcome to Brainshare Blog {% endblock title %}
+
+
+{% block section %}
+<div>
+    {% for post in postlist %}
+    <div>
+        <div>
+            {% if post.banner.url %}
+            <img src="{{post.banner.url}}" alt="BANNER" width="400px" height="200px">
+            {% else %}
+            <span>BANNER</span>
+            {% endif %}
+        </div>
+        <div>
+            <a href="{% url 'blogapp:post-detail' post.slug %}">{{post.title}}</a>
+        </div><br>
+    </div>
+    {% endfor %}
+</div>
+{% endblock section %}
