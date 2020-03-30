@@ -1,0 +1,61 @@
+{% extends '../basement.html' %}
+{% block title %}Profile | {{userdetail.username}}{% endblock title %}
+
+{% block section %}
+<div>
+    <div>
+        Name: {{userdetail.first_name}} {{userdetail.last_name}}
+        {% if userdetail.other_name %}{{userdetail.other_name}}{% endif %}
+    </div>
+
+    <div>Username: {{userdetail.username}}</div>
+
+    <div>Email: {{userdetail.email}}</div>
+
+    {% if userdetail.website %}
+    <div>Website: {{userdetail.website|urlize}}</div>
+    {% endif %}
+
+    {% if userdetail.author.social_set.all.count > 0 %}
+    <div>
+        Social: 
+        {% for acc in  userdetail.author.social_set.all %}
+        <a href="">{{acc.platform}}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if userdetail.social_set.all > 0 %}
+    <div>
+        Social: 
+        {% for social in userdetail.social_set.all %}
+        <span><a href="">{{social}}</a></span>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div>
+        Location: 
+        {% if userdetail.state and userdetail.country %}
+            {{userdetail.state}}, {{userdetail.country.name}}.
+        {% elif userdetail.country %}
+            {{userdetail.country.name}}.
+        {% endif %}
+    </div>
+
+    <div>
+        <div>Gender: <span>{{userdetail.gender}}</span></div>
+        <div>Date of Birth: <span>{{userdetail.dob|date:"M d, Y"}}.</span></div>
+    </div>
+
+    <div id="links">
+        <a href="{% url 'userapp:edit-username' userdetail.slug %}">Change Username</a> 
+        <a href="{% url 'userapp:edit-email' userdetail.slug %}">Change Email</a> 
+        <a href="{% url 'userapp:edit-password' userdetail.slug %}">Change Password</a> 
+        <a href="{% url 'userapp:edit-bio' userdetail.slug %}">Edit Bio</a><br>
+        <a href="{% url 'userapp:edit-website' userdetail.slug %}">Edit Website</a> 
+        <a href="{% url 'userapp:edit-locale' userdetail.slug %}">Edit Locale</a> 
+        <a href="{% url 'userapp:edit-image' userdetail.slug %}">Edit Image and Banner</a> 
+        <a href="{% url 'userapp:edit-social' userdetail.slug %}">Add Social Accounts</a> 
+    </div>
+</div>
+{% endblock section %}

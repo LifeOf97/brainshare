@@ -1,0 +1,39 @@
+{% extends '../basement.html' %}
+{% block title %}Set a new password{% endblock title %}
+
+{% block section %}
+<div>
+    {% if validlink %}
+    <form action="." method="post">{% csrf_token %}
+       
+        {% for field in form %}
+        <div>
+           
+            <div>{{field.label_tag}}</div>
+            <div>{{field}}</div>
+            {% if field.errors %}
+                {% for error in field.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+            {% endif %}
+
+            {% if field.help_text %}
+            <div>{{field.help_text}}</div>
+            {% endif %}
+        
+        </div>
+        {% endfor %}
+
+        <div><input type="submit" value="Submit"></div>
+    </form>
+    {% else %}
+    <div>
+        <p>
+            The password reset link was invalid, possibly because
+            it has already been used or is expired,
+            please request for a new password reset.
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock section %}
