@@ -1,0 +1,37 @@
+{% extends '../basement.html' %}
+{% load cache %}
+{% block title %}Sign Up | Authors Only{% endblock title %}
+
+{# this page is cached #}
+
+{% block section %}
+{% cache 60 signup_page %}
+<div>
+    <div><h1>Sign Up</h1></div>
+    <form action="." method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div>
+            {% if field.errors %}
+            <div>
+                {% for error in field.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+            </div>    
+            {% endif %}
+            
+            <div>
+                <div>{{field.label_tag}}</div>
+                <div>{{field}}</div>
+            </div>
+            {% if field.help_text %}
+                <div>{{field.help_text}}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div><input type="submit" value="Submit"></div>
+    </form>
+</div>
+{% endcache %}
+{% endblock section %}

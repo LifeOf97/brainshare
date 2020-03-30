@@ -1,0 +1,36 @@
+{% extends '../basement.html' %}
+{% block title %}
+    {% if user.website %}Edit Website | {{user}}
+    {% else %}Add a Website{% endif %}
+{% endblock title %}
+
+{% block section %}
+<div>
+    <form action="." method="post">{% csrf_token %}
+        {% if user.website %}
+        <div>
+            <div>
+                <div>Website: {{user.website}} {{form.remove}}Remove</div>
+                <div>{{form.remove.errors}}</div>
+            <div>
+                <div>{{form.website.label_tag}}</div>
+                <div>{{form.website}}</div>
+                <div>{{form.website.errors}}</div>
+            </div>
+        </div>
+        {% else %}
+        <div>
+            <div>{{form.website.label_tag}}</div>
+            <div>{{form.website}}</div>
+            <div>{{form.website.errors}}</div>
+        </div>
+        {% endif %}
+
+        {% if user.website %}
+        <div><input type="submit" value="Save Changes"></div>
+        {% else %}
+        <div><input type="submit" value="Add"></div>
+        {% endif %}
+    </form>
+</div>
+{% endblock section %}
