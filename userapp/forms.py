@@ -260,20 +260,7 @@ class ResetPassForm(PasswordResetForm):
 ###########################################
 # form to add several social media account
 ###########################################
-class SocialForm(forms.Form):
-    OPTIONS = (
-        ('Facebook', 'Facebook'), ('Twitter', 'Twitter'),
-        ('Instagram', 'Instagram'), ('Tumblr', 'Tumblr'),
-        ('LinkedIn', 'LinkedIn'), ('Pinterest', 'Pinterest'),
-        ('Telegram', 'Telegram'), ('YouTube', 'YouTube'),
-        ('Discord', 'Discord'), ('Github', 'Github')
-    )
-    platform = forms.ChoiceField(label=_('Label'), choices=OPTIONS, required=True)
-    handle = forms.CharField(label=_('Handle'), max_length=254, required=True)
-    link = forms.URLField(label=_('Link'), required=True)
-
-
 class SocialForm(forms.ModelForm):
     class Meta:
         model = Social
-        exclude = ['author']
+        fields = ['platform', 'handle', 'link']

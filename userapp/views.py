@@ -2,12 +2,13 @@ from django.views.generic import FormView, TemplateView, DetailView
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.forms import inlineformset_factory, BaseInlineFormSet
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import render, get_object_or_404
 from django.template.defaultfilters import slugify
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import Group
 from blogapp.models import Author, Social
-from django.shortcuts import render
 from django.contrib.auth.views import (
     LogoutView, PasswordChangeView,
     PasswordResetView, PasswordResetDoneView,
@@ -28,8 +29,6 @@ from django import forms
 
 # instantiate the user model
 USER = get_user_model()
-# cache the USER model
-# [users for users in USER]
 
 
 def Home(request):
@@ -40,8 +39,8 @@ def Home(request):
 class SignUpView(FormView):
     """
     this view creates a new user and makes that user an
-    author, it also makes sure the new brainshare group
-    permissions gets added to the new author.
+    author, it also makes sure the new user gets added
+    to the brainshare group.
     """
     form_class = SignUpForm
     template_name = 'accounts/signup.html'
@@ -236,8 +235,7 @@ class ChangeSiteView(LoginRequiredMixin, FormView):
 
     def get(self, request, *args, **kwargs):
         # First make sure the user who made this request
-        # is the logged in user. You can make use of the
-        # UserPassesTestMixin, but i never tried it so. :)
+        # is the logged in user.
         if request.user.slug != kwargs['slug']:
             return HttpResponseForbidden("What are you doing")
 
@@ -276,8 +274,7 @@ class ChangePassView(LoginRequiredMixin, PasswordChangeView):
 
     def get(self, request, *args, **kwargs):
         # First make sure the user who made this request
-        # is the logged in user. You can make use of the
-        # UserPassesTestMixin, but i never tried it so. :)
+        # is the logged in user.
         if request.user.slug != kwargs['slug']:
             return HttpResponseForbidden("What are you doing")
         form = self.get_form()
@@ -304,8 +301,7 @@ class ChangeBioView(LoginRequiredMixin, FormView):
 
     def get(self, request, *args, **kwargs):
         # First make sure the user who made this request
-        # is the logged in user. You can make use of the
-        # UserPassesTestMixin, but i never tried it so. :)
+        # is the logged in user.
         if request.user.slug != kwargs['slug']:
             return HttpResponseForbidden("What are you doing")
 
@@ -348,8 +344,7 @@ class ChangeLocaleView(LoginRequiredMixin, FormView):
 
     def get(self, request, *args, **kwargs):
         # First make sure the user who made this request
-        # is the logged in user. You can make use of the
-        # UserPassesTestMixin, but i never tried it so. :)
+        # is the logged in user.
         if request.user.slug != kwargs['slug']:
             return HttpResponseForbidden("What are you doing")
 
@@ -389,8 +384,7 @@ class ChangeImageView(LoginRequiredMixin, FormView):
 
     def get(self, request, *args, **kwargs):
         # First make sure the user who made this request
-        # is the logged in user. You can make use of the
-        # UserPassesTestMixin, but i never tried it so. :)
+        # is the logged in user.
         if request.user.slug != kwargs['slug']:
             return HttpResponseForbidden("What are you doing")
 
@@ -447,68 +441,65 @@ class PasswordResetComplete(PasswordResetCompleteView):
     template_name = 'accounts/resetcomplete.html'
 
 
-# class SocialBaseFormSet(BaseFormSet):
-#     """Check that one platform does not appare more than once"""
+class BaseSocialForm(BaseInlineFormSet):
+    # class to create custom validation. To ensure one
+    # platform does not occure twice
+    def clean(self):
+        super().clean()
 
-#     def clean(self):
-#         # if any error at all dont bother moving forward
-#         if any(self.errors):
-#             return
+        # list of platforms
+        platforms = []
+        for form in self.forms:
+            if self.can_delete and self._should_delete_form(form):
+                continue
 
-#         platforms = []
-#         for form in self.forms:
-#             # check if the form can be deleted and has been checked for
-#             # delete, so if the form has a platform that occures more
-#             # than once, and it has been selected for delete it should be
-#             # deleted first before checking if the platform already exists
-#             if self.can_delete and self.__should_delete_form(form):
-#                 continue
-#             # check if the platform already exists and add it to the list
-#             platform = form.cleaned_data.get('platform')
-#             if platform in platforms:
-#                 raise forms.ValidationError(
-#                     _('Can\'t have more than one of the same platform'),
-#                     code='PlatformExist',
-#                     params={}
-#                 )
-#             platforms.append(platform)
+            # get platform
+            platform = form.cleaned_data.get('platform')
+            handle = form.cleaned_data.get('handle')
+            link = form.cleaned_data.get('link')
+            print(platform)
+
+            if handle or link:
+                if platform is None:
+                    raise forms.ValidationError(
+                        _('A platform is missing')
+                    )
+
+                if platform in platforms:
+                    raise forms.ValidationError(
+                        _('Can have duplicate accounts.')
+                    )
+                # add this platform in platforms list
+                platforms.append(platform)
+                print(platforms)
 
 
-class SocialFormView(FormView):
+@login_required
+def SocialFormView(request, slug):
     """
     View to add/edit social media accounts. This uses
     inlineformset factory to render more than one form.
     """
-    form_class = inlineformset_factory(Author, Social, fields="__all__", max_num=11)
-    template_name = 'accounts/socialform.html'
+    # First make sure the user who made this request
+    # is the logged in user.
+    if slug != request.user.slug:
+        return HttpResponseForbidden("What are you doing")
 
-    def get(self, request, *args, **kwargs):
-        # First make sure the user who made this request
-        # is the logged in user. You can make use of the
-        # UserPassesTestMixin, but i never tried it so. :)
-        if kwargs['slug'] != request.user.slug:
-            return HttpResponseForbidden("What are you doing")
+    formset = inlineformset_factory(
+        Author, Social, form=SocialForm, max_num=11, extra=11,
+        validate_max=True, formset=BaseSocialForm
+    )
+    author = Author.objects.get(slug=slug)
 
-        author = Author.objects.get(slug=kwargs['slug'])
-        queryset = Social.objects.filter(author=author)
-        formset = self.form_class(instance=author)
-
-        for form, data in zip(formset.forms[:3], queryset.values().items()):
-            form.initial = data
-            print(form)
-
-        # print(formset)
-        return super().get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        author = Author.objects.get(slug=kwargs['slug'])
-        formset = self.form_class(request.POST, instance=author)
-        if formset.is_valid():
-            formset.save()
-
-            # then redirect to this view/url
+    if request.method == "POST":
+        form = formset(request.POST or None, instance=author)
+        if form.is_valid():
+            # save form
+            form.save()
+            # redirect to the users profile page
             return HttpResponseRedirect(
-                author.get_absolte_url()
+                reverse('userapp:user-profile', kwargs={'slug': slug})
             )
-
-        return super().post(request, *args, **kwargs)
+    else:
+        form = formset(instance=author)
+    return render(request, 'accounts/socialform.html', {'form': form})

@@ -37,6 +37,7 @@ urlpatterns = [
         path('bio/', ChangeBioView.as_view(), name='edit-bio'),
         path('locale/', ChangeLocaleView.as_view(), name='edit-locale'),
         path('images/', ChangeImageView.as_view(), name='edit-image'),
-        path('socials/', SocialFormView.as_view(), name='edit-social'),
+        path('socials/', SocialFormView, name='edit-social'),
     ])),
+
 ]
