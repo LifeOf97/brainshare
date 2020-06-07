@@ -303,17 +303,13 @@ $( document ).ready(function() {
         }
     })
 
-    // settings form functions
+    // dashboard forms settings functions
     $("#clsForm").on("click", function() {
         window.location.assign("/");
-        $(document).ready(function() {
-            console.log("Active");
-        })
     })
 
     // dashboard links settings > move in panels with effect
     // when the specified link is clicked
-    
     dashboardLinks.on("click", "a", function() {
         // remove the styling of active links first
         dashboardLinks.children().each(function() {
