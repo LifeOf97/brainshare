@@ -6,13 +6,14 @@
 {% block section %}
 <div class="w-11/12 h-full mx-auto mt-20">
 
-    <div id="postOptions" class="w-11/12 flex justify-center space-x-5 items-center shadow-inner rounded-lg">
+    <div id="postOptions" class="flex justify-center space-x-5 items-center shadow-inner rounded-lg">
+        <a href="{% url 'blogapp:post-list' %}" class="text-2xl text-gray font-bold hover:text-white cursor-pointer">All</a>
         {% for concern in concerns %}
-        <a href="{% url 'blogapp:post-tag' concern.concern %}" class="text-lg text-gray font-bold hover:text-white cursor-pointer">{{concern.concern|lower}}</span>
+        <a href="{% url 'blogapp:post-concern' concern.concern %}" class="text-lg text-gray font-bold hover:text-white cursor-pointer">{{concern.concern|lower}}</a>
         {% endfor %}
     </div>
 
-    <div class="flex flex-wrap justify-around mt-10">
+    <div class="flex flex-wrap justify-between mt-10">
         {% for post in postlist %}
         <div id="" class="postCard relative w-full h-66 md:w-5/12 p-4 bg-nav shadow-white-lg rounded-lg mb-3 border border-transparent hover:border-gray group overflow-hidden">
             <div class="flex items-center space-x-3">

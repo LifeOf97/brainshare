@@ -34,7 +34,30 @@ class PostListView(ListView):
         return context
 
     def get_queryset(self):
+        # return only posts that have been published
         return super().get_queryset().filter(
+            date_to_publish__lte=timezone.now()
+        )
+
+
+class ConcernPostList(ListView):
+    model = Post
+    template_name = 'blog/postlist.html'
+    context_object_name = 'postlist'
+
+    # here i added the concern phrase of all posts that is published.
+    # Also make sure to add the distinct query so as to return unique values
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['concerns'] = POST_DATA.filter(
+            date_to_publish__lte=timezone.now()
+        ).values('concern').distinct()
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        # return only posts that have been published
+        return POST_DATA.filter(
+            concern=self.kwargs['concern'],
             date_to_publish__lte=timezone.now()
         )
 
