@@ -1,0 +1,26 @@
+{
+  "name": "blogapp",
+  "version": "1.0.0",
+  "description": "BrainShare App NPM packages",
+  "main": "index.js",
+  "scripts": {
+    "build:tailwind": "npx tailwindcss build styles/css/tailwind.css -o styles/css/styledwithtailwind.css",
+    "build:postcss": "postcss styles/tailwind.css -o styles/styledwithtailwind.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kelvin Mayowa Ayeni",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.3.0",
+    "jquery": "^3.5.1",
+    "scrollmagic": "^2.0.7",
+    "tailwindcss": "^1.4.6"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.2.0",
+    "autoprefixer": "^9.8.0",
+    "cssnano": "^4.1.10",
+    "postcss": "^7.0.31",
+    "postcss-cli": "^7.1.1"
+  }
+}

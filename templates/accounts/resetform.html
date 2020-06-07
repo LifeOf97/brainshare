@@ -1,0 +1,67 @@
+{% extends '../basement.html' %}
+{% block title %}Reset password{% endblock title %}
+
+{# block that should not be displayed #}
+{# {% block linkhome %}{% endblock linkhome %} #}
+{% block linkblog %}{% endblock linkblog %}
+{% block link1 %}{% endblock link1 %}
+{% block link2 %}{% endblock link2 %}
+
+{% block search %}{% endblock search %}
+{% block search1 %}{% endblock search1 %}
+{% block footersite %}{% endblock footersite %}
+{% comment %} {% block signup %}{% endblock signup %} {% endcomment %}
+{% comment %} {% block signin %}{% endblock signin %} {% endcomment %}
+
+{% block auth %}
+<div class="h-screen flex justify-center items-center">
+    <div id="resetpass" class="w-11/12 mx-auto space-y-3 md:w-1/3">
+
+            <div class="text-center leading-8">
+                <div><h1 class="text-4xl text-white font-black">BrainShare</h1></div>
+                <div><span class="text-lg text-gray font-black">Reset Password</span></div>
+            </div>
+
+            <form action="." method="post">{% csrf_token %}
+                
+                <div id="formBox" class="bg-nav rounded-lg flex flex-col pt-8 pb-5 px-6 shadow-2xl">
+
+                    <div class="mb-5">
+                        <span class="text-base text-faint text-justify">
+                            If you have forgotten your password and would like to set a new one,
+                            please enter your email address in the field provided below so we
+                            can send you an email containing a link to reset your password.
+                        </span>
+                    </div>
+
+                    {% if form.non_field_errors %}
+                    <div class="flex border-b border-white">
+                        {% for error in form.non_field_errors %}
+                        <div><span class="text-sm text-red-500">{{error}}</span></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="relative">
+                        <div id="" class="inputLabel absolute h-12 px-2 flex items-center cursor-text w-full transition-all duration-300"><label for="{{ form.email.id_for_label }}" class="text-lg text-ph cursor-text">{{form.email.label}}</label></div>
+                        {{form.email}}
+                        <!-- if errors occure during form submittion -->
+                        {% if form.email.errors %}
+                        <div>
+                            {% for error in form.email.errors %}
+                            <div><span class="text-sm text-red-500">{{error}}</span></div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="w-full text-white text-base font-semibold p-2 bg-blue-500 rounded-lg hover:bg-blue-100">Submit</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+</div>
+{% endblock auth %}

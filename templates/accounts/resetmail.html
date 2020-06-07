@@ -1,0 +1,35 @@
+{% extends '../basement.html' %}
+{% block title %}Password reset email template{% endblock title %}
+
+{# block that should not be displayed #}
+{# {% block linkhome %}{% endblock linkhome %} #}
+{% block linkblog %}{% endblock linkblog %}
+{% block link1 %}{% endblock link1 %}
+{% block link2 %}{% endblock link2 %}
+
+{% block search %}{% endblock search %}
+{% block search1 %}{% endblock search1 %}
+{% block signin %}{% endblock signin %}
+{% block footersite %}{% endblock footersite %}
+
+
+{% block auth %}
+<div class="">
+    <div>
+        <h1>BrainShare</h1>
+        <span>Reset Password</span>
+    </div>
+    <div>
+        <p>
+            A password reset request was made for {{email}} if this is you,<br>
+            kindly click on the link below to reset your password. Please ignore
+            if this request was not made by you.
+        </p>
+        <a href="{{protocol}}://{{domain}}{% url 'userapp:reset-password-confirm' uidb64=uid token=token %}">
+            Reset Password
+        </a>
+        or copy the link below and open it in your browser.
+        {{protocol}}://{{domain}}{% url 'userapp:reset-password-confirm' uidb64=uid token=token %}
+    </div>
+</div>
+{% endblock auth %}

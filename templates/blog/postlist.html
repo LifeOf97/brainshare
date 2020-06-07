@@ -1,0 +1,80 @@
+{% extends '../basement.html' %}
+{% load customfilters %}
+{% block title %} Welcome to Brainshare Blog {% endblock title %}
+
+
+{% block section %}
+<div class="w-11/12 h-full mx-auto mt-20">
+
+    <div id="postOptions" class="w-11/12 flex justify-center space-x-5 items-center shadow-inner rounded-lg">
+        {% for concern in concerns %}
+        <span class="text-lg text-gray font-bold hover:text-white cursor-pointer">{{concern.concern|lower}}</span>
+        {% endfor %}
+    </div>
+
+    <div class="flex flex-wrap justify-around mt-10">
+        {% for post in postlist %}
+        <div id="" class="postCard relative w-full h-66 md:w-5/12 p-4 bg-nav shadow-white-lg rounded-lg mb-3 border border-transparent hover:border-gray group overflow-hidden">
+            <div class="flex items-center space-x-3">
+                <div class="rounded-full overflow-hidden"><img src="{% if post.author.image %}{{post.author.image.url}}{% endif %}" alt="" class="rounded-full object-cover h-12 w-12 bg-faint"></div>
+                <div class="flex flex-col -space-y-1">
+                    <span class="text-white text-lg font-semibold">{{post.author.profile.username}}</span>
+                    <span class="text-faint text-sm">{{post.date_to_publish|date:"b d, Y"}}</span>
+                </div>
+            </div>
+            <div class="w-full h-56 rounded-lg overflow-hidden mt-5">
+                <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover transform transition-all duration-1000 group-hover:scale-125">
+            </div>
+            <div class="flex title leading-5 mt-5">
+                <a href="{% url 'blogapp:post-detail' post.slug %}" class="text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
+            </div>
+            <!-- button to copy the post link to clipboard -->
+            <div id="" class="absolute top-4 right-6 copyBtn hidden">
+                <button class="bg-white text-nav px-2 py-1 text-sm font-semibold rounded-lg shadow-lg border border-transparent hover:border-gray">Copy Link</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div id="pagination" class="w-11/12 mx-auto my-5 text-center">
+        <div id="page" class="flex justify-between items-center border-t border-b border-nav py-1">
+            <div id="directPage" class="flex items-center space-x-2 text-gray text-sm">
+                <label for="pageNumber">Go to page</label>
+                <div class="flex items-center bg-white text-nav rounded-lg shadow-xl hover:shadow-outline focus:shadow-outline overflow-hidden">
+                    <input type="number" name="pageNumber" id="pageNumber" max="{{page_obj.paginator.num_pages}}" class="w-16 h-8 pl-2 outline-none px-1">
+                    <span class="pr-2 text-faint text-base font-bold">/{{page_obj.paginator.num_pages}}</span>
+                </div>
+                <a href="" id="pageNumberBtn" class="bg-green-500 hover:bg-green-100 p-1 rounded-md text-white font-semibold cursor-pointer">GO</a>
+            </div>
+
+            <div class="text-gray text-sm">
+                Page <code class="text-2xl font-black text-white">{{page_obj.number}}</code>
+            </div>
+        </div>
+
+
+        <div class="flex flex-row justify-between items-center mt-2">
+            {% if page_obj.has_previous %}
+            <div class="flex-1 flex justify-start">
+                <a href="?page={{page_obj.previous_page_number}}" class="flex items-center space-x-2 text-faint hover:text-ph">
+                    <li class="fas fa-long-arrow-alt-left fa-3x"></li>
+                    <span>Previous</span>
+                </a>
+            </div>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+            <div class="flex-1 flex justify-end">
+                <a href="?page={{page_obj.next_page_number}}" class="flex items-center space-x-2 text-faint hover:text-ph">
+                    <span>Next</span>
+                    <li class="fas fa-long-arrow-alt-right fa-3x"></li>
+                </a>    
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock section %}

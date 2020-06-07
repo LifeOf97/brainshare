@@ -1,0 +1,210 @@
+{% extends '../basement.html' %}
+{% load customfilters %}
+{% block title %} {{postdetail.title|truncatewords:2}} | {{postdetail.author}} {% endblock title %}
+
+
+{% block section %}
+<div class="mt-24 mb-8">
+
+    <div id="" class="w-11/12 md:w-2/4 mx-auto flex justify-between items-center">
+        <div id="" class="flex items-center space-x-2">
+            <div>
+                <img src="{% if postdetail.author.image %}{{postdetail.author.image.url}}{% endif %}" alt="" class="h-20 w-20 object-cover rounded-full bg-nav border-2 border-gray">
+            </div>
+            <div class="flex flex-col leading-6">
+                <div><span class="text-lg text-white font-medium">{{postdetail.author.profile.username}}</span></div>
+                {% if postdetail.author.social_set.all.count > 0 %}
+                <div class="flex space-x-2 items-start text-gray mt-2">
+                    {% for account in postdetail.author.social_set.all %}
+                        {% if account.platform|lower == 'discord' %}
+                        <a href="{{account.link}}"><i class="fab fa-discord text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'facebook' %}
+                        <a href="{{account.link}}"><i class="fab fa-facebook-f text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'twitter' %}
+                        <a href="{{account.link}}"><i class="fab fa-twitter text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'github' %}
+                        <a href="{{account.link}}"><i class="fab fa-github text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'instagram' %}
+                        <a href="{{account.link}}"><i class="fab fa-instagram text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'linkedin' %}
+                        <a href="{{account.link}}"><i class="fab fa-linkedin-in text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'pinterest' %}
+                        <a href="{{account.link}}"><i class="fab fa-pinterest-p text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'slack' %}
+                        <a href="{{account.link}}"><i class="fab fa-slack-hash text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'telegram' %}
+                        <a href="{{account.link}}"><i class="fab fa-telegram-plane text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'youtube' %}
+                        <a href="{{account.link}}"><i class="fab fa-youtube text-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div id="postDate">
+            <span class="text-base text-gray font-medium">{{postdetail.date_to_publish|date:"M d, Y"}}</span>
+        </div>
+    </div>
+
+    <div id="postTitle" class="w-11/12 md:w-2/4 mx-auto mt-6">
+        <h1 class="text-2xl md:text-3xl text-white font-medium md:text-justify tracking-tight leading-7 capitalize">{{postdetail.title|safe}}</h1>
+    </div>
+    
+    {% if postdetail.banner %}
+    <div id="postBanner" class="mt-8 w-full mx-auto overflow-hidden">
+        <div class="w-full h-66 md:h-69 shadow-lg">
+            <img src="{{postdetail.banner.url}}" alt="" class="w-full h-full object-cover object-center>
+        </div>
+        {% if postdetail.banner_copyright %}
+        <div class="text-center">
+            {% if postdetail.banner_copyright_link %}
+            <a href="{{postdetail.banner_copyright_link}}" class="inline-block text-xs italic text-gray font-hairline hover:text-blue-500">{{postdetail.banner_copyright|safe}}</a>
+            {% else %}
+            <span class="text-xs italic text-gray font-hairline">{{postdetail.banner_copyright|safe}}</span>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if postdetail.tags %}
+    <div id="tags" class="w-11/12 md:w-2/4 mx-auto mt-2 flex flex-wrap space-x-1">
+        {% for tag in postdetail.tags|listify %}
+        <span class="bg-nav text-ph text-sm p-1 md:p-2 rounded-md shadow-lg hover:opacity-75 cursor-pointer">{{tag|safe|capfirst}}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div id="content" class="w-full md:w-2/3 mx-auto">
+
+            {% if postdetail.heading or postdetail.text_content %}
+            <div id="postTextContent" class="mt-16 w-11/12 mx-auto iflinks">
+                <div><h1 class="text-3xl text-white font-medium tracking-tight leading-7">{{postdetail.heading|safe|capfirst}}</h1></div>
+                <div><p class="text-base text-white font-medium md:text-justify tracking-tight leading-6 mt-4">{{postdetail.text_content|safe|capfirst}}</p></div>
+            </div>
+            {% endif %}
+        
+            {% if postdetail.image %}
+            <div id="postImage" class="w-4/5 mx-auto mt-8">
+                <div class="w-full h-65 md:h-67 shadow-lg rounded-lg overflow-hidden">
+                    <img src="{{postdetail.image.url}}" alt="" class="w-full h-full object-cover">
+                </div>
+                {% if postdetail.image_copyright %}
+                <div class="text-center">
+                    <a href="{{postdetail.image_copyright_link}}" class="inline-block text-xs text-gray font-hairline hover:text-blue-500">{{postdetail.image_copyright|safe}}</a>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        
+            {% if postdetail.list_content %}
+            <div class="w-9/12 mx-auto mt-8 iflinks">
+                <ul class="{% if postdetail.list_style == 'Ordered List (numeric)' %}list-decimal{% else %}list-disc{% endif %}">
+                    {% for item in postdetail.list_content|listify %}
+                    <li class="text-base text-white font-medium text-justify tracking-wide leading-6">{{item|safe|capfirst}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        
+            {% if postdetail.code %}
+            <div class="w-4/5 h-48 border mx-auto mt-8 w-4/5 h-48 mx-auto mt-8 overflow-auto bg-gray shadow-lg rounded-lg p-3"><pre class="text-base font-medium overflow-auto">{{postdetail.code}}</pre></div>
+            {% endif %}
+            
+            <!-- this code block deals with the post more content section -->
+            {% for morecontent in postdetail.morecontent_set.all %}
+        
+                {% if morecontent.heading or morecontent.text_content %}
+                <div class="mt-12 w-11/12 mx-auto iflinks">
+                    {% if morecontent.heading %}
+                    <div><h3 class="text-2xl text-white font-medium tracking-tight leading-7">{{morecontent.heading|safe|capfirst}}</h3></div>
+                    {% endif %}
+                    {% if morecontent.text_content %}
+                    <div class="mt-4"><p class="text-base text-white md:text-justify font-medium tracking-tight leading-6 mt-4">{{morecontent.text_content|safe|capfirst}}</p></div>
+                    {% endif %}
+                </div>
+                {% endif %}
+        
+                {% if morecontent.image %}
+                <div class="w-4/5 mx-auto mt-8">
+                    <div class="w-full h-65 md:h-67 shadow-lg rounded-lg overflow-hidden">
+                        <img src="{{morecontent.image.url}}" alt="" class="w-full h-full object-cover">
+                    </div>
+                    {% if morecontent.image_copyright %}
+                    <div class="text-center">
+                        <a href="{{morecontent.image_copyright_link}}" class="inline-block text-xs text-gray font-hairline hover:text-blue-500">{{morecontent.image_copyright|safe}}</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+        
+                {% if morecontent.list_content %}
+                <div class="w-9/12 mx-auto mt-8 iflinks">
+                    <ul class="{% if morecontent.list_style == 'Ordered List (numeric)' %}list-decimal{% else %}list-disc{% endif %}">
+                        {% for item in morecontent.list_content|listify %}
+                        <li class="text-base text-white font-medium text-justify tracking-wide leading-6">{{item|safe|capfirst}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                {% if morecontent.code %}
+                <div class="w-4/5 h-48 mx-auto mt-8 overflow-auto bg-gray shadow-lg rounded-lg p-3"><pre class="text-nav text-base font-medium">{{morecontent.code|linenumbers}}</pre></div>
+                {% endif %}
+        
+            {% endfor %}
+
+
+            {% comment %} this section contains more post by this author {% endcomment %}
+            {% block morepost %}
+                {% if morepost %}
+                <div class="w-11/12 bg-transparent mx-auto mt-16 mb-8">
+                    <div class="flex space-x-2">
+                        <div class="flex-1 self-center h-1 bg-nav"></div>
+                        <div class="flex-initial text-lg text-gray">More by <code class="text-white text-xl font-semibold">{{postdetail.author}}</code></div>
+                        <div class="flex-1 self-center h-1 bg-nav"></div>
+                    </div>
+
+                    <div class="w-full mt-4 p-2 flex space-x-3 md:justify-between md:space-x-0 md:flex-wrap overflow-x-auto">
+                        {% for post in morepost %}
+                        <div class="flex-none flex flex-col w-64 md:w-66 h-65 mb-0 md:mb-4 bg-transparent rounded-lg overflow-hidden shadow-lg group">
+                            <div class="overflow-hidden w-full h-40 md:h-48">
+                                <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="object-cover w-full h-full transform transition-all duration-500 group-hover:scale-125">
+                            </div>
+                            <div class="flex flex-col h-40 py-3 px-3">
+                                <div class="flex-1 leading-4 w-full">
+                                    <a href="{% url 'blogapp:post-detail' post.slug %}" class="font-semibold text-base text-white hover:text-blue-100 group-hover:underline">{{post.title|truncatechars:56}}</a>
+                                </div>
+                                <div class=" flex-1">
+                                    <p class="text-sm text-faint leading-4">{{post.text_content|safe|truncatechars:150}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if morepost|length > 2 %}
+                    <div class="flex flex-no-wrap space-x-2 mb-8">
+                        <div class="flex-1 self-center border-b-4"></div>
+                        <div class="flex-initial">
+                            <a href="#" class="text-lg text-blue-500 hover:text-blue-100 align-bottom">View all</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endblock morepost %}
+    </div>
+
+</div>
+{% endblock section %}

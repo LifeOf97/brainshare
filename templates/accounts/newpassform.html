@@ -1,0 +1,85 @@
+{% extends '../basement.html' %}
+{% block title %} Set New Password | BrainShare {% endblock title %}
+
+{# block that should not be displayed #}
+{# {% block linkhome %}{% endblock linkhome %} #}
+{% block linkblog %}{% endblock linkblog %}
+{% block link1 %}{% endblock link1 %}
+{% block link2 %}{% endblock link2 %}
+
+{% block search %}{% endblock search %}
+{% block search1 %}{% endblock search1 %}
+{% block signin %}{% endblock signin %}
+
+{% block auth %}
+<div class="mt-10">
+    <div id="signin" class="w-11/12 mx-auto space-y-3 md:w-1/3">
+
+        <div class="text-center leading-8">
+            <div><h1 class="text-4xl text-white font-black">BrainShare</h1></div>
+            <div><span class="text-lg text-gray font-black">Sign In</span></div>
+        </div>
+
+        <form action="." method="post">{% csrf_token %}
+            
+            <div id="boxSignin" class="bg-nav rounded-lg flex flex-col pt-8 pb-5 px-6">
+
+                <!-- non field errors  -->
+                {% if form.non_field_errors %}
+                <div>
+                    {% for error in form.non_field_errors %}
+                    <div><span>{{error}}</span></div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- form new_password1 field and styling -->
+                <div class="relative">
+                    <div id="" class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ form.new_password1.id_for_label }}" class="text-ph text-lg cursor-text">{{form.new_password1.label}}</label></div>
+                    {{ form.new_password1 }}
+                    <!-- render errors if any -->
+                    {% if form.new_password1.errors %}
+                    <div>
+                        {% for error in form.new_password1.errors %}
+                        <div>
+                            <span class="text-sm text-red-500">{{error}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <!-- view password -->
+                    <div id="" class="viewPass absolute right-0 top-3 mr-2 cursor-pointer">
+                        <i class="fas fa-eye-slash fa-lg text-faint"></i>
+                    </div>
+                </div>
+
+                <!-- form new_password2 field and styling -->
+                <div class="relative pt-5">
+                    <div id="" class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ form.new_password2.id_for_label }}" class="text-ph text-lg cursor-text">{{form.new_password2.label}}</label></div>
+                    {{ form.new_password2 }}
+                    <!-- render errors if any -->
+                    {% if form.new_password2.errors %}
+                    <div>
+                        {% for error in form.new_password2.errors %}
+                        <div>
+                            <span class="text-sm text-red-500">{{error}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <!-- view password -->
+                    <div id="" class="viewPass absolute right-0 top-8 mr-2 cursor-pointer">
+                        <i class="fas fa-eye-slash fa-lg text-faint"></i>
+                    </div>
+                </div>
+
+               <div class="pt-4">
+                   <button type="submit" class="w-full text-lg text-white font-semibold bg-blue-500 p-2 rounded-lg hover:bg-blue-100">Confirm</button>
+               </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock auth %}

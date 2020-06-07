@@ -1,0 +1,420 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block  title %}Welcome to BrainShare{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'blogapp/styles/icofont/icofont.css' %}">
+    <link rel="stylesheet" href="{% static 'blogapp/styles/fontawesome/css/all.css' %}">
+    {% block head %}{% endblock head %}
+    <style>
+        .width300 {
+            width: 300%;
+        }
+        .width200 {
+            width: 200%;
+        }
+        .width100 {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-body w-full h-full">
+
+    <!-- 
+        THE WORKS OF MY HAND AND MIND IS POWERED BY GOD ALMIGHTY.
+        IF I DON'T DO IT, SOMEONE ELSE WILL.
+        :)
+    -->
+
+    <div id="container1" class="bg-body relative">
+
+        <!-- start of the top navigation -->
+        {% block topnav %}
+        <div id="topNav" class="{% block topnavpos %}fixed top-0{% endblock topnavpos %} {% block topnavzindex %} z-10 {% endblock topnavzindex %} w-full flex flex-row h-16 px-2 md:px-4 items-center md:justify-between bg-nav shadow-lg transition-all duration-500">
+            
+            {% block logo %}
+            <div class="flex-1 order-1 md:flex-initial"><a href="{% url 'userapp:home-page' %}" class="text-3xl text-white font-black">BrainShare</a></div>
+            {% endblock logo %}
+
+            <!-- on mobile screens this div converts to the neccessary view format and back on larger screens -->
+            <div class="relative flex-initial order-5 md:order-2 md:flex-1">
+                <!-- these button shows up on smaller screens and it is used to open/close the dropdown nav -->
+                <button id="mobileMenuBtn" class="outline-none bg-blue-500 text-white text-base text-center font-medium p-1 border-2 border-transparent rounded-lg md:hidden hover:border-white transition-colors duration-300">Menu</button>
+               
+                <div id="mobileMenu" class="absolute top-16 right-0 bg-nav z-10 w-64 shadow-white-lg rounded-lg overflow-hidden hidden md:top-0 md:block md:bg-transparent md:z-0 md:w-full md:shadow-none md:relative md:rounded-none">
+
+                    <div class="flex flex-col p-3 md:flex-row md:justify-between md:items-center">
+    
+                        {% block topnavlinks %}
+                        <div id="topNavLinks" class="flex-1 flex flex-col pb-3 space-y-1 text-lg md:text-base md:pb-0 md:flex-row md:items-center md:justify-center md:space-y-0 md:space-x-3">
+                            {% block homeordashboard %}
+                                {% if user.is_authenticated %}
+                                <div id="linkDashboard" class="flex-1 md:flex-initial flex"><a href="{% url 'userapp:user-profile' user.slug %}" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body hover:text-white">Dashboard</a></div>
+                                {% else %}
+                                <div id="linkHome" class="flex-1 md:flex-initial flex"><a href="{% url 'userapp:home-page' %}" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body hover:text-white">Home</a></div>
+                                {% endif %}
+                            {% endblock homeordashboard %}
+                            {% block linkblog %}
+                            <div id="linkBog" class="flex-1 md:flex-initial flex"><a href="{% url 'blogapp:post-list' %}" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body hover:text-white">Blog</a></div>
+                            {% endblock linkblog %}
+                            {% block link1 %}
+                            <div id="linkLink1" class="flex-1 md:flex-initial flex"><a href="" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body hover:text-white">Link</a></div>
+                            {% endblock link1 %}
+                            {% block link2 %}
+                            <div id="linkLink2" class="flex-1 md:flex-initial flex"><a href="" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body hover:text-white">Link</a></div>
+                            {% endblock link2 %}
+                        </div>
+                        {% endblock topnavlinks %}
+                        
+                        {% block accounts %}
+                        <div class="flex-initial flex items-center justify-center border-t border-body pt-3 md:pt-0 md:border-none">
+                            <!-- if no account is signed in show this -->
+                            {% block sign %}
+                            {% if not user.is_authenticated %}
+                            <div class="flex space-x-2">
+                                {% block signin %}
+                                <div class="flex-initial"><a href="{% url 'userapp:sign-in' %}" class="inline-block text-faint font-semibold px-4 py-1 transition-colors duration-300 hover:bg-body hover:text-white rounded-lg">Sign In</a></div>
+                                {% endblock signin %}
+                                {% block signup %}
+                                <div class="flex-initial"><a href="" class="inline-block text-white font-semibold px-4 py-1 border border-white transition-colors duration-300 hover:bg-white hover:text-nav rounded-lg">Sign Up</a></div>
+                                {% endblock signup %}
+                            </div>
+                            {% endif %}
+                            {% endblock sign %} 
+                        </div>
+                        {% endblock accounts %} 
+                    </div>
+                    <!-- button to close the dropdown on mobile screens these only shows on mobile screens or screens before the md: prefix -->
+                    <div class="bg-body w-full md:hidden">
+                        <button id="clsMobileMenu" class="text-faint w-full text-center font-semibold py-1 text-xl hover:text-ph">Close</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- the search field, but uses a dropdown effect -->
+            {% block search %}
+            <div class="flex-initial flex justify-end items-center order-3 {% if user.is_authenticated %}mr-2 md:border-none{% else %}mr-2 md:mr-0 md:pl-2 md:border-l md:border-body{% endif %}">
+                <div class="relative">
+                    <button id="openSearchBtn" class="text-3xl text-button transition-colors duration-300 cursor-pointer hover:text-white">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div id="searchBox" class="absolute top-16 -right-3 z-10 flex flex-col items-center w-64 bg-nav p-4 rounded-lg shadow-white-lg hidden">
+                        <div class="flex"><input type="text" name="search" id="search" class="outline-none w-full h-20 px-2 rounded-lg placeholder-gray focus:shadow-outline hover:shadow-outline" placeholder="Search for..."></div>
+                        <div class="w-full pt-2 flex text-white text-lg font-semibold space-x-3">
+                            <button id="closeSearchBtn" class="flex-1 px-4 py-1 rounded-lg bg-red-500 hover:bg-red-100">Cancle</button>
+                            <button type="submit" class="flex-1 px-4 py-1 rounded-lg bg-blue-500 hover:bg-blue-100">Search</button>
+                        </div>
+                        <div class="leading-none pt-4">
+                            <span class="text-button text-sm text-justify">As of this moment you can only search for posts.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock search %}
+            
+            <!-- the users avarter as a button for more options and is only available if the user is logged in  -->
+            {% block user %}
+            {% if user.is_authenticated %}
+            <div class="flex-initial flex justify-end items-center order-4 mr-2 md:mr-0">
+                <div class="relative">
+                    <div>
+                        <img src="{% if user.author.image %}{{user.author.image.url}}{% endif %}" alt="" data-url="{% url 'userapp:user-profile' user.slug %}" id="user" class="profileUser user bg-ph object-cover h-10 w-10 border-2 border-transparent hover:border-white cursor-pointer rounded-full overflow-hidden">
+                    </div>
+                    <div id="userMenu" class="absolute top-16 -right-12 z-10 w-64 bg-nav rounded-lg shadow-white-md overflow-hidden md:-right-2 hidden">
+                        <div class="px-2 py-2 border-b border-body flex items-center space-x-3">
+                            <span class="text-white text-lg">@{{user.username}}</span>
+                            <button id="signOutBtn">
+                                <i class="fas fa-sign-out-alt text-blue-500 hover:text-blue-500 text-xs">Sign out</i>
+                            </button>
+                        </div>
+                        <div class="w-full flex-1 flex flex-col justify-center items-center py-3 text-xl md:text-lg">
+                            <button id="openProfile" class="flex px-2 py-1 rounded-lg w-11/12 group hover:bg-body transition-colors duration-300">
+                                <div class=""><i class="fas fa-user fa-sm text-faint group-hover:text-white"></i></div>
+                                <div class=""><span class="text-faint font-semibold pl-3 tracking-wide group-hover:text-white">Snap Profile</span></div>
+                            </button>
+                            <button class="flex px-2 py-1 rounded-lg w-11/12 group hover:bg-body transition-colors duration-300">
+                                <div class=""><i class="fas fa-pen fa-sm text-faint group-hover:text-white"></i></div>
+                                <div class=""><span class="text-faint font-semibold pl-3 tracking-wide group-hover:text-white">Create post</span></div>
+                            </button>
+                            <a href="{% url 'userapp:user-profile' user.slug %}#settings" id="myPost" class="flex px-2 py-1 rounded-lg w-11/12 group hover:bg-body transition-colors duration-300">
+                                <div class="flex-initial"><i class="fas fa-folder fa-sm text-faint group-hover:text-white "></i></div>
+                                <div class="flex-initial"><span class="text-faint font-semibold pl-3 tracking-wide group-hover:text-white">My post</span></div>
+                                <div class="flex-1 flex justify-end text-faint font-semibold pl-3 group-hover:text-white"><span id="numberOfPost"></span></div>
+                            </a>
+                            <button class="flex px-2 py-1 rounded-lg w-11/12 group hover:bg-body transition-colors duration-300">
+                                <div class="flex-initial"><i class="fas fa-newspaper fa-sm text-faint group-hover:text-white"></i></div>
+                                <div class="flex-initial"><span class="text-faint font-semibold pl-3 tracking-wide group-hover:text-white">News</span></div>
+                                <div class="flex-1 flex justify-end text-faint font-semibold pl-3 group-hover:text-white"><span>0</span></div>
+                            </button>
+                        </div>
+                        <div class="bg-body w-full">
+                            <button id="closeUser" class="text-faint w-full text-center text-xl font-semibold py-1 hover:text-ph">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endblock user %} 
+
+        </div>
+        {% endblock topnav %}
+        <!-- end of the top navigation  -->
+
+
+        <!-- start of side navigation for logged in users -->
+        {% block account %}
+        {% if user.is_authenticated %}
+        <div id="accounts" class="fixed top-0 left-0 h-full w-3/4 {% block accountzindex %}z-10{% endblock accountzindex %} md:w-64 bg-transparent hidden">
+
+           {% block profile %}
+            <div id="profile" class="relative h-full w-3/4 md:w-64 bg-transparent shadow-white-lg hidden">
+                <div class="fixed top-0 left-0 w-3/4 md:w-64 h-full flex flex-col justify-between bg-nav overflow-y-auto">
+                    <div id="banner" class="flex-initial w-full h-32 bg-faint">
+                        <img src="" alt="" class="profileBanner object-cover object-center w-full h-32">
+                        <!-- this div contains the users avatar, full name and alias positioned absolutely -->
+                        <div class="absolute top-24 left-0 w-full bg-transparent">
+                            <div class="flex space-x-2 ml-3">
+                                <div class="">
+                                    <img src="" alt="" class="rounded-full h-20 w-20 border-4 border-nav bg-white shadow-inner profileImg overflow-hidden">
+                                </div>
+                                <div class="flex flex-col justify-center text-sm leading-5 mt-8 truncate">
+                                    <span class="flex-initial text-white profileFullName truncate"></span>
+                                    <span class="flex-1 text-button profileAlias"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- users name, locale etc -->
+                    <div class="flex-1 text-nav text-sm w-11/12 mx-auto space-y-1 mt-16">
+                        <div class="flex flex-row justify-between bg-body rounded-md p-1">
+                            <span class="font-semibold w-1/3 md:w-1/2">Full Name</span>
+                            <span class="text-faint profileFullName truncate"></span>
+                        </div>
+                        <div class="flex justify-between bg-body rounded-md p-1">
+                            <span class="font-semibold">Username</span>
+                            <span class="text-faint profileAlias truncate">Alias</span>
+                        </div>
+                        <div class="flex justify-between bg-body rounded-md p-1">
+                            <span class="font-semibold w-1/3 md:w-1/2">Email</span>
+                            <span class="text-faint profileEmail truncate"></span>
+                        </div>
+                        <div class="flex justify-between bg-body rounded-md p-1">
+                            <span class="font-semibold">Gender</span>
+                            <span class="text-faint profileGender"></span>
+                        </div>
+                        <div class="flex justify-between bg-body rounded-md p-1">
+                            <span class="font-semibold w-2/3 md:w-1/2">Location</span>
+                            <span class="text-faint profileLocale truncate"></span>
+                        </div>
+                        <div class="flex justify-between bg-body rounded-md p-1">
+                            <span class="font-semibold">Joined</span>
+                            <span class="text-faint profileJoined"></span>
+                        </div>
+                        <div class="flex justify-between bg-body rounded-md p-1">
+                            <span class="font-semibold">Date of Birth</span>
+                            <span class="text-faint profileDob"></span>
+                        </div>
+                    </div>
+                    <div class="flex-initial flex flex-col items-center space-y-2 mt-10">
+                        <div class="w-11/12 flex justify-between">
+                            <button class="text-white font-semibold bg-button px-2 py-1 rounded-lg transition-colors duration-300 hover:bg-gray">My Posts</button>
+                            <button id="" class="openSettings"><i class="fas fa-cog fa-2x text-button transition-colors duration-300 hover:text-gray"></i></button>
+                        </div>
+    
+                        <div class="w-full flex justify-center p-1 border-t border-button">
+                            <button id="closeProfile" class="text-faint text-lg text-center hover:text-white">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock profile %}
+
+            {% block settings %}
+            <div id="settings" class="relative h-full w-3/4 md:w-64 bg-transparent shadow-white-lg hidden">
+                <div class="fixed top-0 left-0 w-3/4 md:w-64 h-full flex flex-col justify-between space-y-5 bg-nav overflow-y-auto">
+                    <!-- acounts settings options -->
+                    <div id="setAccounts" class="w-11/12 mx-auto space-y-4 flex-initial">
+                        <div class="border-b border-faint py-1"><span class="text-lg text-ph font-semibold">Account</span></div>
+                        <div class="w-11/12 mx-auto space-y-1">
+                            <button class="flex space-x-3 px-2 py-1 rounded-lg text-ph transition-colors duration-300 hover:bg-body hover:text-white">
+                                <div class="flex-initial"><i class="fas fa-briefcase fa-sm"></i></div>
+                                <div class="flex-1"><span class="text-base">Update Bio</span></div>
+                            </button>
+                            <button class="flex space-x-3 px-2 py-1 rounded-lg text-ph transition-colors duration-300 hover:bg-body hover:text-white">
+                                <div class="flex-initial"><i class="fas fa-user-edit fa-sm"></i></div>
+                                <div class="flex-1"><span class="text-base">Change Alias</span></div>
+                            </button>
+                            <button class="flex space-x-3 px-2 py-1 rounded-lg text-ph transition-colors duration-300 hover:bg-body hover:text-white">
+                                <div class="flex-initial"><i class="fas fa-key fa-sm"></i></div>
+                                <div class="flex-1"><span class="text-base">Change Password</span></div>
+                            </button>
+                            <button class="flex space-x-3 px-2 py-1 rounded-lg text-ph transition-colors duration-300 hover:bg-body hover:text-white">
+                                <div class="flex-initial"><i class="fas fa-at fa-sm"></i></div>
+                                <div class="flex-1"><span class="text-base">Change Email</span></div>
+                            </button>
+                            <button class="flex space-x-3 px-2 py-1 rounded-lg text-ph transition-colors duration-300 hover:bg-body hover:text-white">
+                                <div class="flex-initial"><i class="fas fa-image fa-sm"></i></div>
+                                <div class="flex-1"><span class="text-base">Avatar and Banner</span></div>
+                            </button>
+                            <button class="flex space-x-3 px-2 py-1 rounded-lg text-ph transition-colors duration-300 hover:bg-body hover:text-white">
+                                <div class="flex-initial"><i class="fas fa-map-marker-alt fa-sm"></i></div>
+                                <div class="flex-1"><span class="text-base">Location</span></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- social media settings -->
+                    <div class="w-11/12 mx-auto space-y-3 flex-initial bg-nav">
+                        <div class="flex justify-between border-b border-faint">
+                            <span class="text-lg text-ph font-semibold">Social</span>
+                            <button class="text-blue-500 text-sm font-bold">Edit</button>
+                        </div>
+                        <div class="w-11/12 mx-auto space-y-1">
+                            <div class="text-ph flex space-x-2">
+                                <div><i class="fab fa-github fa-sm"></i></div>
+                                <div><span>Github</span></div>
+                            </div>
+                            <div class="text-ph flex space-x-2">
+                                <div><i class="fab fa-twitter fa-sm"></i></div>
+                                <div><span>Twitter</span></div>
+                            </div>
+                            <div class="text-ph flex space-x-2">
+                                <div><i class="fab fa-slack-hash fa-sm"></i></div>
+                                <div><span>Slack</span></div>
+                            </div>
+                            <div class="text-ph flex space-x-2">
+                                <div><i class="fab fa-facebook-f fa-sm"></i></div>
+                                <div><span>Facebook</span></div>
+                            </div>
+                            <div class="text-ph flex space-x-2">
+                                <div><i class="fab fa-instagram fa-sm"></i></div>
+                                <div><span>Instagram</span></div>
+                            </div>
+                            <div class="text-ph flex space-x-2">
+                                <div><i class="fab fa-tumblr fa-sm"></i></div>
+                                <div><span>Tumblr</span></div>
+                            </div>
+                            <div class="text-ph flex space-x-2">
+                                <div><i class="fab fa-linkedin-in fa-sm"></i></div>
+                                <div><span>Linkedin</span></div>
+                            </div>
+                            <div class="text-ph flex space-x-2">
+                                <div><i class="fab fa-telegram fa-sm"></i></div>
+                                <div><span>Telegram</span></div>
+                            </div>
+                            <div class="text-ph flex space-x-2">
+                                <div><i class="fab fa-youtube fa-sm"></i></div>
+                                <div><span>YouTube</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- cancle  -->
+                    <div class="w-full flex-initial flex justify-center p-1 border-t border-button">
+                        <button id="closeSettings" class="text-faint text-lg text-center hover:text-white">Close</button>
+                    </div>
+                </div>
+
+            </div>
+            {% endblock settings %}
+
+        </div>
+        {% endif %}
+        {% endblock account %}
+
+        <!-- authentication forms -->
+        {% block auth %}
+        <div id="auth"></div>
+        {% endblock auth %}
+
+        <!-- other views comes here -->
+        {% block section %}
+        <div id="section"></div>
+        {% endblock section %}
+
+        <!-- this is the footer -->
+        {% block footer %}
+        <div id="footer" class="w-full py-4 bg-nav">
+            <div class="w-11/12 mx-auto space-y-16">
+                {% block footersite %}
+                <div class="flex flex-wrap justify-between items-center py-4 space-y-10 md:space-y-0">
+                    {% block footerlinks %}
+                    <div class="flex flex-row md:flex-col space-y-1">
+                        <div><a href="{% url 'userapp:home-page' %}" class="outline-none inline-block px-4 py-1 text-faint text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body hover:text-white">Home</a></div>
+                        <div><a href="{% url 'blogapp:post-list' %}" class="outline-none inline-block px-4 py-1 text-faint text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body hover:text-white">Blog</a></div>
+                        <div><a href="" class="outline-none inline-block px-4 py-1 text-faint text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body hover:text-white">About Us</a></div>
+                        <div><a href="" class="outline-none inline-block px-4 py-1 text-faint text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body hover:text-white">Link</a></div>
+                    </div>
+                    {% endblock footerlinks %}
+
+                    {% block footermail %}
+                    <div id="contact" class="flex flex-col p-2 w-full md:w-1/3">
+                        <div><h1 class="text-3xl font-semibold text-white leading-7">Want more?</h1></div>
+                        <div class="text-lg text-faint leading-6">
+                            <p>
+                                Get notified when new posts are added, drop your
+                                email address so we can email you.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap mt-4">
+                            <div class="flex-initial mr-2 mb-1"><input type="email" placeholder="Enter email address" class="p-2 rounded-lg text-nav bg-white hover:shadow-outline focus:shadow-outline placeholder-button"></div>
+                            <div class="flex-initial"><button type="submit" class="outline-none p-2 rounded-lg bg-blue-500 text-white hover:bg-blue-100 focus:bg-blue-100">Subscribe</button></div>
+                        </div>
+                    </div>
+                    {% endblock footermail %}
+
+                    {% block footeradd %}
+                    <div class="flex justify-center">
+                        <div id="footerAd" class="bg-white w-64 h-40 rounded"></div>
+                    </div>
+                    {% endblock footeradd %}
+                </div>
+                {% endblock footersite %}
+
+                {% block footercmp %}
+                <div class="flex justify-between text-sm text-white">
+                    <div class="space-x-1">
+                        <span class="">BrainShare</span>
+                        <span class=""><code class="text-faint pr-1">&copy;</code>2019</span>
+                        <span class="text-button">All Rights Reserved</span>
+                    </div>
+                    <div><span class="tracking-tighter">Aces & Coup, inc.</span></div>
+                </div>
+                {% endblock footercmp %}
+            </div>   
+            
+        </div>
+        {% endblock footer %}
+
+    </div>
+
+    <!-- this is the form div -->
+    {% block forms %}
+    <div id="formBox" class="fixed top-0 right-0 h-full w-full bg-transparent flex justify-center z-20 hidden">
+        <div id="signOutBox" class="relative w-11/12 mx-auto md:w-1/3 flex flex-col rounded-lg mt-32 overflow-hidden">
+            <div class="bg-nav h-auto pt-8 pb-5 px-6 flex items-center space-x-3">
+                <i class="fas fa-question-circle fa-lg text-button"></i>
+                <span class="text-faint font-semibold text-base">Are you sure you want to sign out?</span>
+            </div>
+            <div class="p-2 bg-button h-auto flex justify-end space-x-2">
+                <div><span id="closeSignOut" class="inline-block cursor-pointer px-2 py-1 text-white text-base text-sm text-center bg-body transition-all duration-300 border-2 border-transparent hover:border-white rounded-md">No, Cancle</span></div>
+                <div><a href="{% url 'userapp:sign-out-confirm' %}" class="inline-block px-2 py-1 text-white text-base text-sm text-center bg-red-500 transition-all duration-300 border-2 border-transparent hover:border-white rounded-md">Yes, Sign out</a></div>
+            </div>
+        </div>
+    </div>
+    {% endblock forms %}
+    
+
+    {% block javascript %}
+    <div id="javascript">
+        <script src="{% static 'blogapp/node_modules/gsap/dist/gsap.js' %}"></script>
+        <script src="{% static 'blogapp/node_modules/gsap/dist/ScrollToPlugin.js' %}"></script>
+        <script src="{% static 'blogapp/node_modules/jquery/dist/jquery.js' %}"></script>
+        <script src="{% static 'blogapp/javascript/script.js' %}"></script>
+        {% block addjs %}{% endblock addjs %}
+    </div>
+    {% endblock javascript %}
+</body>
+</html>

@@ -1,0 +1,272 @@
+{% extends '../basement.html' %}
+{% block title %}{{profile.username}} | Dashboard{% endblock title %}
+
+{%  block footer %}{% endblock footer %}
+{% block topnavzindex %}z-20{% endblock topnavzindex %}
+{% block accountzindex %}z-20{% endblock accountzindex %}
+
+
+{% block section %}
+<div class="w-full h-screen overflow-hidden">
+    <!-- profile header -->
+    <div id="dashHeader" class="sticky top-0 z-10 w-full h-auto flex flex-col justify-between bg-body-soft shadow-lg transition-all duration-300">
+        <div class="mt-24 w-11/12 mx-auto flex space-x-3 md:space-x-5">
+            <div class="w-24 h-24 md:w-40 md:h-40 overflow-hidden rounded-full flex flex-shrink-0 self-start">
+                <img src="{% if profile.author.image %}{{profile.author.image.url}}{% endif %}" alt="" class="h-full w-full object-cover">
+            </div>
+            <div class="flex flex-col self-center leading-4 md:leading-tight">
+                <div class="flex flex-wrap items-center leading-9">
+                    <span class="flex text-white text-2xl md:text-4xl font-bold">
+                        {{profile.first_name|default_if_none:""|capfirst}} {{profile.last_name|default_if_none:""|capfirst}} {{profile.other_name|default_if_none:""|capfirst}}
+                    </span>
+                </div>
+                <div class="flex font-black text-nav">
+                    <span class="text-xl md:text-2xl mr-2">{{profile.username}}</span>
+                    <span class="text-xs self-center text-gray">(AUTHOR <code class="text-nav">|</code> Joined - {{profile.date_joined|date:"M d, Y."}})</span>
+                </div>
+                {% if profile.author.social_set.all.count > 0 %}
+                <div class="flex space-x-2 items-start text-gray mt-3">
+                    {% for account in profile.author.social_set.all %}
+                        {% if account.platform|lower == 'discord' %}
+                        <a href="{{account.link}}"><i class="fab fa-discord fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'facebook' %}
+                        <a href="{{account.link}}"><i class="fab fa-facebook-f fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'twitter' %}
+                        <a href="{{account.link}}"><i class="fab fa-twitter fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'github' %}
+                        <a href="{{account.link}}"><i class="fab fa-github fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'instagram' %}
+                        <a href="{{account.link}}"><i class="fab fa-instagram fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'linkedin' %}
+                        <a href="{{account.link}}"><i class="fab fa-linkedin-in fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'pinterest' %}
+                        <a href="{{account.link}}"><i class="fab fa-pinterest-p fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'slack' %}
+                        <a href="{{account.link}}"><i class="fab fa-slack-hash fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'telegram' %}
+                        <a href="{{account.link}}"><i class="fab fa-telegram-plane fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'youtube' %}
+                        <a href="{{account.link}}"><i class="fab fa-youtube fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- tabs -->
+        <div id="dashboardLinks" class="w-11/12 mx-auto space-x-2 md:space-x-4 mt-10">
+            <a href="#profile" data-panel="#dashProfile" id="profile" class="text-lg font-semibold text-white cursor-pointer pb-px md:pb-1 border-b-2 border-white hover:border-white hover:text-white active:border-white active:text-white">Profile</a>
+            <a href="#posts" data-panel="#dashPosts" id="posts" class="text-lg font-semibold text-nav cursor-pointer pb-px md:pb-1 border-b-2 border-transparent hover:border-white hover:text-white active:border-white active:text-white">Posts</a>
+            <a href="#settings" data-panel="#dashSettings" id="settings" class="text-lg font-semibold text-nav cursor-pointer pb-px md:pb-1 border-b-2 border-transparent hover:border-white hover:text-white active:border-white active:text-white">Settings</a>
+        </div>
+    </div>
+
+    <div id="dashContainer" class="w-full bg-transparent overflow-x-hidden overflow-y-auto bg-body h-68 md:h-67">
+        <div class="width300 flex">
+            <!-- the first div displays the profile details when the profile button is clicked -->
+            <div id="dashProfile" class="w-screen py-8">
+                <div class="w-11/12 mx-auto flex flex-col md:flex-row">
+                    <div class="w-full md:w-3/5 space-y-6">
+                        <!-- profile info -->
+                        <div class="w-full md:w-3/5 space-y-6">
+                            <div class="flex space-x-12">
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">FIRST NAME</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.first_name|default_if_none:""|capfirst}}</span>
+                                </div>
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">LAST NAME</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.last_name|default_if_none:""|capfirst}}</span>
+                                </div>
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">OTHER NAME</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.other_name|default_if_none:""|capfirst}}</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-12">
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">COUNTRY</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.country.name|default_if_none:""|capfirst}}</span>
+                                </div>
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">STATE</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.state|default_if_none:""|capfirst}}</span>
+                                </div>
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">ZIP/POSTAL</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.postal|default_if_none:""|capfirst}}</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-12">
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">DATE OF BIRTH</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.dob|date:"M d, Y"|default_if_none:""|capfirst}}</span>
+                                </div>
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">GENDER</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.gender|default_if_none:""|capfirst}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- profile contact -->
+                        <div class="w-full md:w-3/5">
+                            <div class="border-b border-body-soft"><span class="text-xl text-nav font-black">Contact</span></div>
+                            <div class="space-y-6 flex flex-col px-2 mt-4">
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">EMAIL</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.email|default_if_none:""}}</span>
+                                </div>
+                                <div class="flex flex-col leading-6">
+                                    <span class="text-xs md:text-sm text-button font-bold">WEBSITE</span>
+                                    <span class="text-faint text-xl md:text-2xl">{{profile.website|default_if_none:""}}</span>
+                                </div>
+                                <div class="flex space-x-12">
+                                    <div class="flex flex-col leading-6">
+                                        <span class="text-xs md:text-sm text-button font-bold">PHONE 1</span>
+                                        <span class="text-faint text-xl md:text-2xl">{{profile.phone_1|default_if_none:""|capfirst}}</span>
+                                    </div>
+                                    <div class="flex flex-col leading-6">
+                                        <span class="text-xs md:text-sm text-button font-bold">PHONE 2</span>
+                                        <span class="text-faint text-xl md:text-2xl">{{profile.phone_2|default_if_none:""|capfirst}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- social accounts -->
+                    <div class="w-full md:w-2/5 h-67 flex flex-col justify-between bg-body md:shadow-lg mt-10 py-3 md:bg-body-soft md:p-3 md:mt-0">
+                        <div class="w-full h-56 mb-8 border-b border-body-soft md:border-body">
+                            <div class="flex items-center space-x-2 font-black border-b border-body-soft md:border-body">
+                                <span class="text-2xl text-nav">Social</span>
+                                <span class="text-xs text-gray">ACTIVE</span>
+                            </div>
+                            <div class="px-2">
+                                <span class="text-xs leading-3 text-gray">
+                                    Over here you can see the social media accounts you have provided to BrainShare.
+                                    Head over to the settings tab to edit your social details.
+                                </span>
+                            </div>
+                            <div class="w-full mt-3 px-2 flex flex-wrap overflow-auto">
+                                {% for account in profile.author.social_set.all %}
+                                <span class="text-lg text-faint font-black mr-2">{{account.handle}} @ {{account.platform}},</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- advert -->
+                        <div class="flex justify-center items-center">
+                            <div class="w-65 h-56 bg-nav rounded-lg shadow-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- the posts section -->
+            <div id="dashPosts" class="w-screen py-8">
+                <div class="w-11/12 mx-auto flex flex-col md:flex-row flex-wrap">
+
+                    <!-- post filter -->
+                    <div class="flex justify-between items-end border-b border-body-soft w-full px-4 pb-1 mb-6">
+                        <div><span id="filterText" class="text-gray text-2xl font-bold">All</span></div>
+                        <div class="relative">
+                            <button id="filterBtn" class="border border-ph hover:border-white px-2 py-1 rounded-lg space-x-2 group">
+                                <i class="fas fa-filter fa-md text-faint group-hover:text-white"></i>
+                                <span class="text-ph">Filter</span>
+                            </button>
+                            <div id="filterMenu" class="absolute top-10 right-0 w-40 h-40 rounded-lg bg-nav overflow-hidden shadow-lg hidden">
+                                <div class="bg-button p-2"><span class="text-white font-bold text-xl">SHOW...</span></div>
+                                <div id="filterOptions" class="w-11/12 mx-auto mt-1">
+                                    <button class="w-full text-left px-2 py-1 text-ph hover:bg-body hover:text-white rounded-lg cursor-pointer"><span class="text-lg">All</span></button>
+                                    <button class="w-full text-left px-2 py-1 text-ph hover:bg-body hover:text-white rounded-lg cursor-pointer"><span class="text-lg">Draft</span></button>
+                                    <button class="w-full text-left px-2 py-1 text-ph hover:bg-body hover:text-white rounded-lg cursor-pointer"><span class="text-lg">Published</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% for post in profile.author.post_set.all %}
+                    <div class="mypost w-full md:w-65 h-65 bg-body shadow-lg group mr-8 mb-5 rounded-lg overflow-hidden">
+                        <div class="h-40 overflow-hidden"><img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover"></div>
+                        <div class="h-40 p-2 flex flex-col justify-between">
+                            <div class="h-16"><a href="{% url 'blogapp:post-detail' post.slug %}" class="text-ph text-lg group-hover:underline hover:text-blue-100">{{post.title|safe|capfirst|truncatechars:56}}</a></div>
+                            <div class="flex h-24 justify-between items-end  ">
+                                <div class="flex items-center">
+                                    <div class="mr-2 px-2 py-1 rounded-md {% if post.status|lower == 'published' %}bg-green-500 {% else %}bg-orange-500{% endif %}"><span class="postStatus text-lg text-white font-medium">{{post.status}}</span></div>
+                                    <div class="w-1/2 leading-4">
+                                        <span class="text-button text-sm font-bold">
+                                        {% if post.status|lower == 'draft' %}to be published: {% endif %}{{post.date_to_publish|date:"F d, Y."}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div><i class="fas fa-ellipsis-v fa-lg text-ph hover:text-blue-100 cursor-pointer"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %} 
+                </div>
+            </div>
+
+            <!-- the form section -->
+            <div id="dashSettings" class="w-screen py-8">
+
+                <div class="w-11/12 mx-auto flex flex-col md:flex-row flex-wrap">
+                    <!-- form buttons -->
+                    <div class="flex-initial bg-body-soft py-5 w-56 h-auto rounded-lg shadow-lg mb-5">
+                        <a href="{% url 'userapp:edit-bio' user.slug %}" target="_self" class="w-full flex items-center px-4 py-2 text-ph text-lg font-semibold hover:text-white hover:bg-body">
+                            <i class="fas fa-briefcase fa-md mr-2"></i>
+                            <span>Update Bio</span>
+                        </a>
+                        <a href="{% url 'userapp:edit-username' user.slug %}" target="_self" class="w-full flex items-center px-4 py-2 text-ph text-lg font-semibold hover:text-white hover:bg-body">
+                            <i class="fas fa-user-edit fa-md mr-2"></i>
+                            <span>Change Username</span>
+                        </a>
+                        <a href="{% url 'userapp:edit-password' user.slug %}" target="_self" class="w-full flex items-center px-4 py-2 text-ph text-lg font-semibold hover:text-white hover:bg-body">
+                            <i class="fas fa-key fa-md mr-2"></i>
+                            <span>Change Password</span>
+                        </a>
+                        <a href="{% url 'userapp:edit-email' user.slug %}" target="_self" class="w-full flex items-center px-4 py-2 text-ph text-lg font-semibold hover:text-white hover:bg-body">
+                            <i class="fas fa-envelope fa-md mr-2"></i>
+                            <span>Change Email</span>
+                        </a>
+                        <a href="{% url 'userapp:edit-social' user.slug %}" target="_self" class="w-full flex items-center px-4 py-2 text-ph text-lg font-semibold hover:text-white hover:bg-body">
+                            <i class="fas fa-users fa-md mr-2"></i>
+                            <span>My Social</span>
+                        </a>
+                        <a href="{% url 'userapp:edit-website' user.slug %}" target="_self" class="w-full flex items-center px-4 py-2 text-ph text-lg font-semibold hover:text-white hover:bg-body">
+                            <i class="fas fa-link fa-md mr-2"></i>
+                            <span>My Website</span>
+                        </a>
+                        <a href="{% url 'userapp:edit-avatar' user.slug %}" target="_self" class="w-full flex items-center px-4 py-2 text-ph text-lg font-semibold hover:text-white hover:bg-body">
+                            <i class="fas fa-image fa-md mr-2"></i>
+                            <span>Avatar & Banner</span>
+                        </a>
+                        <a href="{% url 'userapp:edit-locale' user.slug %}" target="_self" class="w-full flex items-center px-4 py-2 text-ph text-lg font-semibold hover:text-white hover:bg-body">
+                            <i class="fas fa-map-marker-alt fa-md mr-2"></i>
+                            <span>Location</span>
+                        </a>
+                    </div>
+
+                    <!-- form fields -->
+                    <div class="flex-initial w-11/12 h-67 md:w-1/2 md:h-auto mx-auto flex items-center justify-center shadow-white-xs rounded-lg">
+                        <span id="formPlace" class="text-4xl text-body-soft font-bold">Edit account Details</span>
+                    </div>
+                    
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock section %}

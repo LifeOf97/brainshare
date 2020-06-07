@@ -1,0 +1,53 @@
+{% extends '../basement.html' %}
+{% block title %}Author {{authordetail}} Page{% endblock title %}
+
+{% block section %}
+<div>
+    <div>
+        <label for="fname">
+            First name : {{authordetail.profile.first_name|default_if_none:""}}
+        </label>
+        <label for="lname">
+            Last name : {{authordetail.profile.last_name|default_if_none:""}}
+        </label>
+        <label for="oname">
+            Other name : {{authordetail.profile.other_name|default_if_none:""}}
+        </label>
+    </div>
+    <div><p>Username: {{authordetail.profile.username}}</p></div>
+    {% if authordetail.banner %}
+    <div>
+        <img src="{{authordetail.banner.url}}" alt="BANNER" width="400px" height="200px">
+    </div>
+    {% endif %}
+    
+    {% if authordetail.image %}
+    <div>
+        <img src="{{authordetail.image.url}}" alt="IMAGE" width="400px" height="200px">
+    </div>
+    {% endif %}
+    <div>
+        <p>Location: {{authordetail.profile.state}}, {{authordetail.profile.country}}.</p>
+    </div>
+
+    <div id="posts">
+        <div>
+            <span>
+                I currently have {{posts.count}} 
+                post{{posts.count|pluralize}}
+            </span>
+        </div>
+        {% if posts.count > 0 %}
+        <div>
+            {% for post in posts %}
+            <div>
+                <div><img src="{{post.banner.url}}" alt="POST-BANNER" width="200px" height="200px"></div>
+                <div><a href="{% url 'blogapp:post-detail' post.slug %}">{{post.title|title}}</a></div>
+            </div><br>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock section %}

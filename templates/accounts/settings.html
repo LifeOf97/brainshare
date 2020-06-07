@@ -1,0 +1,405 @@
+{% extends '../basement.html' %}
+{% block title %}{{user.username}} | Edit
+{% if form.first_name %}Bio{% elif form.new_username %}Username{% elif form.new_password1 %}password
+{% elif form.website %}Website{% elif form.new_email %}Email{% elif form.locale %}Location
+{% elif form.image %}Avatar{% else %}Social{% endif %}
+{% endblock title %}
+
+{% block topnavpos %}{% endblock topnavpos %}
+{% block footersite %}{% endblock footersite %}
+
+{% block auth %}
+<div class="h-screen w-full mx-auto flex justify-center items-center">
+
+    <div class="w-11/12 mx-auto flex justify-between">
+
+        <div class="flex-1 h-auto items-center justify-center hidden md:flex">
+            <span id="formPlace" class="text-4xl text-body-soft font-bold">
+                Edit Account 
+                {% if form.first_name %}Bio{% elif form.new_username %}Username{% elif form.new_password1 %}password
+                {% elif form.website %}Website{% elif form.new_email %}Email{% elif form.locale %}Location
+                {% elif form.image %}Avatar{% else %}Social{% endif %}
+            </span>
+        </div>
+
+        <div class="flex-1">
+
+            <div class="text-center leading-8 md:hidden mb-10">
+                <div><h1 class="text-4xl text-white font-black">BrainShare</h1></div>
+                <div>
+                    <span class="text-lg text-gray font-black">Edit
+                        {% if form.first_name %}Bio{% elif form.new_username %}Username{% elif form.new_password1 %}password
+                        {% elif form.website %}Website{% elif form.new_email %}Email{% elif form.country %}Location
+                        {% elif form.image %}Avatar{% else %}Social{% endif %}
+                    </span>
+                </div>
+            </div>
+
+            {% if form.image %}
+            <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
+            {% else %}
+            <form action="." method="post" class="rounded-lg overflow-hidden">{% csrf_token %}
+            {% endif %}
+
+                <!-- bio form settings -->
+                {% if form.first_name %}
+                <div id="bio" class="bg-body-soft flex flex-col pt-8 pb-5 px-6 rounded-lg">
+                    <!-- for non feild errors -->
+                    {% if form.non_field_errors %}
+                    <div class="flex flex-wrap">
+                        {% for error in form.non_field_errors %}
+                        <div><span class="text-sm text-red-500">{{error}}</span></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- input forms -->
+                    <div class="flex flex-col">
+                        {% for field in form  %}
+                            {% if field.label != 'Gender' %}
+                            <div class="relative flex pt-6">
+                                <div class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ field.id_for_label }}" class="text-white text-lg cursor-text font-black">{{field.label}}</label></div>
+                                {{field}}
+
+                                {% if field.errors %}
+                                <div>
+                                    {% for error in field.errors %}
+                                    <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% else %}
+                            <div class="py-3">
+                                <span class="text-lg text-white">Gender</span>
+                                <div class="flex space-x-2">
+                                    {% for radio in field %}
+                                    <div>
+                                        <label for="{{radio.id_for_label}}" class="text-white text-base">{{radio.tag}} {{radio.choice_label}}</label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                                {% if field.errors %}
+                                <div>
+                                    {% for error in field.errors %}
+                                    <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- username form settings -->
+                {% if form.new_username %}
+                <div id="username" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                    {% if form.non_field_errors %}
+                    <div class="flex flex-wrap">
+                        {% for error in form.non_field_errors %}
+                        <div><span class="text-sm text-red-500">{{error}}</span></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- current username -->
+                    <div class="">
+                        <span class="text-nav text-2xl font-bold mr-3">Current username:</span>
+                        <span class="text-body text-xl font-bold">{{user.username}}</span>
+                    </div>
+                    <!-- basif info -->
+                    <div>
+                        <span class="text-faint text-sm leading-3 font-bold">
+                            NOTE: The username field cannot be blank. You either provide a new one or click
+                            on the cancle button to go back to your dashboard.
+                        </span>
+                    </div>
+                    <!-- input forms -->
+                    {% for field in form.visible_fields %}
+                    <div class="flex flex-col">
+                        <div class="relative flex flex-col pt-6">
+                            <div class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ field.id_for_label }}" class="text-white text-lg cursor-text font-black">{{field.label}}</label></div>
+                            {{field}}
+
+                            {% if field.errors %}
+                            <div class="py-2">
+                                {% for error in field.errors %}
+                                <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- password form settings -->
+                {% if form.new_password1 %}
+                <div id="password" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                    {% if form.non_field_errors %}
+                    <div class="flex flex-wrap">
+                        {% for error in form.non_field_errors %}
+                        <div><span class="text-sm text-red-500">{{error}}</span></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- input forms -->
+                    {% for field in form %}
+                    <div class="flex flex-col">
+                        <div class="relative flex flex-col pt-6">
+                            <div class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ field.id_for_label }}" class="text-white text-lg cursor-text font-black">{{field.label}}</label></div>
+                            {{field}}
+
+                            {% if field.errors %}
+                            <div class="py-2">
+                                {% for error in field.errors %}
+                                <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- email form settings -->
+                {% if form.new_email %}
+                <div id="username" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                    {% if form.non_field_errors %}
+                    <div class="flex flex-wrap">
+                        {% for error in form.non_field_errors %}
+                        <div><span class="text-sm text-red-500">{{error}}</span></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- current username -->
+                    <div>
+                        <span class="text-nav text-2xl font-bold mr-3">Current email:</span>
+                        <span class="text-body text-xl font-bold">{{user.email}}</span>
+                    </div>
+                    <!-- basic info -->
+                    <div>
+                        <span class="text-faint text-sm leading-3 font-bold">
+                            NOTE: The email field cannot be blank. You either provide a new one or click
+                            on the cancle button to go back to your dashboard.
+                        </span>
+                    </div>
+                    <!-- input forms -->
+                    {% for field in form.visible_fields %}
+                    <div class="flex flex-col">
+                        <div class="relative flex flex-col pt-6">
+                            <div class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ field.id_for_label }}" class="text-white text-lg cursor-text font-black">{{field.label}}</label></div>
+                            {{field}}
+
+                            {% if field.errors %}
+                            <div class="py-2">
+                                {% for error in field.errors %}
+                                <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- website form settings -->
+                {% if form.new_website %}
+                <div id="username" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                    {% if form.non_field_errors %}
+                    <div class="flex flex-wrap">
+                        {% for error in form.non_field_errors %}
+                        <div><span class="text-sm text-red-500">{{error}}</span></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- current username -->
+                    <div>
+                        <span class="text-nav text-2xl font-bold mr-3">Current website:</span>
+                        <span class="text-body text-xl font-bold">{{user.website}}</span>
+                    </div>
+
+                    <div>
+                        <span class="text-faint text-sm leading-3 font-bold">
+                            If you want to remove the website totally and not set a new one,
+                            leave the field blank and click on the save button to remove the website.
+                        </span>
+                    </div>
+                    <!-- input forms -->
+                    {% for field in form.visible_fields %}
+                    <div class="flex flex-col">
+                        <div class="relative flex flex-col pt-6">
+                            <div class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ field.id_for_label }}" class="text-white text-lg cursor-text font-black">{{field.label}}</label></div>
+                            {{field}}
+
+                            {% if field.errors %}
+                            <div class="py-2">
+                                {% for error in field.errors %}
+                                <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- location form settings -->
+                {% if form.country %}
+                <div id="country" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                    {% if form.non_field_errors %}
+                    <div class="flex flex-wrap">
+                        {% for error in form.non_field_errors %}
+                        <div><span class="text-sm text-red-500">{{error}}</span></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- input forms -->
+                    {% for field in form.visible_fields %}
+                    <div class="flex flex-col">
+                        <div class="relative flex flex-col pt-6">
+                            <div class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ field.id_for_label }}" class="text-white text-lg cursor-text font-black">{{field.label}}</label></div>
+                            {{field}}
+
+                            {% if field.errors %}
+                            <div class="py-2">
+                                {% for error in field.errors %}
+                                <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- avatar form settings -->
+                {% if form.image %}
+                <div id="avatar" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                    {% for field in form %}
+                    <div class="mb-5">
+                        <div class="w-full text-center"><label for="{{field.id_for_label}}" class="text-2xl text-white font-extrabold">{{field.label}}</label></div>
+                        <div class="border-2 border-dashed border-ph h-48 flex flex-col items-center justify-center rounded-lg">
+                            <div class="flex flex-col text-ph">{{field}}</div>
+
+                            {% if field.help_text %}
+                            <div>
+                                <span class="text-md text-gray">{{field.help_text}}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- social form settings -->
+                {% if forms %}
+                <div id="social" class="bg-body-soft flex flex-col px-4 rounded-lg h-68">
+                    {{forms.management_form}}
+
+                    <!-- basic info -->
+                    <div class="px-2 pt-1">
+                        <span class="text-faint text-sm leading-3 font-bold">
+                            NOTE: To delete an account check the 'Delete' before clicking the save button.
+                        </span>
+                    </div>
+
+                    <!-- if forms error -->
+                    {% if forms.non_form_errors %}
+                    <div class="p-2 flex items-center">
+                        {% for error in forms.non_form_errors %}
+                        <div class="flex-initial text-sm items-center p-1 bg-body rounded-lg">
+                            <i class="fas fa-exclamation-circle fa-lg text-gray mr-2"></i>
+                            <span class="text-sm text-red-500">{{error}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="h-67 my-auto overflow-y-scroll rounded-lg">
+
+                        {% for form in forms %}
+                        <div class="flex flex-col mb-5 bg-nav px-3 pb-3 space-y-2 rounded-lg shadow-lg">
+                            <div class="flex flex-col">
+                                <div class="relative flex flex-col pt-6">
+                                    <div class="px-2"><label for="{{ form.platform.id_for_label }}" class="text-white text-lg cursor-text font-black">{{form.platform.label}}</label></div>
+                                    {{form.platform}}
+                                </div>
+
+                                {% if form.platform.errors %}
+                                <div class="py-2">
+                                    {% for error in form.platform.errors %}
+                                    <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="relative flex flex-col pt-6">
+                                    <div class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ form.handle.id_for_label }}" class="text-white text-lg cursor-text font-black">{{form.handle.label}}</label></div>
+                                    {{form.handle}}
+                                </div>
+
+                                {% if form.handle.errors %}
+                                <div class="py-2">
+                                    {% for error in form.handle.errors %}
+                                    <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="relative flex flex-col pt-6">
+                                    <div class="inputLabel absolute h-12 px-2 flex items-center w-full transition-all duration-300 cursor-text"><label for="{{ form.link.id_for_label }}" class="text-white text-lg cursor-text font-black">{{form.link.label}}</label></div>
+                                    {{form.link}}
+                                </div>
+
+                                {% if form.link.errors %}
+                                <div class="py-2">
+                                    {% for error in form.link.errors %}
+                                    <div><span class="text-sm text-red-500">{{error|escape}}</span></div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="cursor-pointer">
+                                {{form.DELETE}}
+                                <span class="deleteSocialBtn text-red-500 text-sm font-black ml-2">Delete</span>
+                            </div>
+                            <div>
+                                {{form.author}}
+                                {{form.id}}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+
+                
+                <div class="flex justify-end bg-nav mt-4 px-4 py-3 rounded-lg">
+                    <input type="button" id="clsForm" value="Cancle" class="text-white text-lg bg-body hover:opacity-75 font-bold p-2 rounded-lg mr-3 cursor-pointer">
+                    <input type="submit" value="Save" class="w-20 text-center text-white text-lg bg-blue-500 hover:opacity-75 font-bold p-2 rounded-lg cursor-pointer">
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+{% endblock auth %}

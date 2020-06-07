@@ -1,0 +1,17 @@
+@tailwind base;
+
+/* custom default */
+input[type="checkbox"] {
+  @apply w-5 h-5;
+}
+
+@tailwind components;
+@tailwind utilities;
+
+/* custom utilities */
+.iflinks a {
+  @apply text-blue-500;
+}
+.iflinks a:hover {
+  @apply text-blue-100;
+}
