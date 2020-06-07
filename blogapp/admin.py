@@ -118,13 +118,7 @@ class PostAdmin(admin.ModelAdmin):
         ('Tags', {"fields": ('tags', )}),
         ('Status', {"fields": ('date_to_publish', 'status')})
     )
-    
-    # custom list display field
-#     def status(self, obj):
-#         if obj.date_to_publish <= timezone.now():
-#             return 'Published'
-#         else:
-#             return 'Drafted'
+
 
     # my custom model admin actions
     def make_publish(self, request, queryset):

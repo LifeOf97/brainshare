@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.views.generic.edit import FormMixin
+from blogapp.models import Author, Social, Post
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import Group
-from blogapp.models import Author, Social
 from django.contrib.auth.views import (
     LogoutView, PasswordChangeView,
     PasswordResetView, PasswordResetDoneView,
@@ -28,18 +28,28 @@ from .forms import (
 )
 from django.shortcuts import render, redirect
 from .mixins import JsonResponseMixin
+from django.utils import timezone  
 from django import forms
 
 # instantiate the user model
 USER = get_user_model()
 # cache th user model
 USER_ALL = USER.objects.all()
+POST_ALL = Post.objects.all()
 [data for data in USER_ALL]
+[data for data in POST_ALL]
 
 
 def Home(request):
     # if a user is authenticated return the dashboard of that user else:
     # return the sites homepage
+    for post in POST_ALL:
+        if post.date_to_publish <= timezone.now():
+            post.status = "Published"
+        else:
+            post.status = "Draft"
+        post.save()
+
     if request.user.is_authenticated:
         return HttpResponseRedirect(
             reverse('userapp:user-profile', kwargs={'slug': request.user.slug})

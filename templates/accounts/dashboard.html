@@ -202,10 +202,12 @@
                             <div class="h-16"><a href="{% url 'blogapp:post-detail' post.slug %}" class="text-ph text-lg group-hover:underline hover:text-blue-100">{{post.title|safe|capfirst|truncatechars:56}}</a></div>
                             <div class="flex h-24 justify-between items-end  ">
                                 <div class="flex items-center">
-                                    <div class="mr-2 px-2 py-1 rounded-md {% if post.status|lower == 'published' %}bg-green-500 {% else %}bg-orange-500{% endif %}"><span class="postStatus text-lg text-white font-medium">{{post.status}}</span></div>
+                                    <div class="mr-2 px-2 py-1 rounded-md {% if post.status|lower == 'published' %}bg-green-500 {% elif post.status|lower == 'draft' %}bg-orange-500{% else %}bg-body-soft{% endif %}">
+                                    <span class="postStatus text-lg text-white font-medium">{{post.status}}</span>
+                                    </div>
                                     <div class="w-1/2 leading-4">
                                         <span class="text-button text-sm font-bold">
-                                        {% if post.status|lower == 'draft' %}to be published: {% endif %}{{post.date_to_publish|date:"F d, Y."}}
+                                        {% if post.status|lower == 'draft' %}to be published: {% endif %}{{post.date_to_publish|date:"F d, Y. @ H:i"}}
                                         </span>
                                     </div>
                                 </div>
