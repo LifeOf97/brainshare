@@ -16,8 +16,8 @@ $( document ).ready(function() {
     const inputLabel = $(".inputLabel"), viewPass = $(".viewPass");
     const formBox = $("#formBox"), signOutBox = $("#signOutBox"), signOutBtn = $("#signOutBtn");
     const pageNumber = $("#pageNumber"), pageNumberBtn = $("#pageNumberBtn");
-    // variables for blog posts
-    const postCard = $(".postCard"), copyBtn = $(".copyBtn");
+    // variables for posts list
+    const postCard = $(".postCard"), textContent = $(".textContent"), copyBtn = $(".copyBtn");
     // variables for dashboard
     const filterBtn = $("#filterBtn"), filterMenu = $("#filterMenu"), filter = $("#filterText"),
     filterOptions = $("#filterOptions"), postStatus = $(".postStatus"), mypost = $(".mypost"),
@@ -224,6 +224,15 @@ $( document ).ready(function() {
         });
     });
 
+    // post list settings
+    // textContent.each(function)
+    postCard.on("mouseenter", function() {
+        gsap.from($(this).find(".textContent"), {
+            y: 50, opacity: 0,
+            duration: 0.5,
+        })
+    })
+    
     // function to copy the link of the post to the clipboard
     copyBtn.on("click", function() {
         var linkToCopy = $(this).prev("div").find(".title").attr("href");

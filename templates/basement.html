@@ -21,7 +21,7 @@
         }
     </style>
 </head>
-<body class="bg-body-soft w-full h-full">
+<body class="bg-body w-full h-full">
 
     <!-- 
         THE WORKS OF MY HAND AND MIND IS POWERED BY GOD ALMIGHTY.
@@ -29,11 +29,11 @@
         :)
     -->
 
-    <div id="container1" class="bg-body-soft relative">
+    <div id="container1" class="bg-body relative">
 
         <!-- start of the top navigation -->
         {% block topnav %}
-        <div id="topNav" class="{% block topnavpos %}fixed top-0{% endblock topnavpos %} {% block topnavzindex %} z-10 {% endblock topnavzindex %} w-full flex flex-row h-16 px-2 md:px-4 items-center md:justify-between bg-nav shadow-lg transition-all duration-500">
+        <div id="topNav" class="{% block topnavpos %}fixed top-0{% endblock topnavpos %} {% block topnavzindex %} z-10 {% endblock topnavzindex %} w-full flex flex-row h-16 px-2 md:px-4 items-center md:justify-between bg-black shadow-lg transition-all duration-500">
             
             {% block logo %}
             <div class="flex-1 order-1 md:flex-initial"><a href="{% url 'userapp:home-page' %}" class="text-3xl text-white font-black">BrainShare</a></div>
@@ -336,7 +336,7 @@
 
         <!-- this is the footer -->
         {% block footer %}
-        <div id="footer" class="w-full py-4 bg-nav">
+        <div id="footer" class="w-full py-4 bg-black">
             <div class="w-11/12 mx-auto space-y-16">
                 {% block footersite %}
                 <div class="flex flex-wrap justify-between items-center py-4 space-y-10 md:space-y-0">
