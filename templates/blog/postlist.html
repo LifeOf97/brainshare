@@ -8,7 +8,7 @@
 
     <div id="postOptions" class="w-11/12 flex justify-center space-x-5 items-center shadow-inner rounded-lg">
         {% for concern in concerns %}
-        <span class="text-lg text-gray font-bold hover:text-white cursor-pointer">{{concern.concern|lower}}</span>
+        <a href="{% url 'blogapp:post-tag' concern.concern %}" class="text-lg text-gray font-bold hover:text-white cursor-pointer">{{concern.concern|lower}}</span>
         {% endfor %}
     </div>
 

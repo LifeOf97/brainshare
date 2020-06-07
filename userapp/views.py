@@ -44,17 +44,8 @@ POST_ALL = Post.objects.all()
 def Home(request):
     # if a user is authenticated return the dashboard of that user else:
     # return the sites homepage
-    if request.method == "GET":
-        for post in Post.objects.all():
-            if post.date_to_publish <= timezone.now():
-                print(post.status)
-                post.status = "Published"
-                post.save()
-            else:
-                post.status = "Draft"
-                post.save()
-
     if request.user.is_authenticated:
+        print(request.method)
         return HttpResponseRedirect(
             reverse('userapp:user-profile', kwargs={'slug': request.user.slug})
         )
