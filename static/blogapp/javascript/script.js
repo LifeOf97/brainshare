@@ -34,7 +34,6 @@ $( document ).ready(function() {
     profile.hide();
     settings.hide();
     signOutBox.hide();
-    copyBtn.hide();
 
     // third party plugins
 
@@ -225,17 +224,9 @@ $( document ).ready(function() {
         });
     });
 
-    // function to display the copy button which is used
-    // to copy the link of the post to the clipboard
-    postCard.on("mouseover", function() {
-        $(this).find(".copyBtn").removeClass("hidden").show()
-    })
-    postCard.on("mouseout", function() {
-        $(this).find(".copyBtn").addClass("hidden").hide()
-    })
-
+    // function to copy the link of the post to the clipboard
     copyBtn.on("click", function() {
-        var linkToCopy = $(this).prev(".title").children("a").attr("href");
+        var linkToCopy = $(this).prev("div").find(".title").attr("href");
         var keepCopy = $("<textarea>").attr("class", "opacity-0").text("127.0.0.1:8000"+linkToCopy);
         $(this).parents().append(keepCopy);
         keepCopy.select()

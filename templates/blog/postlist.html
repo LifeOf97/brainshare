@@ -13,9 +13,9 @@
         {% endfor %}
     </div>
 
-    <div class="flex flex-wrap justify-between mt-10">
+    <div class="flex flex-wrap mt-10">
         {% for post in postlist %}
-        <div id="" class="postCard relative w-full h-66 md:w-5/12 p-4 bg-nav shadow-white-lg rounded-lg mb-3 border border-transparent hover:border-gray group overflow-hidden">
+        <div id="" class="postCard flex-none relative w-full h-67 md:w-65 mr-4 p-4 bg-nav shadow-lg rounded-lg mb-3 group overflow-hidden">
             <div class="flex items-center space-x-3">
                 <div class="rounded-full overflow-hidden"><img src="{% if post.author.image %}{{post.author.image.url}}{% endif %}" alt="" class="rounded-full object-cover h-12 w-12 bg-faint"></div>
                 <div class="flex flex-col -space-y-1">
@@ -24,14 +24,20 @@
                 </div>
             </div>
             <div class="w-full h-56 rounded-lg overflow-hidden mt-5">
-                <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover transform transition-all duration-1000 group-hover:scale-125">
+                <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="flex title leading-5 mt-5">
-                <a href="{% url 'blogapp:post-detail' post.slug %}" class="text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
+            <!-- slide up title/snap view -->
+            <div class="absolute top-0 left-0 bg-nav rounded-t-lg w-full h-full px-3 mt-65 group-hover:mt-56 transition-all duration-200">
+                <div class="flex leading-5 mt-2">
+                    <a href="{% url 'blogapp:post-detail' post.slug %}" class="title text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
+                </div>
+                <div class="mt-5 textContent">
+                    <p class="text-sm text-faint leading-4">{{post.text_content|safe|capfirst|default_if_none:""|truncatechars:200}}</p>
+                </div>
             </div>
             <!-- button to copy the post link to clipboard -->
-            <div id="" class="absolute top-4 right-6 copyBtn hidden">
-                <button class="bg-white text-nav px-2 py-1 text-sm font-semibold rounded-lg shadow-lg border border-transparent hover:border-gray">Copy Link</button>
+            <div id="" class="absolute bottom-0 right-0 copyBtn h-0 group-hover:h-6 transition-all duration-200">
+                <button class="bg-body-soft text-white px-2 py-1 text-sm font-semibold hover:bg-white hover:text-nav">Copy Link</button>
             </div>
         </div>
         {% endfor %}
