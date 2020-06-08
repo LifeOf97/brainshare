@@ -6,13 +6,14 @@ $( document ).ready(function() {
     const topNav = $("#topNav"), topNavLinks = $("#topNavLinks a");
     // variables for search form
     const searchBox = $("#searchBox"), openSearchBtn = $("#openSearchBtn"), closeSearchBtn = $("#closeSearchBtn");
-    // variables for signed in user side nav
+    // variables for signed in user and side nav
     const user = $("#user"), userMenu = $("#userMenu"), closeUser = $("#closeUser"), accounts = $("#accounts");
     const mobileMenu = $("#mobileMenu"), mobileMenuBtn = $("#mobileMenuBtn"), clsMobileMenu = $("#clsMobileMenu");
     const profile = $("#profile"), openProfile = $("#openProfile"), closeProfile = $("#closeProfile");
     // variables for  forms
-    const inputLabel = $(".inputLabel"), viewPass = $(".viewPass");
+    const inputLabel = $(".inputLabel"), viewPass = $(".viewPass"), loadContainer = $("#loadContainer");
     const formBox = $("#formBox"), signOutBox = $("#signOutBox"), signOutBtn = $("#signOutBtn");
+    // variables for post detail
     const pageNumber = $("#pageNumber"), pageNumberBtn = $("#pageNumberBtn");
     // variables for posts list
     const postCard = $(".postCard"), textContent = $(".textContent"), copyBtn = $(".copyBtn"),
@@ -62,12 +63,6 @@ $( document ).ready(function() {
         }
     })
 
-    // change the style of an active blog concern
-    postConcern.each(function() {
-        if ($(this).attr("href") == window.location.pathname) {
-            replaceClass($(this), "text-button text-lg", "text-white text-2xl");
-        }
-    })
 
     // open/close the search view for both desktop and mobile
     openSearchBtn.on("click", function() {
@@ -186,6 +181,16 @@ $( document ).ready(function() {
         }
     });
 
+    // buttons loading effect
+    $("form").on("submit", function() {
+        $(this).find("div#loadContainer").removeClass("hidden");
+        gsap.to($(".loadicon"), 0.1, {
+            scale: 1.5, yoyo: true, repeat: -1,
+            stagger: 0.2
+        })
+    })
+
+
     // function to get the email address entered on the reset password
     // form and use that email in the resetpassword view
     var resetEmail = $("#resetEmail"), insertEmail = $("#insertEmail");
@@ -217,7 +222,14 @@ $( document ).ready(function() {
     });
 
     // post list settings
-    // textContent.each(function)
+    // change the style of an active blog concern
+    postConcern.each(function() {
+        if ($(this).attr("href") == window.location.pathname) {
+            replaceClass($(this), "text-button text-lg", "text-white text-2xl");
+        }
+    })
+
+    // give slide effect to post text intro
     postCard.on("mouseenter", function() {
         gsap.from($(this).find(".textContent"), {
             y: 50, opacity: 0,

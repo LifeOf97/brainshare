@@ -72,16 +72,19 @@
 
                 <!-- forgot password and sign in button -->
                 <div class="flex justify-between mt-8">
-                    <div class="flex items-end"><a href="{% url 'userapp:reset-password'%}" class="outline-none text-blue-500 text-sm tracking-tight hover:text-blue-100">Forgot Password?</a></div>
-                    <div class="w-32">
-                        <button type="submit" class="p-2 w-full bg-blue-500 text-white rounded-lg hover:opacity-75 focus:opacity-75">Sign In</button>
+                    <div class="flex items-end"><a href="{% url 'userapp:reset-password'%}" class="outline-none text-blue-500 text-sm tracking-tight hover:opacity-75">Forgot Password?</a></div>
+                    <div class="relative w-32 rounded-lg overflow-hidden">
+                        <button type="submit" class="btnSubmit p-2 w-full bg-blue-500 text-white">Sign In</button>
+                        <div id="loadContainer" class="flex space-x-2 absolute top-0 bg-blue-500 h-full w-full flex justify-center items-center hidden">
+                            <div class="loadicon w-2 h-2 rounded-full bg-white"></div> <div class="loadicon w-2 h-2 rounded-full bg-white"></div> <div class="loadicon w-2 h-2 rounded-full bg-white"></div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- sign up link -->
                 <div class="mt-10">
                     <span class="text-gray text-sm pr-1">Don't have an account?</span>
-                    <button class="text-blue-500 text-base hover:text-blue-100">Become an Author<button>
+                    <button class="text-blue-500 text-base hover:opacity-75">Become an Author<button>
                 </div>
 
             </div>
