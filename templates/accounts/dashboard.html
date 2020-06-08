@@ -1,7 +1,7 @@
 {% extends '../basement.html' %}
 {% block title %}{{profile.username}} | Dashboard{% endblock title %}
 
-{%  block footer %}{% endblock footer %}
+{% block footer %}{% endblock footer %}
 {% block topnavzindex %}z-20{% endblock topnavzindex %}
 {% block accountzindex %}z-20{% endblock accountzindex %}
 
@@ -9,7 +9,7 @@
 {% block section %}
 <div class="w-full h-screen overflow-hidden">
     <!-- profile header -->
-    <div id="dashHeader" class="sticky top-0 z-10 w-full h-auto flex flex-col justify-between bg-body-soft shadow-lg transition-all duration-300">
+    <div id="dashHeader" class="sticky top-0 z-10 w-full h-auto flex flex-col justify-between bg-body-100 shadow-lg transition-all duration-300">
         <div class="mt-24 w-11/12 mx-auto flex space-x-3 md:space-x-5">
             <div class="w-24 h-24 md:w-40 md:h-40 overflow-hidden rounded-full flex flex-shrink-0 self-start">
                 <img src="{% if profile.author.image %}{{profile.author.image.url}}{% endif %}" alt="" class="h-full w-full object-cover">
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <div id="dashContainer" class="w-full bg-transparent overflow-x-hidden overflow-y-auto bg-body h-68 md:h-67">
+    <div id="dashContainer" class="w-full bg-transparent overflow-x-hidden overflow-y-auto bg-body-500 h-68 md:h-67">
         <div class="width300 flex">
             <!-- the first div displays the profile details when the profile button is clicked -->
             <div id="dashProfile" class="w-screen py-8">
@@ -120,7 +120,7 @@
 
                         <!-- profile contact -->
                         <div class="w-full md:w-3/5">
-                            <div class="border-b border-body-soft"><span class="text-xl text-nav font-black">Contact</span></div>
+                            <div class="border-b border-body-100"><span class="text-xl text-nav font-black">Contact</span></div>
                             <div class="space-y-6 flex flex-col px-2 mt-4">
                                 <div class="flex flex-col leading-6">
                                     <span class="text-xs md:text-sm text-button font-bold">EMAIL</span>
@@ -145,9 +145,9 @@
                     </div>
 
                     <!-- social accounts -->
-                    <div class="w-full md:w-2/5 h-67 flex flex-col justify-between bg-body md:shadow-lg mt-10 py-3 md:bg-body-soft md:p-3 md:mt-0">
-                        <div class="w-full h-56 mb-8 border-b border-body-soft md:border-body">
-                            <div class="flex items-center space-x-2 font-black border-b border-body-soft md:border-body">
+                    <div class="w-full md:w-2/5 h-67 flex flex-col justify-between bg-body-500 md:shadow-lg mt-10 py-3 md:bg-body-100 md:p-3 md:mt-0">
+                        <div class="w-full h-56 mb-8 border-b border-body-100 md:border-body">
+                            <div class="flex items-center space-x-2 font-black border-b border-body-100 md:border-body-500">
                                 <span class="text-2xl text-nav">Social</span>
                                 <span class="text-xs text-gray">ACTIVE</span>
                             </div>
@@ -177,7 +177,7 @@
                 <div class="w-11/12 mx-auto flex flex-col md:flex-row flex-wrap">
 
                     <!-- post filter -->
-                    <div class="flex justify-between items-end border-b border-body-soft w-full px-4 pb-1 mb-6">
+                    <div class="flex justify-between items-end border-b border-body-100 w-full px-4 pb-1 mb-6">
                         <div><span id="filterText" class="text-gray text-2xl font-bold">All</span></div>
                         <div class="relative">
                             <button id="filterBtn" class="border border-ph hover:border-white px-2 py-1 rounded-lg space-x-2 group">
@@ -187,22 +187,22 @@
                             <div id="filterMenu" class="absolute top-10 right-0 w-40 h-40 rounded-lg bg-nav overflow-hidden shadow-lg hidden">
                                 <div class="bg-button p-2"><span class="text-white font-bold text-xl">SHOW...</span></div>
                                 <div id="filterOptions" class="w-11/12 mx-auto mt-1">
-                                    <button class="w-full text-left px-2 py-1 text-ph hover:bg-body hover:text-white rounded-lg cursor-pointer"><span class="text-lg">All</span></button>
-                                    <button class="w-full text-left px-2 py-1 text-ph hover:bg-body hover:text-white rounded-lg cursor-pointer"><span class="text-lg">Draft</span></button>
-                                    <button class="w-full text-left px-2 py-1 text-ph hover:bg-body hover:text-white rounded-lg cursor-pointer"><span class="text-lg">Published</span></button>
+                                    <button class="w-full text-left px-2 py-1 text-ph hover:bg-body-500 hover:text-white rounded-lg cursor-pointer"><span class="text-lg">All</span></button>
+                                    <button class="w-full text-left px-2 py-1 text-ph hover:bg-body-500 hover:text-white rounded-lg cursor-pointer"><span class="text-lg">Draft</span></button>
+                                    <button class="w-full text-left px-2 py-1 text-ph hover:bg-body-500 hover:text-white rounded-lg cursor-pointer"><span class="text-lg">Published</span></button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {% for post in profile.author.post_set.all %}
-                    <div class="mypost w-full md:w-65 h-65 bg-body shadow-lg group mr-8 mb-5 rounded-lg overflow-hidden">
+                    <div class="mypost w-full md:w-65 h-65 bg-body-500 shadow-lg group mr-8 mb-5 rounded-lg overflow-hidden">
                         <div class="h-40 overflow-hidden"><img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover"></div>
                         <div class="h-40 p-2 flex flex-col justify-between">
                             <div class="h-16"><a href="{% url 'blogapp:post-detail' post.slug %}" class="text-ph text-lg group-hover:underline hover:text-blue-100">{{post.title|safe|capfirst|truncatechars:56}}</a></div>
                             <div class="flex h-24 justify-between items-end  ">
                                 <div class="flex items-center">
-                                    <div class="mr-2 px-2 py-1 rounded-md {% if post.status|lower == 'published' %}bg-green-500 {% elif post.status|lower == 'draft' %}bg-orange-500{% else %}bg-body-soft{% endif %}">
+                                    <div class="mr-2 px-2 py-1 rounded-md {% if post.status|lower == 'published' %}bg-green-500 {% elif post.status|lower == 'draft' %}bg-orange-500{% else %}bg-body-100{% endif %}">
                                     <span class="postStatus text-lg text-white font-medium">{{post.status}}</span>
                                     </div>
                                     <div class="w-1/2 leading-4">
@@ -224,7 +224,7 @@
 
                 <div class="w-11/12 mx-auto flex flex-col md:flex-row flex-wrap">
                     <!-- form buttons -->
-                    <div class="flex-initial bg-body-soft py-5 w-56 h-auto rounded-lg shadow-lg mb-5">
+                    <div class="flex-initial bg-body-100 py-5 w-56 h-auto rounded-lg shadow-lg mb-5">
                         <a href="{% url 'userapp:edit-bio' user.slug %}" target="_self" class="w-full flex items-center px-4 py-2 text-ph text-lg font-semibold hover:text-white hover:bg-body">
                             <i class="fas fa-briefcase fa-md mr-2"></i>
                             <span>Update Bio</span>
@@ -261,7 +261,7 @@
 
                     <!-- form fields -->
                     <div class="flex-initial w-11/12 h-67 md:w-1/2 md:h-auto mx-auto flex items-center justify-center shadow-white-xs rounded-lg">
-                        <span id="formPlace" class="text-4xl text-body-soft font-bold">Edit account Details</span>
+                        <span id="formPlace" class="text-4xl text-body-100 font-bold">Edit account Details</span>
                     </div>
                     
                 </div>

@@ -14,7 +14,7 @@
     <div class="w-11/12 mx-auto flex justify-between">
 
         <div class="flex-1 h-auto items-center justify-center hidden md:flex">
-            <span id="formPlace" class="text-4xl text-body-soft font-bold">
+            <span id="formPlace" class="text-4xl text-body-100 font-bold">
                 Edit Account 
                 {% if form.first_name %}Bio{% elif form.new_username %}Username{% elif form.new_password1 %}password
                 {% elif form.website %}Website{% elif form.new_email %}Email{% elif form.locale %}Location
@@ -43,7 +43,7 @@
 
                 <!-- bio form settings -->
                 {% if form.first_name %}
-                <div id="bio" class="bg-body-soft flex flex-col pt-8 pb-5 px-6 rounded-lg">
+                <div id="bio" class="bg-body-100 flex flex-col pt-8 pb-5 px-6 rounded-lg">
                     <!-- for non feild errors -->
                     {% if form.non_field_errors %}
                     <div class="flex flex-wrap">
@@ -97,7 +97,7 @@
 
                 <!-- username form settings -->
                 {% if form.new_username %}
-                <div id="username" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                <div id="username" class="bg-body-100 flex flex-col py-4 px-6 rounded-lg">
                     {% if form.non_field_errors %}
                     <div class="flex flex-wrap">
                         {% for error in form.non_field_errors %}
@@ -109,7 +109,7 @@
                     <!-- current username -->
                     <div class="">
                         <span class="text-nav text-2xl font-bold mr-3">Current username:</span>
-                        <span class="text-body text-xl font-bold">{{user.username}}</span>
+                        <span class="text-body-500 text-xl font-bold">{{user.username}}</span>
                     </div>
                     <!-- basif info -->
                     <div>
@@ -140,7 +140,7 @@
 
                 <!-- password form settings -->
                 {% if form.new_password1 %}
-                <div id="password" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                <div id="password" class="bg-body-100 flex flex-col py-4 px-6 rounded-lg">
                     {% if form.non_field_errors %}
                     <div class="flex flex-wrap">
                         {% for error in form.non_field_errors %}
@@ -171,7 +171,7 @@
 
                 <!-- email form settings -->
                 {% if form.new_email %}
-                <div id="username" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                <div id="username" class="bg-body-100 flex flex-col py-4 px-6 rounded-lg">
                     {% if form.non_field_errors %}
                     <div class="flex flex-wrap">
                         {% for error in form.non_field_errors %}
@@ -183,7 +183,7 @@
                     <!-- current username -->
                     <div>
                         <span class="text-nav text-2xl font-bold mr-3">Current email:</span>
-                        <span class="text-body text-xl font-bold">{{user.email}}</span>
+                        <span class="text-body-500 text-xl font-bold">{{user.email}}</span>
                     </div>
                     <!-- basic info -->
                     <div>
@@ -214,7 +214,7 @@
 
                 <!-- website form settings -->
                 {% if form.new_website %}
-                <div id="username" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                <div id="username" class="bg-body-100 flex flex-col py-4 px-6 rounded-lg">
                     {% if form.non_field_errors %}
                     <div class="flex flex-wrap">
                         {% for error in form.non_field_errors %}
@@ -226,7 +226,7 @@
                     <!-- current username -->
                     <div>
                         <span class="text-nav text-2xl font-bold mr-3">Current website:</span>
-                        <span class="text-body text-xl font-bold">{{user.website}}</span>
+                        <span class="text-body-500 text-xl font-bold">{{user.website}}</span>
                     </div>
 
                     <div>
@@ -257,7 +257,7 @@
 
                 <!-- location form settings -->
                 {% if form.country %}
-                <div id="country" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                <div id="country" class="bg-body-100 flex flex-col py-4 px-6 rounded-lg">
                     {% if form.non_field_errors %}
                     <div class="flex flex-wrap">
                         {% for error in form.non_field_errors %}
@@ -288,7 +288,7 @@
 
                 <!-- avatar form settings -->
                 {% if form.image %}
-                <div id="avatar" class="bg-body-soft flex flex-col py-4 px-6 rounded-lg">
+                <div id="avatar" class="bg-body-100 flex flex-col py-4 px-6 rounded-lg">
                     {% for field in form %}
                     <div class="mb-5">
                         <div class="w-full text-center"><label for="{{field.id_for_label}}" class="text-2xl text-white font-extrabold">{{field.label}}</label></div>
@@ -308,7 +308,7 @@
 
                 <!-- social form settings -->
                 {% if forms %}
-                <div id="social" class="bg-body-soft flex flex-col px-4 rounded-lg h-68">
+                <div id="social" class="bg-body-100 flex flex-col px-4 rounded-lg h-68">
                     {{forms.management_form}}
 
                     <!-- basic info -->
@@ -322,7 +322,7 @@
                     {% if forms.non_form_errors %}
                     <div class="p-2 flex items-center">
                         {% for error in forms.non_form_errors %}
-                        <div class="flex-initial text-sm items-center p-1 bg-body rounded-lg">
+                        <div class="flex-initial text-sm items-center p-1 bg-body-500 rounded-lg">
                             <i class="fas fa-exclamation-circle fa-lg text-gray mr-2"></i>
                             <span class="text-sm text-red-500">{{error}}</span>
                         </div>
@@ -393,7 +393,7 @@
 
                 
                 <div class="flex justify-end bg-nav mt-4 px-4 py-3 rounded-lg">
-                    <input type="button" id="clsForm" value="Cancle" class="text-white text-lg bg-body hover:opacity-75 font-bold p-2 rounded-lg mr-3 cursor-pointer">
+                    <input type="button" id="clsForm" value="Cancle" class="text-white text-lg bg-body-500 hover:opacity-75 font-bold p-2 rounded-lg mr-3 cursor-pointer">
                     <input type="submit" value="Save" class="w-20 text-center text-white text-lg bg-blue-500 hover:opacity-75 font-bold p-2 rounded-lg cursor-pointer">
                 </div>
             </form>

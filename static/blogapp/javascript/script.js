@@ -10,14 +10,13 @@ $( document ).ready(function() {
     const user = $("#user"), userMenu = $("#userMenu"), closeUser = $("#closeUser"), accounts = $("#accounts");
     const mobileMenu = $("#mobileMenu"), mobileMenuBtn = $("#mobileMenuBtn"), clsMobileMenu = $("#clsMobileMenu");
     const profile = $("#profile"), openProfile = $("#openProfile"), closeProfile = $("#closeProfile");
-    const settings = $("#settings"), closeSettings = $("#closeSettings");
-    const openSettings = $(".openSettings");
     // variables for  forms
     const inputLabel = $(".inputLabel"), viewPass = $(".viewPass");
     const formBox = $("#formBox"), signOutBox = $("#signOutBox"), signOutBtn = $("#signOutBtn");
     const pageNumber = $("#pageNumber"), pageNumberBtn = $("#pageNumberBtn");
     // variables for posts list
-    const postCard = $(".postCard"), textContent = $(".textContent"), copyBtn = $(".copyBtn");
+    const postCard = $(".postCard"), textContent = $(".textContent"), copyBtn = $(".copyBtn"),
+    postConcern = $("#postConcern a");
     // variables for dashboard
     const filterBtn = $("#filterBtn"), filterMenu = $("#filterMenu"), filter = $("#filterText"),
     filterOptions = $("#filterOptions"), postStatus = $(".postStatus"), mypost = $(".mypost"),
@@ -32,7 +31,6 @@ $( document ).ready(function() {
     userMenu.hide();
     accounts.hide();
     profile.hide();
-    settings.hide();
     signOutBox.hide();
 
     // third party plugins
@@ -60,7 +58,14 @@ $( document ).ready(function() {
     // changing the view of an active link
     topNavLinks.each(function() {
         if ($(this).attr("href") == window.location.pathname) {
-            replaceClass($(this), "text-ph", "text-white bg-body");
+            replaceClass($(this), "text-ph", "text-white bg-body-500");
+        }
+    })
+
+    // change the style of an active blog concern
+    postConcern.each(function() {
+        if ($(this).attr("href") == window.location.pathname) {
+            replaceClass($(this), "text-button text-lg", "text-white text-2xl");
         }
     })
 
@@ -122,24 +127,11 @@ $( document ).ready(function() {
     // to open/close the profile view
     openProfile.on("click", function() {
         activateView(accounts);
-        deactivateView(settings);
         activateView(profile);
         closerUserMenu(user);
     });
     closeProfile.on("click", function() {
         deactivateView(profile);
-        deactivateView(accounts);
-    });
-
-    // to open/close users settings view
-    openSettings.on("click", function() {
-        activateView(accounts);
-        deactivateView(profile);
-        activateView(settings);
-        closerUserMenu(user);
-    });
-    closeSettings.on("click", function() {
-        deactivateView(settings);
         deactivateView(accounts);
     });
 

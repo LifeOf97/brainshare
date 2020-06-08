@@ -95,10 +95,10 @@ class SignInForm(forms.Form):
     )
     # add specific field attribute detials via widget update
     email.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
     password.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
 
     def clean_email(self):
@@ -143,7 +143,7 @@ class ChangeUsernameForm(forms.Form):
     )
     # update fields with the widget attribute
     new_username.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
 
     def clean_new_username(self):
@@ -177,7 +177,7 @@ class ChangeEmailForm(forms.Form):
     new_email = forms.EmailField(label=_('New Email'), required=True)
 
     new_email.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
 
     def clean_new_email(self):
@@ -208,20 +208,20 @@ class ChangeBioForm(forms.ModelForm):
         # adding attributs to form fields
         super().__init__(*args, **kwargs)
         self.fields['first_name'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
         self.fields['last_name'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
         self.fields['other_name'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
         self.fields['dob'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg",
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg",
             "type": "date"
         })
         self.fields['about_me'].widget.attrs.update({
-            "class": "txt w-full outline-none h-32 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg resize-none"
+            "class": "txt w-full outline-none h-32 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg resize-none"
         })
 
     class Meta:
@@ -251,13 +251,13 @@ class ChangePasswordForm(PasswordChangeForm):
 
     # use widget update to add specific field attr
     old_password.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
     new_password1.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
     new_password2.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
 
 
@@ -268,13 +268,13 @@ class ChangeLocationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['country'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
         self.fields['state'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
         self.fields['postal'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
 
     class Meta:
@@ -301,7 +301,7 @@ class WebsiteForm(forms.Form):
   
     # update form widget
     new_website.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
 
 
@@ -316,7 +316,7 @@ class ResetPassForm(PasswordResetForm):
     email = forms.EmailField(label=_('Enter email address'), required=True)
 
     email.widget.attrs.update({
-        "class": "w-full outline-none h-12 p-2 text-white text-base bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg",
+        "class": "w-full outline-none h-12 p-2 text-white text-base bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg",
         "id": "resetEmail"
     })
 
@@ -349,10 +349,10 @@ class SetNewPassForm(SetPasswordForm):
 
     # use widget update to add specific field attr
     new_password1.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
     new_password2.widget.attrs.update({
-        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
 
 
@@ -364,13 +364,13 @@ class SocialForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['platform'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
         self.fields['handle'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
         self.fields['link'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
 
     class Meta:

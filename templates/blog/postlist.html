@@ -6,16 +6,16 @@
 {% block section %}
 <div class="w-11/12 h-screen mx-auto mt-20">
 
-    <div id="postOptions" class="flex justify-center space-x-5 items-center shadow-inner rounded-lg">
-        <a href="{% url 'blogapp:post-list' %}" class="text-2xl text-gray font-bold hover:text-white cursor-pointer">All</a>
+    <div id="postConcern" class="flex justify-start space-x-5 items-center shadow-inner rounded-lg">
+        <a href="{% url 'blogapp:post-list' %}" class="text-lg text-button font-bold hover:text-white cursor-pointer">All</a>
         {% for concern in concerns %}
-        <a href="{% url 'blogapp:post-concern' concern.concern %}" class="text-lg text-gray font-bold hover:text-white cursor-pointer">{{concern.concern|lower}}</a>
+        <a href="{% url 'blogapp:post-concern' concern.concern %}" class="text-lg text-button font-bold hover:text-white cursor-pointer">{{concern.concern|lower}}</a>
         {% endfor %}
     </div>
 
     <div class="flex flex-wrap mt-10">
         {% for post in postlist %}
-        <div id="" class="postCard flex-none relative w-full h-66 md:w-65 mr-4 p-4 bg-nav rounded-lg mb-3 group overflow-hidden">
+        <div id="" class="postCard flex-none relative w-full h-66 md:w-65 mr-4 p-4 bg-body-100 rounded-lg mb-3 shadow-white-xs group overflow-hidden">
             <div class="flex items-center space-x-3">
                 <div class="rounded-full overflow-hidden"><img src="{% if post.author.image %}{{post.author.image.url}}{% endif %}" alt="" class="rounded-full object-cover h-12 w-12 bg-faint"></div>
                 <div class="flex flex-col -space-y-1">
@@ -27,7 +27,7 @@
                 <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover">
             </div>
             <!-- slide up title/snap view -->
-            <div class="absolute top-0 left-0 bg-nav w-full h-full px-3 mt-65 group-hover:mt-48 transition-all duration-150">
+            <div class="absolute top-0 left-0 bg-body-100 w-full h-full px-3 mt-65 group-hover:mt-48 transition-all duration-150">
                 <div class="flex leading-5 h-20 mt-2 group-hover:h-auto">
                     <a href="{% url 'blogapp:post-detail' post.slug %}" class="title text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
                 </div>
@@ -37,7 +37,7 @@
             </div>
             <!-- button to copy the post link to clipboard -->
             <div id="" class="absolute bottom-0 right-0 copyBtn h-0 group-hover:h-6 transition-all duration-75">
-                <button class="bg-body-soft text-white px-2 py-1 text-sm font-semibold hover:bg-white hover:text-nav">Copy Link</button>
+                <button class="bg-body-500 text-white px-2 py-1 text-sm font-semibold hover:bg-white hover:text-nav">Copy Link</button>
             </div>
         </div>
         {% endfor %}

@@ -11,12 +11,14 @@ module.exports = {
       button: '#495052',
       ph: '#AFB0BF',
       gray: '#6C6E73',
-      body: '#262629',
-      'body-soft': '#3C3C41',
       faint: '#858697',
       blue: {
         '100': '#63B3ED',
         '500': '#2F80ED'
+      },
+      body: {
+        '100': '#262629',
+        '500': '#19191C'
       },
       red: {
         '100': '#F16D6D',

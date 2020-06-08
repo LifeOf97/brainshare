@@ -4,7 +4,7 @@
 
 
 {% block section %}
-<div class="mt-24 mb-8">
+<div class="mt-24 mb-8 bg-body-500">
 
     <div id="" class="w-11/12 md:w-2/4 mx-auto flex justify-between items-center">
         <div id="" class="flex items-center space-x-2">
@@ -162,12 +162,12 @@
 
                     <div class="w-full mt-4 p-2 flex space-x-3 md:justify-between md:space-x-0 md:flex-wrap overflow-x-auto">
                         {% for post in morepost %}
-                        <div id="" class="postCard flex-none relative h-65 md:w-65 bg-body rounded-lg mb-3 shadow-white-xs group overflow-hidden">
+                        <div id="" class="postCard flex-none relative h-65 md:w-65 bg-body-500 rounded-lg mb-3 shadow-white-xs group overflow-hidden">
                             <div class="w-full h-48 overflow-hidden">
                                 <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover">
                             </div>
                             <!-- slide up title/snap view -->
-                            <div class="absolute top-0 left-0 bg-body w-full h-full px-3 mt-48 group-hover:mt-32 transition-all duration-150">
+                            <div class="absolute top-0 left-0 bg-body-500 w-full h-full px-3 mt-48 group-hover:mt-32 transition-all duration-150">
                                 <div class="flex leading-5 h-32 mt-2 group-hover:h-auto">
                                     <a href="{% url 'blogapp:post-detail' post.slug %}" class="title text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
                                 </div>
@@ -177,7 +177,7 @@
                             </div>
                             <!-- button to copy the post link to clipboard -->
                             <div id="" class="absolute bottom-0 right-0 copyBtn h-0 group-hover:h-6 transition-all duration-75">
-                                <button class="bg-body-soft text-white px-2 py-1 text-sm font-semibold hover:bg-white hover:text-nav">Copy Link</button>
+                                <button class="bg-body-100 text-white px-2 py-1 text-sm font-semibold hover:bg-white hover:text-nav">Copy Link</button>
                             </div>
                         </div>
                         {% endfor %}
