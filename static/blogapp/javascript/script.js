@@ -239,7 +239,8 @@ $( document ).ready(function() {
     
     // function to copy the link of the post to the clipboard
     copyBtn.on("click", function() {
-        var linkToCopy = $(this).prev("div").find(".title").attr("href");
+        console.log($(this).parents())
+        var linkToCopy = $(this).parents("div.postCard").find(".title").attr("href");
         var keepCopy = $("<textarea>").attr("class", "opacity-0").text("127.0.0.1:8000"+linkToCopy);
         $(this).parents().append(keepCopy);
         keepCopy.select()

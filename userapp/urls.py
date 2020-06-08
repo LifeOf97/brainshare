@@ -40,7 +40,6 @@ urlpatterns = [
         path('locale/', ChangeLocaleView.as_view(), name='edit-locale'),
         path('avatar/', ChangeImageView.as_view(), name='edit-avatar'),
         path('socials/', SocialFormView, name='edit-social'),
-        path('play/', TemplateView.as_view(template_name='accounts/play.html'), name='play'),
     ])),
 
 ]
