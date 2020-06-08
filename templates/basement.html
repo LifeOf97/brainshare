@@ -33,7 +33,7 @@
 
         <!-- start of the top navigation -->
         {% block topnav %}
-        <div id="topNav" class="{% block topnavpos %}fixed top-0{% endblock topnavpos %} {% block topnavzindex %} z-10 {% endblock topnavzindex %} w-full flex flex-row h-16 px-2 md:px-4 items-center md:justify-between bg-black shadow-lg transition-all duration-500">
+        <div id="topNav" class="{% block topnavpos %}fixed top-0{% endblock topnavpos %} {% block topnavzindex %} z-10 {% endblock topnavzindex %} w-full flex flex-row h-16 px-2 md:px-4 items-center md:justify-between bg-nav shadow-lg transition-all duration-500">
             
             {% block logo %}
             <div class="flex-1 order-1 md:flex-initial"><a href="{% url 'userapp:home-page' %}" class="text-3xl text-white font-black">BrainShare</a></div>
@@ -60,12 +60,6 @@
                             {% block linkblog %}
                             <div id="linkBog" class="flex-1 md:flex-initial flex"><a href="{% url 'blogapp:post-list' %}" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Blog</a></div>
                             {% endblock linkblog %}
-                            {% block link1 %}
-                            <div id="linkLink1" class="flex-1 md:flex-initial flex"><a href="" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Link</a></div>
-                            {% endblock link1 %}
-                            {% block link2 %}
-                            <div id="linkLink2" class="flex-1 md:flex-initial flex"><a href="" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Link</a></div>
-                            {% endblock link2 %}
                         </div>
                         {% endblock topnavlinks %}
                         
@@ -243,7 +237,7 @@
 
         <!-- this is the footer -->
         {% block footer %}
-        <div id="footer" class="w-full py-4 bg-black">
+        <div id="footer" class="w-full py-4 bg-nav">
             <div class="w-11/12 mx-auto space-y-16">
                 {% block footersite %}
                 <div class="flex flex-wrap justify-between items-center py-4 space-y-10 md:space-y-0">

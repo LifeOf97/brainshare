@@ -326,14 +326,14 @@ $( document ).ready(function() {
     dashboardLinks.on("click", "a", function() {
         // remove the styling of active links first
         dashboardLinks.children().each(function() {
-            replaceClass($(this), "text-white border-white", "text-nav border-transparent")
+            replaceClass($(this), "text-white border-white", "text-black border-transparent")
         })
         // then run effect and style active link
         gsap.to(dashContainer, {
             scrollTo: $(this).attr("data-panel"),
             duration: 0.2,
             ease: "none",
-            onStart: replaceClass($(this), "text-nav border-transparent", "text-white border-white")
+            onStart: replaceClass($(this), "text-black border-transparent", "text-white border-white")
         })
     })
 
