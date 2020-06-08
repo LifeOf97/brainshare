@@ -4,7 +4,7 @@
 
 
 {% block section %}
-<div class="w-11/12 h-full mx-auto mt-20">
+<div class="w-11/12 h-screen mx-auto mt-20">
 
     <div id="postOptions" class="flex justify-center space-x-5 items-center shadow-inner rounded-lg">
         <a href="{% url 'blogapp:post-list' %}" class="text-2xl text-gray font-bold hover:text-white cursor-pointer">All</a>
@@ -27,7 +27,7 @@
                 <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover">
             </div>
             <!-- slide up title/snap view -->
-            <div class="absolute top-0 left-0 bg-nav w-full h-full px-3 mt-65 group-hover:mt-48 transition-all duration-75">
+            <div class="absolute top-0 left-0 bg-nav w-full h-full px-3 mt-65 group-hover:mt-48 transition-all duration-150">
                 <div class="flex leading-5 h-20 mt-2 group-hover:h-auto">
                     <a href="{% url 'blogapp:post-detail' post.slug %}" class="title text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
                 </div>

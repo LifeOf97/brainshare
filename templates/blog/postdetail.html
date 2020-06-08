@@ -16,9 +16,6 @@
                 {% if postdetail.author.social_set.all.count > 0 %}
                 <div class="flex space-x-2 items-start text-gray mt-2">
                     {% for account in postdetail.author.social_set.all %}
-                        {% if account.platform|lower == 'discord' %}
-                        <a href="{{account.link}}"><i class="fab fa-discord text-lg hover:text-blue-500"></i></a>
-                        {% endif %}
                         {% if account.platform|lower == 'facebook' %}
                         <a href="{{account.link}}"><i class="fab fa-facebook-f text-lg hover:text-blue-500"></i></a>
                         {% endif %}
@@ -28,23 +25,11 @@
                         {% if account.platform|lower == 'github' %}
                         <a href="{{account.link}}"><i class="fab fa-github text-lg hover:text-blue-500"></i></a>
                         {% endif %}
-                        {% if account.platform|lower == 'instagram' %}
-                        <a href="{{account.link}}"><i class="fab fa-instagram text-lg hover:text-blue-500"></i></a>
-                        {% endif %}
                         {% if account.platform|lower == 'linkedin' %}
                         <a href="{{account.link}}"><i class="fab fa-linkedin-in text-lg hover:text-blue-500"></i></a>
                         {% endif %}
-                        {% if account.platform|lower == 'pinterest' %}
-                        <a href="{{account.link}}"><i class="fab fa-pinterest-p text-lg hover:text-blue-500"></i></a>
-                        {% endif %}
                         {% if account.platform|lower == 'slack' %}
                         <a href="{{account.link}}"><i class="fab fa-slack-hash text-lg hover:text-blue-500"></i></a>
-                        {% endif %}
-                        {% if account.platform|lower == 'telegram' %}
-                        <a href="{{account.link}}"><i class="fab fa-telegram-plane text-lg hover:text-blue-500"></i></a>
-                        {% endif %}
-                        {% if account.platform|lower == 'youtube' %}
-                        <a href="{{account.link}}"><i class="fab fa-youtube text-lg hover:text-blue-500"></i></a>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -177,17 +162,22 @@
 
                     <div class="w-full mt-4 p-2 flex space-x-3 md:justify-between md:space-x-0 md:flex-wrap overflow-x-auto">
                         {% for post in morepost %}
-                        <div class="flex-none flex flex-col w-64 md:w-66 h-65 mb-0 md:mb-4 bg-transparent rounded-lg overflow-hidden shadow-lg group">
-                            <div class="overflow-hidden w-full h-40 md:h-48">
-                                <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="object-cover w-full h-full transform transition-all duration-500 group-hover:scale-125">
+                        <div id="" class="postCard flex-none relative h-65 md:w-65 bg-body rounded-lg mb-3 shadow-white-xs group overflow-hidden">
+                            <div class="w-full h-48 overflow-hidden">
+                                <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover">
                             </div>
-                            <div class="flex flex-col h-40 py-3 px-3">
-                                <div class="flex-1 leading-4 w-full">
-                                    <a href="{% url 'blogapp:post-detail' post.slug %}" class="font-semibold text-base text-white hover:text-blue-100 group-hover:underline">{{post.title|truncatechars:56}}</a>
+                            <!-- slide up title/snap view -->
+                            <div class="absolute top-0 left-0 bg-body w-full h-full px-3 mt-48 group-hover:mt-32 transition-all duration-150">
+                                <div class="flex leading-5 h-32 mt-2 group-hover:h-auto">
+                                    <a href="{% url 'blogapp:post-detail' post.slug %}" class="title text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
                                 </div>
-                                <div class=" flex-1">
-                                    <p class="text-sm text-faint leading-4">{{post.text_content|safe|truncatechars:150}}</p>
+                                <div class="mt-2 textContent">
+                                    <p class="text-sm text-faint leading-4">{{post.text_content|safe|capfirst|default_if_none:""|truncatechars:200}}</p>
                                 </div>
+                            </div>
+                            <!-- button to copy the post link to clipboard -->
+                            <div id="" class="absolute bottom-0 right-0 copyBtn h-0 group-hover:h-6 transition-all duration-75">
+                                <button class="bg-body-soft text-white px-2 py-1 text-sm font-semibold hover:bg-white hover:text-nav">Copy Link</button>
                             </div>
                         </div>
                         {% endfor %}
