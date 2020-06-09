@@ -1,25 +1,31 @@
 {% extends '../basement.html' %}
 {% block title %}Password reset link sent{% endblock title %}
 
-{# block that should not be displayed #}
-{# {% block linkhome %}{% endblock linkhome %} #}
+{% block topnavpos %}{% endblock topnavpos %}
 {% block linkblog %}{% endblock linkblog %}
 {% block search %}{% endblock search %}
 {% block signup %}{% endblock signup %}
 {% block signin %}{% endblock signin %}
-{% block footersite %}{% endblock footersite %}
 
 
 {% block auth %}
-<div class="h-screen pt-20">
-    <div class="w-11/12 md:1/3 mx-auto">
+<div class="h-screen w-full">
+    <div class="w-11/12 md:w-1/2 mx-auto h-full flex flex-col items-center mt-20">
         
-        <div class="bg-nav rounded-lg p-4 shadow-2xl flex items-center space-x-3">
+        <div class="bg-nav w-full rounded-lg p-4 shadow-2xl flex items-center space-x-3">
             <i class="fas fa-check-circle fa-lg text-green-300"></i>
             <span class="text-base text-faint text-justify leading-5">
-                An email containing the link to reset your password has been sent to <button id="insertEmail">Click me</button>.
+                An email containing the link to reset your password has been sent to to the email provided.
                 If you can't find the email please check your <b class="font-black">Spam</b> folder.
             </span>
+        </div>
+
+        <div class="border-4 border-dotted border-body-100 w-full h-64 rounded-lg mt-5 flex justify-center items-center">
+            <h1 class="text-2xl font-black text-body-100 text-center">
+                If you are not automatically redirected to the home page in 5 seconds, please click on the 
+                <span class="text-nav">Home</span> link in the top bar.
+            </h1>
+
         </div>
     
     </div>

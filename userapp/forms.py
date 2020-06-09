@@ -316,7 +316,7 @@ class ResetPassForm(PasswordResetForm):
     email = forms.EmailField(label=_('Enter email address'), required=True)
 
     email.widget.attrs.update({
-        "class": "w-full outline-none h-12 p-2 text-white text-base bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
+        "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
     })
 
     def clean_email(self):
