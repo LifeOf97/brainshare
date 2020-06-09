@@ -47,8 +47,8 @@
     
     {% if postdetail.banner %}
     <div id="postBanner" class="mt-8 w-full mx-auto overflow-hidden">
-        <div class="w-full h-66 md:h-69 shadow-lg">
-            <img src="{{postdetail.banner.url}}" alt="" class="w-full h-full object-cover object-center>
+        <div class="w-full h-66 md:h-auto shadow-lg">
+            <img src="{{postdetail.banner.url}}" alt="" class="w-full h-full object-cover object-center">
         </div>
         {% if postdetail.banner_copyright %}
         <div class="text-center">
@@ -81,8 +81,8 @@
         
             {% if postdetail.image %}
             <div id="postImage" class="w-4/5 mx-auto mt-8">
-                <div class="w-full h-65 md:h-67 shadow-lg rounded-lg overflow-hidden">
-                    <img src="{{postdetail.image.url}}" alt="" class="w-full h-full object-cover">
+                <div class="w-full h-65 md:h-69 shadow-lg rounded-lg overflow-hidden">
+                    <img src="{{postdetail.image.url}}" alt="" class="bodyImage w-full h-full object-cover cursor-pointer" title="Clik to expand">
                 </div>
                 {% if postdetail.image_copyright %}
                 <div class="text-center">
@@ -123,7 +123,7 @@
                 {% if morecontent.image %}
                 <div class="w-4/5 mx-auto mt-8">
                     <div class="w-full h-65 md:h-67 shadow-lg rounded-lg overflow-hidden">
-                        <img src="{{morecontent.image.url}}" alt="" class="w-full h-full object-cover">
+                        <img src="{{morecontent.image.url}}" alt="" class="bodyImage w-full h-full object-cover cursor-pointer" title="Clik to expand">
                     </div>
                     {% if morecontent.image_copyright %}
                     <div class="text-center">
@@ -160,9 +160,9 @@
                         <div class="flex-1 self-center h-1 bg-nav"></div>
                     </div>
 
-                    <div class="w-full mt-4 p-2 flex space-x-3 md:justify-between md:space-x-0 md:flex-wrap overflow-x-auto">
+                    <div class="w-full mt-4 p-2 flex space-x-3 md:flex-wrap overflow-x-auto">
                         {% for post in morepost %}
-                        <div id="" class="postCard flex-none relative h-65 md:w-65 bg-body-500 rounded-lg mb-3 shadow-white-xs group overflow-hidden">
+                        <div id="" class="postCard flex-none relative h-65 w-65 bg-body-500 rounded-lg mb-3 shadow-white-xs group overflow-hidden">
                             <div class="w-full h-48 overflow-hidden">
                                 <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover">
                             </div>
