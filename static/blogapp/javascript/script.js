@@ -191,21 +191,6 @@ $( document ).ready(function() {
     })
 
 
-    // function to get the email address entered on the reset password
-    // form and use that email in the resetpassword view
-    var resetEmail = $("#resetEmail"), insertEmail = $("#insertEmail");
-    var keepEmail = {
-        "data": {}
-    };
-    resetEmail.parent().next().children("button").on("click", function() {
-        const email = resetEmail.val();
-        console.log(email);
-        keepEmail.data["mail"] = email;
-    });
-    insertEmail.on("click", function() {
-        console.dir(keepEmail);
-    });
-
     // modal form effect
     // first effect is to open/close the sign out view with whatever effect
     // you like
@@ -237,15 +222,14 @@ $( document ).ready(function() {
         })
     })
     
-    // function to copy the link of the post to the clipboard
+    // function to copy the link of the post
     copyBtn.on("click", function() {
-        console.log($(this).parents())
         var linkToCopy = $(this).parents("div.postCard").find(".title").attr("href");
-        var keepCopy = $("<textarea>").attr("class", "opacity-0").text("127.0.0.1:8000"+linkToCopy);
+        var keepCopy = $("<textarea>").attr("class", "opacity-0 copy").text(window.location.host+linkToCopy);
         $(this).parents().append(keepCopy);
         keepCopy.select()
         document.execCommand("copy");
-        $(this).parents().children("textarea").remove()
+        $(this).parents().remove("textarea.copy")
     })
 
     // pagination function to change the page to the number entered into
