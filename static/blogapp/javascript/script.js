@@ -222,6 +222,29 @@ $( document ).ready(function() {
         })
     })
     
+    // post details settings
+    // show images with modal effects when clicked upon
+    $(".image").on("click", function() {
+        topNav.addClass("hidden");
+        $("#postDetailContainer").addClass("opacity-25");
+        $("#imageModal").attr("src", $(this).attr("src"));
+        $("#modal").removeClass("hidden");
+        gsap.from($("#imageModal"), {
+            opacity: 0, scale: 0.5,
+            duration: 0.5, ease: "bounce"
+        });
+        gsap.from($("#closeModal"), {
+            y: 20, duration: 0.5
+        })
+    });
+
+    // function to close the image modal view
+    $("#closeModal").on("click", function() {
+        $("#modal").addClass("hidden");
+        $("#postDetailContainer").removeClass("opacity-25");
+        topNav.removeClass("hidden");
+    });
+
     // function to copy the link of the post
     copyBtn.on("click", function() {
         var linkToCopy = $(this).parents("div.postCard").find(".title").attr("href");
@@ -229,7 +252,7 @@ $( document ).ready(function() {
         $(this).parents().append(keepCopy);
         keepCopy.select()
         document.execCommand("copy");
-        $(this).parents().remove("textarea.copy")
+        $(this).parents().remove("textarea.copy");
     })
 
     // pagination function to change the page to the number entered into
