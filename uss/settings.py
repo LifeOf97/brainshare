@@ -4,7 +4,8 @@ import json
 # Open secure files here make sure to import the
 # json module and load the file to be able to
 # read data if the file is json.
-with open('./secure.json', 'r') as secureFile:
+SECURE_FILE = os.path.abspath("/etc/django_secure/secure.json")
+with open(SECURE_FILE, 'r') as secureFile:
     config = json.load(secureFile)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
