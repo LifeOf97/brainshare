@@ -4,7 +4,7 @@
 
 
 {% block section %}
-<div class="mt-24 mb-8 bg-body-500">
+<div id="postDetailContainer" class="mt-24 mb-8 bg-body-500">
 
     <div id="" class="w-11/12 md:w-2/4 mx-auto flex justify-between items-center">
         <div id="" class="flex items-center space-x-2">
@@ -82,7 +82,7 @@
             {% if postdetail.image %}
             <div id="postImage" class="w-4/5 mx-auto mt-8">
                 <div class="w-full h-65 md:h-69 shadow-lg rounded-lg overflow-hidden">
-                    <img src="{{postdetail.image.url}}" alt="" class="bodyImage w-full h-full object-cover cursor-pointer" title="Clik to expand">
+                    <img src="{{postdetail.image.url}}" alt="" class="image w-full h-full object-cover cursor-pointer" title="Clik to expand">
                 </div>
                 {% if postdetail.image_copyright %}
                 <div class="text-center">
@@ -123,7 +123,7 @@
                 {% if morecontent.image %}
                 <div class="w-4/5 mx-auto mt-8">
                     <div class="w-full h-65 md:h-67 shadow-lg rounded-lg overflow-hidden">
-                        <img src="{{morecontent.image.url}}" alt="" class="bodyImage w-full h-full object-cover cursor-pointer" title="Clik to expand">
+                        <img src="{{morecontent.image.url}}" alt="" class="image w-full h-full object-cover cursor-pointer" title="Clik to expand">
                     </div>
                     {% if morecontent.image_copyright %}
                     <div class="text-center">
@@ -196,5 +196,19 @@
             {% endblock morepost %}
     </div>
 
+    
+    
+</div>
+
+<!-- image modal effect -->
+<div id="modal" class="fixed top-0 left-0 w-full h-full bg-transparent hidden pt-8">
+    <div class="w-11/12 md:w-1/2 mx-auto flex flex-col items-center justify-center">
+        <div class="w-full h-69 mb-4">
+            <img src="" id="imageModal" alt="" class="w-full h-full object-cover rounded-lg shadow-white-lg">
+        </div>
+        <div class="w-40 text-center rounded-lg shadow-lg">
+            <button id="closeModal" class="w-full text-lg text-white p-2 bg-red-500 hover:bg-red-100 rounded-lg">Close</button>
+        </div>
+    </div>
 </div>
 {% endblock section %}
