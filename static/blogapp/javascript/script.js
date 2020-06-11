@@ -9,7 +9,6 @@ $( document ).ready(function() {
     // variables for signed in user and side nav
     const user = $("#user"), userMenu = $("#userMenu"), closeUser = $("#closeUser"), accounts = $("#accounts");
     const mobileMenu = $("#mobileMenu"), mobileMenuBtn = $("#mobileMenuBtn"), clsMobileMenu = $("#clsMobileMenu");
-    const profile = $("#profile"), openProfile = $("#openProfile"), closeProfile = $("#closeProfile");
     // variables for  forms
     const inputLabel = $(".inputLabel"), viewPass = $(".viewPass"), loadContainer = $("#loadContainer");
     const formBox = $("#formBox"), signOutBox = $("#signOutBox"), signOutBtn = $("#signOutBtn");
@@ -20,18 +19,14 @@ $( document ).ready(function() {
     postConcern = $("#postConcern a");
     // variables for dashboard
     const filterBtn = $("#filterBtn"), filterMenu = $("#filterMenu"), filter = $("#filterText"),
-    filterOptions = $("#filterOptions"), postStatus = $(".postStatus"), mypost = $(".mypost"),
-    dashboardLinks = $("#dashboardLinks"), linkProfile = $("#linkProfile"), linkPost = $("#linkPost"),
-    linkSetting = $("#linkSetting"), dashProfile = $("#dashProfile"), dashPosts = $("#dashPosts"),
-    dashSettings = $("#dashSettings"), dashContainer = $("#dashContainer")
+    filterOptions = $("#filterOptions"), mypost = $(".mypost"),
+    dashboardLinks = $("#dashboardLinks"), dashContainer = $("#dashContainer")
     // variables for social form
     
     
     // hide elements that are hidden by default with css
     // with javascript also.
     userMenu.hide();
-    accounts.hide();
-    profile.hide();
     signOutBox.hide();
 
     // third party plugins
@@ -117,17 +112,6 @@ $( document ).ready(function() {
     
     $(window).on("resize", function() {
         closerUserMenu(user);
-    });
-
-    // to open/close the profile view
-    openProfile.on("click", function() {
-        activateView(accounts);
-        activateView(profile);
-        closerUserMenu(user);
-    });
-    closeProfile.on("click", function() {
-        deactivateView(profile);
-        deactivateView(accounts);
     });
 
 
@@ -226,33 +210,33 @@ $( document ).ready(function() {
     // show images with modal effects when clicked upon
     $(".image").on("click", function() {
         topNav.addClass("hidden");
-        $("#postDetailContainer").addClass("opacity-25");
+        $("#postDetailContainer").addClass("opacity-75");
         $("#imageModal").attr("src", $(this).attr("src"));
         $("#modal").removeClass("hidden");
         gsap.from($("#imageModal"), {
-            opacity: 0, scale: 0.5,
-            duration: 0.5, ease: "bounce"
+            opacity: 0, scale: 0.2,
+            duration: 0.5
         });
         gsap.from($("#closeModal"), {
-            y: 20, duration: 0.5
+            y: -60, duration: 0.2
         })
     });
 
     // function to close the image modal view
     $("#closeModal").on("click", function() {
         $("#modal").addClass("hidden");
-        $("#postDetailContainer").removeClass("opacity-25");
+        $("#postDetailContainer").removeClass("opacity-75");
         topNav.removeClass("hidden");
     });
 
     // function to copy the link of the post
     copyBtn.on("click", function() {
         var linkToCopy = $(this).parents("div.postCard").find(".title").attr("href");
-        var keepCopy = $("<textarea>").attr("class", "opacity-0 copy").text(window.location.host+linkToCopy);
-        $(this).parents().append(keepCopy);
+        var keepCopy = $("<textarea>").attr("class", "copy opacity-0").text(window.location.host+linkToCopy);
+        $(this).parents("div.postCard").append(keepCopy);
         keepCopy.select()
         document.execCommand("copy");
-        $(this).parents().remove("textarea.copy");
+        $(this).parents("div.postCard").find("textarea.copy").remove();
     })
 
     // pagination function to change the page to the number entered into

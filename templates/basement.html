@@ -125,10 +125,10 @@
                             </button>
                         </div>
                         <div class="w-full flex-1 flex flex-col justify-center items-center py-3 text-xl md:text-lg">
-                            <button id="openProfile" class="flex px-2 py-1 rounded-lg w-11/12 group hover:bg-body-500 transition-colors duration-300">
+                            <a href="{% url 'userapp:user-profile' user.slug %}" class="flex px-2 py-1 rounded-lg w-11/12 group hover:bg-body-500 transition-colors duration-300">
                                 <div class=""><i class="fas fa-user fa-sm text-faint group-hover:text-white"></i></div>
-                                <div class=""><span class="text-faint font-semibold pl-3 tracking-wide group-hover:text-white">Snap Profile</span></div>
-                            </button>
+                                <div class=""><span class="text-faint font-semibold pl-3 tracking-wide group-hover:text-white">Dashboard</span></div>
+                            </a>
                             <button class="flex px-2 py-1 rounded-lg w-11/12 group hover:bg-body-500 transition-colors duration-300">
                                 <div class=""><i class="fas fa-pen fa-sm text-faint group-hover:text-white"></i></div>
                                 <div class=""><span class="text-faint font-semibold pl-3 tracking-wide group-hover:text-white">Create post</span></div>
@@ -157,74 +157,6 @@
         {% endblock topnav %}
         <!-- end of the top navigation  -->
 
-
-        <!-- start of side navigation for logged in users -->
-        {% block account %}
-        {% if user.is_authenticated %}
-        <div id="accounts" class="fixed top-0 left-0 h-full w-3/4 {% block accountzindex %}z-10{% endblock accountzindex %} md:w-64 bg-transparent hidden">
-
-           {% block profile %}
-            <div id="profile" class="relative h-full w-3/4 md:w-64 bg-transparent shadow-white-lg hidden">
-                <div class="fixed top-0 left-0 w-3/4 md:w-64 h-full flex flex-col justify-between bg-nav overflow-y-auto">
-                    <div id="banner" class="flex-initial w-full h-32 bg-faint">
-                        <img src="" alt="" class="profileBanner object-cover object-center w-full h-32">
-                        <!-- this div contains the users avatar, full name and alias positioned absolutely -->
-                        <div class="absolute top-24 left-0 w-full bg-transparent">
-                            <div class="flex space-x-2 ml-3">
-                                <div class="">
-                                    <img src="" alt="" class="rounded-full h-20 w-20 border-4 border-nav bg-white shadow-inner profileImg overflow-hidden">
-                                </div>
-                                <div class="flex flex-col justify-center text-sm leading-5 mt-8 truncate">
-                                    <span class="flex-initial text-white profileFullName truncate"></span>
-                                    <span class="flex-1 text-button profileAlias"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- users name, locale etc -->
-                    <div class="flex-1 text-nav text-sm w-11/12 mx-auto space-y-1 mt-16">
-                        <div class="flex flex-row justify-between bg-body-500 rounded-md p-1">
-                            <span class="font-semibold w-1/3 md:w-1/2">Full Name</span>
-                            <span class="text-faint profileFullName truncate"></span>
-                        </div>
-                        <div class="flex justify-between bg-body-500 rounded-md p-1">
-                            <span class="font-semibold">Username</span>
-                            <span class="text-faint profileAlias truncate">Alias</span>
-                        </div>
-                        <div class="flex justify-between bg-body-500 rounded-md p-1">
-                            <span class="font-semibold w-1/3 md:w-1/2">Email</span>
-                            <span class="text-faint profileEmail truncate"></span>
-                        </div>
-                        <div class="flex justify-between bg-body-500 rounded-md p-1">
-                            <span class="font-semibold">Gender</span>
-                            <span class="text-faint profileGender"></span>
-                        </div>
-                        <div class="flex justify-between bg-body-500 rounded-md p-1">
-                            <span class="font-semibold w-2/3 md:w-1/2">Location</span>
-                            <span class="text-faint profileLocale truncate"></span>
-                        </div>
-                        <div class="flex justify-between bg-body-500 rounded-md p-1">
-                            <span class="font-semibold">Joined</span>
-                            <span class="text-faint profileJoined"></span>
-                        </div>
-                        <div class="flex justify-between bg-body-500 rounded-md p-1">
-                            <span class="font-semibold">Date of Birth</span>
-                            <span class="text-faint profileDob"></span>
-                        </div>
-                    </div>
-                    <div class="mt-10">
-                        <div class="w-full flex justify-center p-1 border-t border-button">
-                            <button id="closeProfile" class="text-faint text-lg text-center hover:text-white">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endblock profile %}
-
-        </div>
-        {% endif %}
-        {% endblock account %}
-
         <!-- authentication forms -->
         {% block auth %}
         <div id="auth"></div>
@@ -242,7 +174,7 @@
                 {% block footersite %}
                 <div class="flex flex-wrap justify-between items-center py-4 space-y-10 md:space-y-0">
                     {% block footerlinks %}
-                    <div class="flex flex-row md:flex-col space-y-1">
+                    <div class="flex flex-row md:flex-col">
                         <div><a href="{% url 'userapp:home-page' %}" class="outline-none inline-block px-4 py-1 text-faint text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Home</a></div>
                         <div><a href="{% url 'blogapp:post-list' %}" class="outline-none inline-block px-4 py-1 text-faint text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Blog</a></div>
                     </div>

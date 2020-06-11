@@ -15,7 +15,7 @@
 
     <div class="flex flex-wrap mt-10">
         {% for post in postlist %}
-        <div id="" class="postCard relative w-full h-66 md:w-66 mr-4 bg-body-300 rounded-lg mb-3 shadow-lg group overflow-hidden">
+        <div id="" class="postCard relative w-full h-66 md:w-66 md:mr-4 bg-body-300 rounded-lg mb-3 shadow-lg group overflow-hidden">
             <div class="w-full h-56">
                 <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="Post Banner" class="w-full h-full object-cover">
             </div>
