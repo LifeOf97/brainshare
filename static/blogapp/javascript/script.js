@@ -210,7 +210,7 @@ $( document ).ready(function() {
     // show images with modal effects when clicked upon
     $(".image").on("click", function() {
         topNav.addClass("hidden");
-        $("#postDetailContainer").addClass("opacity-75");
+        $("#postDetailContainer").addClass("opacity-25");
         $("#imageModal").attr("src", $(this).attr("src"));
         $("#modal").removeClass("hidden");
         gsap.from($("#imageModal"), {
@@ -225,7 +225,7 @@ $( document ).ready(function() {
     // function to close the image modal view
     $("#closeModal").on("click", function() {
         $("#modal").addClass("hidden");
-        $("#postDetailContainer").removeClass("opacity-75");
+        $("#postDetailContainer").removeClass("opacity-25");
         topNav.removeClass("hidden");
     });
 
