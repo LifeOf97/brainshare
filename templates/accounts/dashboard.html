@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="flex flex-col leading-6">
                                     <span class="text-xs md:text-sm text-button font-bold">WEBSITE</span>
-                                    <span class="text-faint text-xl md:text-2xl">{{profile.website|default_if_none:""}}</span>
+                                    <span class="text-faint text-xl md:text-2xl iflinks">{{profile.website|urlize|default_if_none:""}}</span>
                                 </div>
                                 <div class="flex space-x-12">
                                     <div class="flex flex-col leading-6">
