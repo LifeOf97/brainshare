@@ -4,13 +4,13 @@
 
 {% block section %}
 <div class="w-full h-full mt-24 mb-8 bg-body-500">
-    <div class="w-full text-center">
+    <div class="w-11/12 mx-auto text-center">
         <div><h1 class="text-4xl text-gray font-black mb-4">Search results for</h1></div>
         <div class="">
-            <form action="{% url 'blogapp:post-search' %}" method="get" class="w-66 mx-auto">
-                <div class="flex border-b-2 border-ph bg-body-100 py-1 rounded-sm overflow-hidden">
+            <form action="{% url 'blogapp:post-search' %}" method="get" class="w-full md:w-66 mx-auto">
+                <div class="flex border-b-2 border-ph bg-body-100 py-1 px-2 rounded-sm overflow-hidden">
                     <input type="search" name="q" id="q" value="{{request.GET.q}}" class="text-white text-lg bg-body-100 outline-none p-2">
-                    <button type="submit" class="w-24 text-white px-4 py-2 bg-body-500 hover:bg-body-300 rounded-sm shadow-white">Search</button>
+                    <button type="submit" class="w-full text-white px-4 py-2 bg-body-500 hover:bg-body-300 rounded-sm shadow-white">Search</button>
                 </div>
             </form>
         </div>
@@ -19,7 +19,7 @@
     <div class="w-11/12 mx-auto border-t border-body-100 pt-4 mt-12">
     {% if posts|length == 0 %}
         <div class="">
-            <span class="text-white text-6xl font-black">Sorry no results</span>
+            <span class="text-white text-2xl md:text-6xl font-black">Sorry no results</span>
         </div>
     {% else %}
         {% for post in posts %}

@@ -67,7 +67,8 @@ def PostSearchView(request):
     # function to query the database and return search results
     query = request.GET.get("q")
     posts = POST_DATA.filter(
-        Q(concern__icontains=query) | Q(tags__icontains=query)
+        Q(concern__icontains=query) | Q(tags__icontains=query) |
+        Q(title__icontains=query)
     )
     return render(request, 'blog/search.html', {'posts': posts})
 
