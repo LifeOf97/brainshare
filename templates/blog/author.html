@@ -1,52 +1,100 @@
 {% extends '../basement.html' %}
 {% block title %}Author {{authordetail}} Page{% endblock title %}
 
+
+{% block topnavzindex %}z-20{% endblock topnavzindex %}
+
+
 {% block section %}
-<div>
-    <div>
-        <label for="fname">
-            First name : {{authordetail.profile.first_name|default_if_none:""}}
-        </label>
-        <label for="lname">
-            Last name : {{authordetail.profile.last_name|default_if_none:""}}
-        </label>
-        <label for="oname">
-            Other name : {{authordetail.profile.other_name|default_if_none:""}}
-        </label>
-    </div>
-    <div><p>Username: {{authordetail.profile.username}}</p></div>
-    {% if authordetail.banner %}
-    <div>
-        <img src="{{authordetail.banner.url}}" alt="BANNER" width="400px" height="200px">
-    </div>
-    {% endif %}
-    
-    {% if authordetail.image %}
-    <div>
-        <img src="{{authordetail.image.url}}" alt="IMAGE" width="400px" height="200px">
-    </div>
-    {% endif %}
-    <div>
-        <p>Location: {{authordetail.profile.state}}, {{authordetail.profile.country}}.</p>
+<div class="w-full h-full bg-body-500">
+
+    <div class="sticky top-0 w-full h-auto bg-body-100 pt-24 z-10 shadow-lg">
+        <div class="w-11/12 mx-auto flex space-x-3 pb-4 md:space-x-5">
+            <div class="w-24 h-24 md:w-40 md:h-40 border-4 border-gray overflow-hidden rounded-full flex flex-shrink-0 self-start">
+                <img src="{% if authordetail.image %}{{authordetail.image.url}}{% endif %}" alt="" class="h-full w-full object-cover">
+            </div>
+            <div class="flex flex-col self-center leading-4 md:leading-tight">
+                <div class="flex flex-wrap items-center leading-9">
+                    <span class="flex text-white text-2xl md:text-4xl font-bold">
+                        {{authordetail.profile.first_name|default_if_none:""|capfirst}} {{authordetail.profile.last_name|default_if_none:""|capfirst}} {{authordetail.profile.other_name|default_if_none:""|capfirst}}
+                    </span>
+                </div>
+                <div class="flex font-black text-nav">
+                    <span class="text-xl md:text-2xl mr-2">{{authordetail.profile.username}}</span>
+                    <span class="text-xs self-center text-gray">(AUTHOR <code class="text-nav">|</code> Joined - {{authordetail.profile.date_joined|date:"M d, Y"}})</span>
+                </div>
+                {% if authordetail.social_set.all.count > 0 %}
+                <div class="flex space-x-2 items-start text-gray mt-3">
+                    {% for account in authordetail.social_set.all %}
+                        {% if account.platform|lower == 'discord' %}
+                        <a href="{{account.link}}"><i class="fab fa-discord fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'facebook' %}
+                        <a href="{{account.link}}"><i class="fab fa-facebook-f fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'twitter' %}
+                        <a href="{{account.link}}"><i class="fab fa-twitter fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'github' %}
+                        <a href="{{account.link}}"><i class="fab fa-github fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'instagram' %}
+                        <a href="{{account.link}}"><i class="fab fa-instagram fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'linkedin' %}
+                        <a href="{{account.link}}"><i class="fab fa-linkedin-in fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'pinterest' %}
+                        <a href="{{account.link}}"><i class="fab fa-pinterest-p fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'slack' %}
+                        <a href="{{account.link}}"><i class="fab fa-slack-hash fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'telegram' %}
+                        <a href="{{account.link}}"><i class="fab fa-telegram-plane fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                        {% if account.platform|lower == 'youtube' %}
+                        <a href="{{account.link}}"><i class="fab fa-youtube fa-lg hover:text-blue-500"></i></a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
-    <div id="posts">
-        <div>
-            <span>
-                I currently have {{posts.count}} 
-                post{{posts.count|pluralize}}
-            </span>
-        </div>
-        {% if posts.count > 0 %}
-        <div>
+    <div class="sticky w-full h-full py-12">
+        <div class="w-11/12 mx-auto flex flex-wrap justify-between">
             {% for post in posts %}
-            <div>
-                <div><img src="{{post.banner.url}}" alt="POST-BANNER" width="200px" height="200px"></div>
-                <div><a href="{% url 'blogapp:post-detail' post.slug %}">{{post.title|title}}</a></div>
-            </div><br>
+            <div id="" class="postCard relative w-full h-66 md:w-67 bg-body-300 rounded-lg mb-3 shadow-lg group overflow-hidden">
+                <div class="w-full h-56">
+                    <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="Post Banner" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute top-0 left-0 bg-body-300 w-full h-full px-3 py-1 mt-56 group-hover:mt-40 transition-all duration-150">
+                    <div><span class="text-sm font-black text-gray">{{post.concern|capfirst}}</span></div>
+                    <div class="flex leading-5 h-20 mt-2 group-hover:h-auto">
+                        <a href="{% url 'blogapp:post-detail' post.slug %}" class="title text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
+                    </div>
+                    <div class="mt-2 textContent">
+                        <p class="text-sm text-faint leading-4">{{post.text_content|safe|capfirst|default_if_none:""|truncatechars:200}}</p>
+                    </div>
+                </div>
+                <!-- button to copy the post link to clipboard -->
+                <div class="absolute bottom-0 left-0 p-3 w-full bg-body-300 flex justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="rounded-full overflow-hidden"><img src="{% if post.author.image %}{{post.author.image.url}}{% endif %}" alt="" class="rounded-full object-cover h-12 w-12 bg-faint"></div>
+                        <div class="flex flex-col -space-y-1">
+                            <span class="text-white text-lg font-semibold">{{post.author.profile.username}}</span>
+                            <span class="text-gray text-sm">{{post.date_to_publish|date:"b d, Y"}}</span>
+                        </div>
+                    </div>
+                    <div id="" class="self-end copyBtn opacity-0 group-hover:opacity-100 transition-all duration-150">
+                        <button class="bg-body-500 text-white px-2 py-1 text-sm font-semibold hover:bg-white hover:text-nav">Copy Link</button>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
         </div>
-        {% endif %}
     </div>
 
 </div>

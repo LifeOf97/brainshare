@@ -39,6 +39,10 @@ module.exports = {
       screens: {
         'landscape': {'raw': '(orientation: landscape)'},
       },
+      cursor: {
+        'zoom-in': 'zoom-in',
+        'zoom-out': 'zoom-out'
+      },
       boxShadow: {
         'white': '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
         'white-xs':	'0 0 0 1px rgba(255, 255, 255, 0.05)',

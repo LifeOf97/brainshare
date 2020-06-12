@@ -6,16 +6,16 @@
 {% block section %}
 <div class="w-11/12 h-full mx-auto mt-20 mb-10">
 
-    <div id="postConcern" class="flex flex-wrap space-x-5 items-center">
+    <div id="postConcern" class="flex space-x-5 items-center overflow-x-auto md:overflow-hidden">
         <a href="{% url 'blogapp:post-list' %}" class="text-lg text-button font-bold hover:text-white cursor-pointer">All</a>
         {% for concern in concerns %}
         <a href="{% url 'blogapp:post-concern' concern.concern %}" class="text-lg text-button font-bold hover:text-white cursor-pointer">{{concern.concern|capfirst}}</a>
         {% endfor %}
     </div>
 
-    <div class="flex flex-wrap mt-10">
+    <div class="flex flex-wrap justify-between mt-10">
         {% for post in postlist %}
-        <div id="" class="postCard relative w-full h-66 md:w-66 md:mr-4 bg-body-300 rounded-lg mb-3 shadow-lg group overflow-hidden">
+        <div id="" class="postCard relative w-full h-66 md:w-67 bg-body-300 rounded-lg mb-3 shadow-lg group overflow-hidden">
             <div class="w-full h-56">
                 <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="Post Banner" class="w-full h-full object-cover">
             </div>

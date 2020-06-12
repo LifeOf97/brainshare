@@ -6,6 +6,7 @@ from .models import Author, Post
 from django.views.generic import (
     ListView, DetailView,
 )
+from django.db.models import Q
 # Create your views here.
 
 # cache the post and author data to reduce the number of times
@@ -60,6 +61,15 @@ class ConcernPostList(ListView):
             concern=self.kwargs['concern'],
             date_to_publish__lte=timezone.now()
         )
+
+
+def PostSearchView(request):
+    # function to query the database and return search results
+    query = request.GET.get("q")
+    posts = POST_DATA.filter(
+        Q(concern__icontains=query) | Q(tags__icontains=query)
+    )
+    return render(request, 'blog/search.html', {'posts': posts})
 
 
 class PostDetailView(DetailView):

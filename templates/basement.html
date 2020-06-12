@@ -95,16 +95,23 @@
                     <button id="openSearchBtn" class="text-3xl text-button transition-colors duration-300 cursor-pointer hover:text-white">
                         <i class="fas fa-search"></i>
                     </button>
-                    <div id="searchBox" class="absolute top-16 -right-3 z-10 flex flex-col items-center w-64 bg-nav p-4 rounded-lg shadow-white-lg hidden">
-                        <div class="flex"><input type="text" name="search" id="search" class="outline-none w-full h-20 px-2 rounded-lg placeholder-gray focus:shadow-outline hover:shadow-outline" placeholder="Search for..."></div>
+                    <form action="{% url 'blogapp:post-search' %}" method="GET" id="searchBox" class="absolute top-16 -right-3 z-10 flex flex-col items-center w-64 bg-nav p-4 rounded-lg shadow-white-lg hidden">
+                        <div class="flex"><input type="text" name="q" id="q" required class="outline-none w-full h-20 px-2 rounded-lg placeholder-gray focus:shadow-outline hover:shadow-outline" placeholder="Search for..."></div>
                         <div class="w-full pt-2 flex text-white text-lg font-semibold space-x-3">
-                            <button id="closeSearchBtn" class="flex-1 px-4 py-1 rounded-lg bg-red-500 hover:bg-red-100">Cancle</button>
-                            <button type="submit" class="flex-1 px-4 py-1 rounded-lg bg-blue-500 hover:bg-blue-100">Search</button>
+                            <div class="flex-1 rounded-lg overflow-hidden">
+                                <button type="button" id="closeSearchBtn" class="w-full px-4 py-1 bg-red-500 hover:bg-red-100">Cancle</button>
+                            </div>
+                            <div class="relative flex-1 rounded-lg overflow-hidden">
+                                <button type="submit" class="btnSubmit px-4 py-1 w-full bg-blue-500 text-white hover:bg-blue-100">Search</button>
+                                <div id="loadContainer" class="flex space-x-2 absolute top-0 bg-blue-500 h-full w-full flex justify-center items-center hidden">
+                                    <div class="loadicon w-2 h-2 rounded-full bg-white"></div> <div class="loadicon w-2 h-2 rounded-full bg-white"></div> <div class="loadicon w-2 h-2 rounded-full bg-white"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="leading-none pt-4">
                             <span class="text-button text-sm text-justify">As of this moment you can only search for posts.</span>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             {% endblock search %}
@@ -135,7 +142,7 @@
                             </button>
                             <a href="{% url 'userapp:user-profile' user.slug %}#settings" id="myPost" class="flex px-2 py-1 rounded-lg w-11/12 group hover:bg-body-500 transition-colors duration-300">
                                 <div class="flex-initial"><i class="fas fa-folder fa-sm text-faint group-hover:text-white "></i></div>
-                                <div class="flex-initial"><span class="text-faint font-semibold pl-3 tracking-wide group-hover:text-white">My post</span></div>
+                                <div class="flex-initial"><span class="text-faint font-semibold pl-3 tracking-wide group-hover:text-white">My posts</span></div>
                                 <div class="flex-1 flex justify-end text-faint font-semibold pl-3 group-hover:text-white"><span id="numberOfPost"></span></div>
                             </a>
                             <button class="flex px-2 py-1 rounded-lg w-11/12 group hover:bg-body-500 transition-colors duration-300">

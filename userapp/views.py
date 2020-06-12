@@ -45,7 +45,6 @@ def Home(request):
     # if a user is authenticated return the dashboard of that user else:
     # return the sites homepage
     if request.user.is_authenticated:
-        print(request.method)
         return HttpResponseRedirect(
             reverse('userapp:user-profile', kwargs={'slug': request.user.slug})
         )

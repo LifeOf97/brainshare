@@ -35,7 +35,7 @@ $( document ).ready(function() {
     // settings for topnav
     // show topnav when scroll up and hide when scroll down
     var preScrollPos = $(window).scrollTop();
-    if (window.location.pathname.includes("dashboard")) {
+    if (window.location.pathname.includes("dashboard") || window.location.pathname.includes("author")) {
         null;
     }
     else {
@@ -205,6 +205,16 @@ $( document ).ready(function() {
             duration: 0.5,
         })
     })
+
+    // function to copy the link of the post
+    copyBtn.on("click", function() {
+        var linkToCopy = $(this).parents("div.postCard").find(".title").attr("href");
+        var keepCopy = $("<textarea>").attr("class", "copy opacity-0").text(window.location.host+linkToCopy);
+        $(this).parents("div.postCard").append(keepCopy);
+        keepCopy.select()
+        document.execCommand("copy");
+        $(this).parents("div.postCard").find("textarea.copy").remove();
+    })
     
     // post details settings
     // show images with modal effects when clicked upon
@@ -229,15 +239,6 @@ $( document ).ready(function() {
         topNav.removeClass("hidden");
     });
 
-    // function to copy the link of the post
-    copyBtn.on("click", function() {
-        var linkToCopy = $(this).parents("div.postCard").find(".title").attr("href");
-        var keepCopy = $("<textarea>").attr("class", "copy opacity-0").text(window.location.host+linkToCopy);
-        $(this).parents("div.postCard").append(keepCopy);
-        keepCopy.select()
-        document.execCommand("copy");
-        $(this).parents("div.postCard").find("textarea.copy").remove();
-    })
 
     // pagination function to change the page to the number entered into
     // the field, i also converted the max attribute value of the input

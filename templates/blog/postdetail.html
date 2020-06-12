@@ -8,11 +8,11 @@
 
     <div id="" class="w-11/12 md:w-2/4 mx-auto flex justify-between items-center">
         <div id="" class="flex items-center space-x-2">
-            <div>
+            <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}">
                 <img src="{% if postdetail.author.image %}{{postdetail.author.image.url}}{% endif %}" alt="" class="h-20 w-20 object-cover rounded-full bg-nav border-2 border-gray">
-            </div>
-            <div class="flex flex-col leading-6">
-                <div><span class="text-lg text-white font-medium">{{postdetail.author.profile.username}}</span></div>
+            </a>
+            <div class="flex flex-col leading-5">
+                <div><a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="text-2xl text-white font-medium">{{postdetail.author.profile.username}}</a></div>
                 {% if postdetail.author.social_set.all.count > 0 %}
                 <div class="flex space-x-2 items-start text-gray mt-2">
                     {% for account in postdetail.author.social_set.all %}
@@ -86,7 +86,7 @@
                 </div>
                 {% if postdetail.image_copyright %}
                 <div class="text-center">
-                    <a href="{{postdetail.image_copyright_link}}" class="inline-block text-xs text-gray font-hairline hover:text-blue-500">{{postdetail.image_copyright|safe}}</a>
+                    <a href="{{postdetail.image_copyright_link}}" class="inline-block text-xs text-ph font-hairline hover:text-blue-500">{{postdetail.image_copyright|safe}}</a>
                 </div>
                 {% endif %}
             </div>
@@ -123,11 +123,11 @@
                 {% if morecontent.image %}
                 <div class="w-4/5 mx-auto mt-8">
                     <div class="w-full h-65 md:h-67 shadow-lg rounded-lg overflow-hidden">
-                        <img src="{{morecontent.image.url}}" alt="" class="image w-full h-full object-cover cursor-pointer" title="Clik to expand">
+                        <img src="{{morecontent.image.url}}" alt="" class="image w-full h-full object-cover cursor-zoom-in" title="Clik to expand">
                     </div>
                     {% if morecontent.image_copyright %}
                     <div class="text-center">
-                        <a href="{{morecontent.image_copyright_link}}" target="_blank" class="inline-block text-xs text-gray font-hairline hover:text-blue-500">{{morecontent.image_copyright|safe}}</a>
+                        <a href="{{morecontent.image_copyright_link}}" target="_blank" class="inline-block text-xs text-ph font-hairline hover:text-blue-500">{{morecontent.image_copyright|safe}}</a>
                     </div>
                     {% endif %}
                 </div>
@@ -155,19 +155,19 @@
                     <div class="border-b-4 border-nav"></div>
                     <div class="flex flex-col space-y-3 mt-2">
                         <div class="flex space-x-3">
-                            <div class="w-24 h-24 md:w-32 md:h-32 overflow-hidden rounded-full border-4 border-body-100 flex flex-shrink-0 self-start">
+                            <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="w-24 h-24 md:w-32 md:h-32 overflow-hidden rounded-full border-4 border-body-100 flex flex-shrink-0 self-start">
                                 <img src="{% if postdetail.author.image %}{{postdetail.author.image.url}}{% endif %}" alt="" class="h-full w-full object-cover">
-                            </div>
+                            </a>
                             <div class="flex flex-col justify-center leading-6">
                                 <div><span class="text-body-100 font-black text-sm">AUTHOR</span></div>
-                                <div><span class="text-white text-4xl">{{postdetail.author}}</span></div>
+                                <div><a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="text-white text-4xl">{{postdetail.author}}</a></div>
                             </div>
                         </div>
                         <div class="leading-5 iflinks">
                             <span class="text-base text-faint">
                                 {{postdetail.author.profile.about_me|capfirst|truncatewords:50}}
                             </span>
-                            <a href="#">View more</a>
+                            <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}">View more</a>
                         </div>
                     </div>
                 </div>
@@ -211,7 +211,7 @@
                     <div class="flex flex-no-wrap space-x-2 mb-8">
                         <div class="flex-1 self-center border-b-4"></div>
                         <div class="flex-initial">
-                            <a href="#" class="text-lg text-blue-500 hover:text-blue-100 align-bottom">View all</a>
+                            <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="text-lg text-blue-500 hover:text-blue-100 align-bottom">View all</a>
                         </div>
                     </div>
                     {% endif %}
@@ -223,12 +223,12 @@
 </div>
 
 <!-- image modal effect -->
-<div id="modal" class="fixed top-0 left-0 w-full h-full bg-transparent hidden pt-4">
+<div id="modal" class="fixed top-0 left-0 w-full h-full bg-transparent hidden pt-2">
     <div class="w-11/12 md:w-1/2 mx-auto my-auto flex flex-col items-center justify-center">
-        <div class="w-40 text-center rounded-lg shadow-lg mb-3">
-            <button id="closeModal" class="w-full text-lg text-white p-2 bg-red-500 hover:bg-red-100 rounded-lg">Close</button>
+        <div class="w-40 text-center rounded-lg shadow-lg mb-2">
+            <button id="closeModal" class="w-full text-lg text-white p-1 bg-red-500 hover:bg-red-100 rounded-lg cursor-zoom-out">Close</button>
         </div>
-        <div class="w-full mb-3 md:w-67" style="max-height: 90%;">
+        <div class="w-full md:w-67 mb-3" style="max-height: 90%;">
             <img src="" id="imageModal" alt="" class="w-full h-full object-cover rounded-lg shadow-white-lg">
         </div>
     </div>

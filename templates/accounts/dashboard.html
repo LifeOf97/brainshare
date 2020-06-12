@@ -3,7 +3,6 @@
 
 {% block footer %}{% endblock footer %}
 {% block topnavzindex %}z-20{% endblock topnavzindex %}
-{% block accountzindex %}z-20{% endblock accountzindex %}
 
 
 {% block section %}
@@ -196,7 +195,7 @@
                     </div>
 
                     {% for post in profile.author.post_set.all %}
-                    <div class="mypost w-full md:w-65 h-65 bg-body-500 shadow-lg group mr-8 mb-5 rounded-lg overflow-hidden">
+                    <div class="mypost w-full md:w-65 h-65 bg-body-300 shadow-lg group mr-8 mb-5 rounded-lg overflow-hidden">
                         <div class="h-40 overflow-hidden"><img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="" class="w-full h-full object-cover"></div>
                         <div class="h-40 p-2 flex flex-col justify-between">
                             <div class="h-16"><a href="{% url 'blogapp:post-detail' post.slug %}" class="text-ph text-lg group-hover:underline hover:text-blue-100">{{post.title|safe|capfirst|truncatechars:56}}</a></div>

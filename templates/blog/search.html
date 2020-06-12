@@ -1,0 +1,58 @@
+{% extends '../basement.html' %}
+{% block title %}BrainShare{% endblock title %}
+
+
+{% block section %}
+<div class="w-full h-full mt-24 mb-8 bg-body-500">
+    <div class="w-full text-center">
+        <div><h1 class="text-4xl text-gray font-black mb-4">Search results for</h1></div>
+        <div class="">
+            <form action="{% url 'blogapp:post-search' %}" method="get" class="w-66 mx-auto">
+                <div class="flex border-b-2 border-ph bg-body-100 py-1 rounded-sm overflow-hidden">
+                    <input type="search" name="q" id="q" value="{{request.GET.q}}" class="text-white text-lg bg-body-100 outline-none p-2">
+                    <button type="submit" class="w-24 text-white px-4 py-2 bg-body-500 hover:bg-body-300 rounded-sm shadow-white">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="w-11/12 mx-auto border-t border-body-100 pt-4 mt-12">
+    {% if posts|length == 0 %}
+        <div class="">
+            <span class="text-white text-6xl font-black">Sorry no results</span>
+        </div>
+    {% else %}
+        {% for post in posts %}
+        <div id="" class="postCard relative w-full h-66 md:w-67 bg-body-300 rounded-lg mb-3 shadow-xl group overflow-hidden">
+            <div class="w-full h-56">
+                <img src="{% if post.banner %}{{post.banner.url}}{% endif %}" alt="Post Banner" class="w-full h-full object-cover">
+            </div>
+            <div class="absolute top-0 left-0 bg-body-300 w-full h-full px-3 py-1 mt-56 group-hover:mt-40 transition-all duration-150">
+                <div><span class="text-sm font-black text-gray">{{post.concern|capfirst}}</span></div>
+                <div class="flex leading-5 h-20 mt-2 group-hover:h-auto">
+                    <a href="{% url 'blogapp:post-detail' post.slug %}" class="title text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
+                </div>
+                <div class="mt-2 textContent">
+                    <p class="text-sm text-faint leading-4">{{post.text_content|safe|capfirst|default_if_none:""|truncatechars:200}}</p>
+                </div>
+            </div>
+            <!-- button to copy the post link to clipboard -->
+            <div class="absolute bottom-0 left-0 p-3 w-full bg-body-300 flex justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="rounded-full overflow-hidden"><img src="{% if post.author.image %}{{post.author.image.url}}{% endif %}" alt="" class="rounded-full object-cover h-12 w-12 bg-faint"></div>
+                    <div class="flex flex-col -space-y-1">
+                        <span class="text-white text-lg font-semibold">{{post.author.profile.username}}</span>
+                        <span class="text-gray text-sm">{{post.date_to_publish|date:"b d, Y"}}</span>
+                    </div>
+                </div>
+                <div id="" class="self-end copyBtn opacity-0 group-hover:opacity-100 transition-all duration-150">
+                    <button class="bg-body-500 text-white px-2 py-1 text-sm font-semibold hover:bg-white hover:text-nav">Copy Link</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+
+</div>
+{% endblock section %}

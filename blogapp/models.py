@@ -96,6 +96,10 @@ class Post(models.Model):
     """
     A post model used to create post by an author
     """
+    class Meta:
+        ordering = ['date_to_publish']
+    
+
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
     )
