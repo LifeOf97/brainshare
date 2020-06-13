@@ -65,7 +65,7 @@
     {% if postdetail.tags %}
     <div id="tags" class="w-11/12 md:w-2/4 mx-auto mt-2 flex flex-wrap space-x-1">
         {% for tag in postdetail.tags|listify %}
-        <span class="bg-nav text-ph text-sm p-1 md:p-2 rounded-md shadow-lg hover:opacity-75 cursor-pointer">{{tag|safe|capfirst}}</span>
+        <a href="{% url 'blogapp:post-tag' tag %}" class="bg-nav text-ph text-sm p-1 md:p-2 rounded-md shadow-lg hover:bg-body-100 transition-colors duration-100 cursor-pointer">{{tag|safe|capfirst}}</a>
         {% endfor %}
     </div>
     {% endif %}

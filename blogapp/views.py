@@ -41,13 +41,14 @@ class PostListView(ListView):
         )
 
 
-class ConcernPostList(ListView):
+class PostConcernView(ListView):
     model = Post
     template_name = 'blog/postlist.html'
     context_object_name = 'postlist'
 
     # here i added the concern phrase of all posts that is published.
     # Also make sure to add the distinct query so as to return unique values
+    # as for mysql.
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['concerns'] = POST_DATA.filter(
@@ -63,6 +64,24 @@ class ConcernPostList(ListView):
         )
 
 
+class PostTagView(ListView):
+    # classView to return posts with similar tags
+    model = Post
+    template_name = 'blog/filter.html'
+    context_object_name = 'posts'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['tag'] = self.kwargs['tag']
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        return POST_DATA.filter(
+            tags__icontains=self.kwargs['tag'],
+            date_to_publish__lte=timezone.now()
+        )
+
+
 def PostSearchView(request):
     # function to query the database and return search results
     query = request.GET.get("q")
@@ -70,7 +89,7 @@ def PostSearchView(request):
         Q(concern__icontains=query) | Q(tags__icontains=query) |
         Q(title__icontains=query)
     )
-    return render(request, 'blog/search.html', {'posts': posts})
+    return render(request, 'blog/filter.html', {'posts': posts})
 
 
 class PostDetailView(DetailView):
