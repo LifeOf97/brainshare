@@ -82,7 +82,7 @@
             {% if postdetail.image %}
             <div id="postImage" class="w-4/5 mx-auto mt-8">
                 <div class="w-full h-65 md:h-69 shadow-lg rounded-lg overflow-hidden">
-                    <img src="{{postdetail.image.url}}" alt="" class="image w-full h-full object-cover cursor-pointer" title="Clik to expand">
+                    <img src="{{postdetail.image.url}}" alt="" class="image w-full h-full object-cover cursor-pointer" data-tippy-content="Click to view best possible size">
                 </div>
                 {% if postdetail.image_copyright %}
                 <div class="text-center">
@@ -123,7 +123,7 @@
                 {% if morecontent.image %}
                 <div class="w-4/5 mx-auto mt-8">
                     <div class="w-full h-65 md:h-67 shadow-lg rounded-lg overflow-hidden">
-                        <img src="{{morecontent.image.url}}" alt="" class="image w-full h-full object-cover cursor-zoom-in" title="Clik to expand">
+                        <img src="{{morecontent.image.url}}" alt="" class="image w-full h-full object-cover cursor-zoom-in" data-tippy-content="Click to view best possible size">
                     </div>
                     {% if morecontent.image_copyright %}
                     <div class="text-center">
@@ -152,22 +152,22 @@
             <!-- intro about the author of this post -->
             {% block authorbreif %}
                 <div class="w-11/12 mx-auto mt-12">
-                    <div class="border-b-4 border-nav"></div>
-                    <div class="flex flex-col space-y-3 mt-2">
+                    <div class="flex flex-col space-y-3 mt-2 border-t border-body-100 py-2">
                         <div class="flex space-x-3">
-                            <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="w-24 h-24 md:w-32 md:h-32 overflow-hidden rounded-full border-4 border-body-100 flex flex-shrink-0 self-start">
+                            <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="w-20 h-20 overflow-hidden rounded-full border-4 border-body-100 flex flex-shrink-0 self-start">
                                 <img src="{% if postdetail.author.image %}{{postdetail.author.image.url}}{% endif %}" alt="" class="h-full w-full object-cover">
                             </a>
-                            <div class="flex flex-col justify-center leading-6">
-                                <div><span class="text-body-100 font-black text-sm">AUTHOR</span></div>
-                                <div><a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="text-white text-4xl">{{postdetail.author}}</a></div>
+                            <div class="flex flex-col justify-center leading-5">
+                                <div><span class="text-body-100 font-black text-xs">AUTHOR</span></div>
+                                <div><a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="text-white text-2xl">{{postdetail.author}}</a></div>
                             </div>
                         </div>
                         <div class="leading-5 iflinks">
                             <span class="text-base text-faint">
                                 {{postdetail.author.profile.about_me|capfirst|truncatewords:50}}
                             </span>
-                            <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}">View more</a>
+                            <!-- <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}">View more</a> -->
+                            <a href="{% url 'blogapp:play' %}">Go Play</a>
                         </div>
                     </div>
                 </div>

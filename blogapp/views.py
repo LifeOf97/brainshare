@@ -1,5 +1,7 @@
+from django.views.generic.detail import BaseDetailView, SingleObjectTemplateResponseMixin
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseForbidden
+from userapp.mixins import JsonResponseMixin
 from django.shortcuts import render
 from django.utils import timezone
 from .models import Author, Post
@@ -116,7 +118,7 @@ class PostDetailView(DetailView):
         return context
 
 
-class AuthorDetailView(DetailView):
+class AuthorDetailView(JsonResponseMixin, SingleObjectTemplateResponseMixin, BaseDetailView):
     model = Author
     template_name = 'blog/author.html'
     context_object_name = 'authordetail'
@@ -128,3 +130,10 @@ class AuthorDetailView(DetailView):
             date_to_publish__lte=timezone.now()
         )
         return context
+
+    def render_to_response(self, context, **response_kwargs):
+        # if the request was ajax, return a json data else return standartd html
+        if self.request.GET.get('format') == 'json':
+            return self.render_to_json_response(context, **response_kwargs)
+        else:
+            return super().render_to_response(context)

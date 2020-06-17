@@ -38,29 +38,29 @@ class JsonResponseMixin:
         # get the users primary key field and filter for that pk
         # in the USER model queryset in order to make the values
         # method available so fields will be in dictionary format for
-        pk = context['object'].pk
-        context = USER.filter(pk=pk).values(
-            'first_name', 'last_name', 'other_name', 'email', 'username',
+        slug = context['object'].slug
+        context = USER.filter(slug=slug).values(
+            'first_name', 'last_name', 'other_name', 'email', 'username', 'about_me',
             'dob', 'website', 'country', 'state', 'postal', 'gender', 'date_joined'
         ).first()
-
+        
         # add the number of post for each user to the dictionary
-        context['number_of_post'] = POST.filter(author__profile__pk=pk).count()
+        context['number_of_post'] = POST.filter(author__profile__slug=slug).count()
 
-        # add neccessary data from other models belonging to the user such
-        more_details_author = AUTHOR.filter(profile__pk=pk).values('banner', 'image').first()
+        # add neccessary data from other models belonging to the user
+        more_details_author = AUTHOR.filter(profile__slug=slug).values('banner', 'image').first()
         update_context = context.update(more_details_author)
 
         # social media accounts: i created a dictionary with the key 'social' containing
         # a list of all the social accounts that will later be appended to it belonging to the
         # requesting user
-        more_details_social = SOCIAL.filter(author__profile__pk=pk).values('platform', 'handle', 'link')
+        more_details_social = SOCIAL.filter(author__profile__slug=slug).values('platform', 'handle', 'link')
         social = {'social': []}
         for data in list(range(more_details_social.count())):
             social['social'].append(more_details_social[data])
         context.update(social)
 
-        # convert the countries code to return the full country name
+        # convert the country code to return the full country name
         # convert the dates to return a strftime format
         if context['dob'] is not None:
             dob_data = str(context['dob']).rsplit("-")

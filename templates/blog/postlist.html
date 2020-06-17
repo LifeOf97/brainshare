@@ -13,7 +13,7 @@
         {% endfor %}
     </div>
 
-    <div class="flex flex-wrap justify-between mt-10">
+    <div class="flex flex-wrap justify-evenly mt-10">
         {% for post in postlist %}
         <div id="" class="postCard relative w-full h-66 md:w-67 bg-body-300 rounded-lg mb-3 shadow-lg group overflow-hidden">
             <div class="w-full h-56">
@@ -32,13 +32,53 @@
             <div class="absolute bottom-0 left-0 p-3 w-full bg-body-300 flex justify-between">
                 <div class="flex items-center space-x-3">
                     <div class="rounded-full overflow-hidden"><img src="{% if post.author.image %}{{post.author.image.url}}{% endif %}" alt="" class="rounded-full object-cover h-12 w-12 bg-faint"></div>
-                    <div class="flex flex-col -space-y-1">
-                        <span class="text-white text-lg font-semibold">{{post.author.profile.username}}</span>
-                        <span class="text-gray text-sm">{{post.date_to_publish|date:"b d, Y"}}</span>
+                    <div class="flex flex-col -space-y-2">
+                        <div id="authorTooltipBtn"><a href="{% url 'blogapp:author-detail' post.author.slug %}" class="authorTooltipBtn -space-y-2 text-white text-lg font-semibold">{{post.author.profile.username}}</a></div>
+                        <div><span class="text-gray text-sm">{{post.date_to_publish|date:"b d, Y"}}</span></div>
                     </div>
                 </div>
                 <div id="" class="self-end copyBtn opacity-0 group-hover:opacity-100 transition-all duration-150">
                     <button class="bg-body-500 text-white px-2 py-1 text-sm font-semibold hover:bg-white hover:text-nav">Copy Link</button>
+                </div>
+
+                <!-- hover author detial -->
+                <div id="authorTooltip" class="hidden authorTooltip">
+                    <div class="w-48 h-48 flex flex-col justify-between bg-nav rounded-lg overflow-hidden p-1">
+                        <div class="flex items-center">
+                            <div class="h-16 w-16  overflow-hidden mr-2">
+                                <img src="{% if post.author.image %}{{post.author.image.url}}{% endif %}" id="tooltipImage" class="tooltipImage rounded-full w-full h-full object-cover border-4 border-body-100">
+                            </div>
+                            <div class="flex flex-col justify-center items-center leading-4">
+                                <div><span class="text-xs text-body-100 font-black">AUTHOR</span></div>
+                                <div><a href="{% url 'blogapp:author-detail' post.author.slug %}" id="tooltipUsername" class="tooltipUsername text-xl text-white"></a></div>
+                            </div>
+                        </div>
+                        <div class="leading-3 h-20 text-left border-t border-body-100">
+                            <span id="tooltipBio" class="tooltipBio text-sm text-ph"></span>
+                        </div>
+                        <div class="w-full flex text-body-100 border-t border-body-100">
+                        {% for account in post.author.social_set.all %}
+                            {% if account.platform|lower == 'facebook' %}
+                            <div><a href="{{account.link}}"><i class="p-2 fab fa-facebook-f fa-lg hover:text-blue-500"></i></a></div>
+                            {% endif %}
+                            {% if account.platform|lower == 'twitter' %}
+                            <div><a href="{{account.link}}"><i class="p-2 fab fa-twitter fa-lg hover:text-blue-500"></i></a></div>
+                            {% endif %}
+                            {% if account.platform|lower == 'github' %}
+                            <div><a href="{{account.link}}"><i class="p-2 fab fa-github fa-lg hover:text-blue-500"></i></a></div>
+                            {% endif %}
+                            {% if account.platform|lower == 'linkedin' %}
+                            <div><a href="{{account.link}}"><i class="p-2 fab fa-linkedin-in fa-lg hover:text-blue-500"></i></a></div>
+                            {% endif %}
+                            {% if account.platform|lower == 'telegram' %}
+                            <div><a href="{{account.link}}"><i class="p-2 fab fa-telegram-plane fa-lg hover:text-blue-500"></i></a></div>
+                            {% endif %}
+                            {% if account.platform|lower == 'youtube' %}
+                            <div class=""><a href="{{account.link}}"><i class="p-2 fab fa-youtube fa-lg hover:text-blue-500"></i></a></div>
+                            {% endif %}
+                        {%  endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

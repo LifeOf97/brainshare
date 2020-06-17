@@ -1,4 +1,3 @@
-
 // make sure all resources are downloaded before running the javascript file 
 $( document ).ready(function() {
     console.log("#@#@#@#@#@#All is well, Thank God@#@#@#@#@#@");
@@ -30,6 +29,11 @@ $( document ).ready(function() {
     signOutBox.hide();
 
     // third party plugins
+
+    //global variable
+    const localStorage = {
+        'data': {}
+    };
 
     
     // settings for topnav
@@ -330,14 +334,116 @@ $( document ).ready(function() {
         })
     })
 
+    // TOOLTIPS AND POPOVER MENU FUNCTIONS/SETTINGS
+    //tippyjs to show tooltip on images
+    tippy('.image', {
+        content: "View image",
+        followCursor: true,
+        moveTransition: 'transform 0.2s ease-out',
+    })
+
+    //set the global url variable to be used by the tippyjs to render a tooltip
+    // for each post author
+    $(".authorTooltipBtn").on("mouseenter", function() {
+        url = $(this).attr("href");
+    })
+    // the tooltip div
+    // let authorTooltip = document.getElementById("authorTooltip");
+    let authorTooltip = $(".authorTooltip");
+    // tippyjs settings, at first display a loading screen then make the ajax call
+    // with the tippyjs onShown prop and then display the returned data, when the tooltip
+    // is closed revert back to the loading screen.
+    tippy("#authorTooltipBtn", {
+        content: 'Loading...',
+        trigger: 'mouseenter',
+        allowHTML: true,
+        interactive: true,
+        animation: 'scale',
+        placement: 'top',
+        theme: 'nav',
+        delay: [200, 500],
+        duration: [500, null],
+        popperOptions: {
+            modifiers: [
+                {
+                    name: 'flip',
+                    options: {
+                        fallbackPlacements: ['bottom', 'right'],
+                    },
+                },
+                {
+                    name: 'preventOverflow',
+                    options: {
+                        mainAxis: true,
+                        altAxis: true,
+                    }
+                }
+            ],
+        },
+        onShown(instance) {
+            // tippyjs prop to change the tooltip when the ajax call is successfull
+            let tooltipImage = $(".tooltipImage");
+            let tooltipUsername = $(".tooltipUsername");
+            let tooltipBio = $(".tooltipBio");
+
+            if (!localStorage.data[url]) {
+                ajaxRequest('GET', url, 'json', {'format': 'json'}, true);
+            }
+            else {
+                tooltipImage.attr('src', "/media/"+localStorage.data[url].image);
+                tooltipUsername.text(truncateString(localStorage.data[url].username, 10));
+                tooltipBio.text(truncateString(localStorage.data[url].about_me, 129));
+                instance.setContent(authorTooltip.html());
+            }
+            
+            function ajaxRequest(method, url, dataType, data, cache) {
+                $.ajax({
+                    method: method,
+                    url: url,
+                    data: data,
+                    dataType: dataType,
+                    cache: cache,
+                })
+                .done(function(response) {
+                    console.log("Success response retrieved.");
+                    // if the ajax request was successful and returns an appropriate
+                    // response, add that url and its response to the localStorage
+                    localStorage.data[url] = response;
+                    tooltipImage.attr('src', "/media/"+localStorage.data[url].image);
+                    tooltipUsername.text(truncateString(localStorage.data[url].username, 10));
+                    tooltipBio.text(truncateString(localStorage.data[url].about_me, 129));
+                    instance.setContent(authorTooltip.html());
+                })
+                .fail(function(xhr, status, err) {
+                    if (window.navigator.onLine) {
+                        instance.setContent("An error occured");
+                    }else {
+                        instance.setContent("You are offline!");
+                    }
+                    console.log("An error occured");
+                    // if the ajax reqeust fails, return an error message and add the url
+                    // and undefined to the localStorage
+                    localStorage.data[url] = undefined;
+                    console.log("Status " + status);
+                    console.log("Error " + err);
+                    console.dir(xhr);
+                });
+            }
+
+        },
+        onHidden(instance) {
+            // tippyjs prop to revert the tooltip back to the loading screen
+            // when the tooltip is back to hidden
+            instance.setContent("Loading...");
+        }
+    })
+    //END OF TOOLTIP POPOVER MENU FUNCTIONS/SETTINGS
+
     
     // function to get users details and insert it into the dom,
     // first check if the data has been saved in the localStorage
     // if yes, use the saved data to fill the dom. else make a new ajax
     // request and save to the localstorage then fill the dom.
-    const localStorage = {
-        'data': {}
-    };
 
     $(".profileUser").on("click", function() {
         var url = $(this).attr("data-url");
@@ -346,12 +452,12 @@ $( document ).ready(function() {
             insertData(localStorage.data[url]);
         }
         else {
-            ajaxRequest('GET', url, 'json', {'format': 'json'}, true);
+            ajaxRequest2('GET', url, 'json', {'format': 'json'}, true);
         }
     });
 
-    // ajax request
-    function ajaxRequest(method, url, dataType, data, cache) {
+    // // ajax request
+    function ajaxRequest2(method, url, dataType, data, cache, img) {
         $.ajax({
             method: method,
             url: url,
@@ -380,15 +486,6 @@ $( document ).ready(function() {
     // function to insert users data to the dom
     function insertData(userData) {
         $("#numberOfPost").text(userData.number_of_post);
-        $(".profileImg").attr("src", "/media/"+userData.image);
-        $(".profileBanner").attr("src", "/media/"+userData.banner);
-        $(".profileFullName").text(userData.first_name + " " + userData.last_name + " " + userData.other_name);
-        $(".profileAlias").text(userData.username);
-        $(".profileEmail").text(userData.email);
-        $(".profileGender").text(userData.gender);
-        $(".profileLocale").text(userData.state + ", " + userData.country);
-        $(".profileJoined").text(userData.date_joined);
-        $(".profileDob").text(userData.dob);
     }
 
     // User defined reusable functions
@@ -419,4 +516,18 @@ $( document ).ready(function() {
             replaceClass(userMenu, "", "hidden");
         });
     }
+
+    // function to truncate strings
+    function truncateString(data, num) {
+        if (data !== "") {
+            if (data.length <= num) {
+                return data;
+            }
+            else {
+                return data.slice(0, num) + '...';
+            }
+        };
+        return "";
+    }
+    
 });

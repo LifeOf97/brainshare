@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.css' %}">
     <link rel="stylesheet" href="{% static 'blogapp/styles/icofont/icofont.css' %}">
     <link rel="stylesheet" href="{% static 'blogapp/styles/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/tippy.css' %}">
+    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/backdrop.css' %}">
+    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/animations/scale.css' %}">
+    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/themes/light.css' %}">
+    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/themes/translucent.css' %}">
+    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/animations/shift-toward.css' %}">
+    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/animations/shift-toward-extreme.css' %}">
     {% block head %}{% endblock head %}
     <style>
         .width300 {
@@ -18,6 +25,22 @@
         }
         .width100 {
             width: 100%;
+        }
+        /* tippy.js styling */
+        .tippy-box[data-theme~='nav'] {
+            background: #0D0D0E;
+        }
+        .tippy-box[data-theme~='nav'][data-placement^='top'] > .tippy-arrow::before {
+        border-top-color: #0D0D0E;
+        }
+        .tippy-box[data-theme~='nav'][data-placement^='bottom'] > .tippy-arrow::before {
+        border-bottom-color: #0D0D0E;
+        }
+        .tippy-box[data-theme~='nav'][data-placement^='left'] > .tippy-arrow::before {
+        border-left-color: #0D0D0E;
+        }
+        .tippy-box[data-theme~='nav'][data-placement^='right'] > .tippy-arrow::before {
+        border-right-color: #0D0D0E;
         }
     </style>
 </head>
@@ -95,23 +118,25 @@
                     <button id="openSearchBtn" class="text-3xl text-button transition-colors duration-300 cursor-pointer hover:text-white">
                         <i class="fas fa-search"></i>
                     </button>
-                    <form action="{% url 'blogapp:post-search' %}" method="GET" id="searchBox" class="absolute top-16 -right-3 z-10 flex flex-col items-center w-64 bg-nav p-4 rounded-lg shadow-white-lg hidden">
-                        <div class="flex"><input type="text" name="q" id="q" required class="outline-none w-full h-20 px-2 rounded-lg placeholder-gray focus:shadow-outline hover:shadow-outline" placeholder="Search for..."></div>
-                        <div class="w-full pt-2 flex text-white text-lg font-semibold space-x-3">
-                            <div class="flex-1 rounded-lg overflow-hidden">
-                                <button type="button" id="closeSearchBtn" class="w-full px-4 py-1 bg-red-500 hover:bg-red-100">Cancle</button>
-                            </div>
-                            <div class="relative flex-1 rounded-lg overflow-hidden">
-                                <button type="submit" class="btnSubmit px-4 py-1 w-full bg-blue-500 text-white hover:bg-blue-100">Search</button>
-                                <div id="loadContainer" class="flex space-x-2 absolute top-0 bg-blue-500 h-full w-full flex justify-center items-center hidden">
-                                    <div class="loadicon w-2 h-2 rounded-full bg-white"></div> <div class="loadicon w-2 h-2 rounded-full bg-white"></div> <div class="loadicon w-2 h-2 rounded-full bg-white"></div>
+                    <div>
+                        <form action="{% url 'blogapp:post-search' %}" method="GET" id="searchBox" class="absolute top-16 -right-3 z-10 flex flex-col items-center w-64 bg-nav p-4 rounded-lg shadow-white-lg hidden">
+                            <div class="flex"><input type="text" name="q" id="q" required class="outline-none w-full h-20 px-2 rounded-lg placeholder-gray focus:shadow-outline hover:shadow-outline" placeholder="Search for..."></div>
+                            <div class="w-full pt-2 flex text-white text-lg font-semibold space-x-3">
+                                <div class="flex-1 rounded-lg overflow-hidden">
+                                    <button type="button" id="closeSearchBtn" class="w-full px-4 py-1 bg-red-500 hover:bg-red-100">Cancle</button>
+                                </div>
+                                <div class="relative flex-1 rounded-lg overflow-hidden">
+                                    <button type="submit" class="btnSubmit px-4 py-1 w-full bg-blue-500 text-white hover:bg-blue-100">Search</button>
+                                    <div id="loadContainer" class="flex space-x-2 absolute top-0 bg-blue-500 h-full w-full flex justify-center items-center hidden">
+                                        <div class="loadicon w-2 h-2 rounded-full bg-white"></div> <div class="loadicon w-2 h-2 rounded-full bg-white"></div> <div class="loadicon w-2 h-2 rounded-full bg-white"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="leading-none pt-4">
-                            <span class="text-button text-sm text-justify">As of this moment you can only search for posts.</span>
-                        </div>
-                    </form>
+                            <div class="leading-none pt-4">
+                                <span class="text-button text-sm text-justify">As of this moment you can only search for posts.</span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
             {% endblock search %}
@@ -247,6 +272,10 @@
 
     {% block javascript %}
     <div id="javascript">
+        <!-- <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+        <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script> -->
+        <script src="{% static 'blogapp/node_modules/@popperjs/core/dist/umd/popper.js' %}"></script>
+        <script src="{% static 'blogapp/node_modules/tippy.js/dist/tippy-bundle.umd.js' %}"></script>
         <script src="{% static 'blogapp/node_modules/gsap/dist/gsap.js' %}"></script>
         <script src="{% static 'blogapp/node_modules/gsap/dist/ScrollToPlugin.js' %}"></script>
         <script src="{% static 'blogapp/node_modules/jquery/dist/jquery.js' %}"></script>
