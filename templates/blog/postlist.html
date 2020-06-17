@@ -56,27 +56,17 @@
                         <div class="leading-3 h-20 text-left border-t border-body-100">
                             <span id="tooltipBio" class="tooltipBio text-sm text-ph"></span>
                         </div>
-                        <div class="w-full flex text-body-100 border-t border-body-100">
-                        {% for account in post.author.social_set.all %}
-                            {% if account.platform|lower == 'facebook' %}
-                            <div><a href="{{account.link}}"><i class="p-2 fab fa-facebook-f fa-lg hover:text-blue-500"></i></a></div>
-                            {% endif %}
-                            {% if account.platform|lower == 'twitter' %}
-                            <div><a href="{{account.link}}"><i class="p-2 fab fa-twitter fa-lg hover:text-blue-500"></i></a></div>
-                            {% endif %}
-                            {% if account.platform|lower == 'github' %}
-                            <div><a href="{{account.link}}"><i class="p-2 fab fa-github fa-lg hover:text-blue-500"></i></a></div>
-                            {% endif %}
-                            {% if account.platform|lower == 'linkedin' %}
-                            <div><a href="{{account.link}}"><i class="p-2 fab fa-linkedin-in fa-lg hover:text-blue-500"></i></a></div>
-                            {% endif %}
-                            {% if account.platform|lower == 'telegram' %}
-                            <div><a href="{{account.link}}"><i class="p-2 fab fa-telegram-plane fa-lg hover:text-blue-500"></i></a></div>
-                            {% endif %}
-                            {% if account.platform|lower == 'youtube' %}
-                            <div class=""><a href="{{account.link}}"><i class="p-2 fab fa-youtube fa-lg hover:text-blue-500"></i></a></div>
-                            {% endif %}
-                        {%  endfor %}
+                        <div id="tooltipSocial" class="tooltipSocial w-full flex text-body-100 border-t border-body-100">
+                            <a id="discord" href="" class="hidden"><i class="p-2 fab fa-discord fa-lg hover:text-blue-500"></i></a>
+                            <a id="facebook" href="" class="hidden"><i class="p-2 fab fa-facebook-f fa-lg hover:text-blue-500"></i></a>
+                            <a id="twitter" href="" class="hidden"><i class="p-2 fab fa-twitter fa-lg hover:text-blue-500"></i></a>
+                            <a id="github" href="" class="hidden"><i class="p-2 fab fa-github fa-lg hover:text-blue-500"></i></a>
+                            <a id="instagram" href="" class="hidden"><i class="p-2 fab fa-instagram fa-lg hover:text-blue-500"></i></a>
+                            <a id="linkedin" href="" class="hidden"><i class="p-2 fab fa-linkedin-in fa-lg hover:text-blue-500"></i></a>
+                            <a id="pinterest" href="" class="hidden"><i class="p-2 fab fa-pinterest-p fa-lg hover:text-blue-500"></i></a>
+                            <a id="slack" href="" class="hidden"><i class="p-2 fab fa-slack-hash fa-lg hover:text-blue-500"></i></a>
+                            <a id="telegram" href="" class="hidden"><i class="p-2 fab fa-telegram-plane fa-lg hover:text-blue-500"></i></a>
+                            <a id="youtube" href="" class="hidden"><i class="p-2 fab fa-youtube fa-lg hover:text-blue-500"></i></a>
                         </div>
                     </div>
                 </div>

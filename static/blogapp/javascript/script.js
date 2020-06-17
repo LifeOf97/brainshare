@@ -385,14 +385,31 @@ $( document ).ready(function() {
             let tooltipImage = $(".tooltipImage");
             let tooltipUsername = $(".tooltipUsername");
             let tooltipBio = $(".tooltipBio");
+            let tooltipSocial = $("#tooltipSocial a");
+
+            tooltipSocial.each(function() {
+                // reset all social links and hide them
+                $(this).attr("href", "").addClass("hidden");
+            })
+
+            function insertDetails(data) {
+                // function to insert retrieved ajax data to appropriate location
+                tooltipImage.attr('src', "/media/"+data.image);
+                tooltipUsername.text(truncateString(data.username, 10));
+                tooltipBio.text(truncateString(data.about_me, 129));
+                $.each(data.social.slice(0, 6), function(key, value) {
+                    id = value['platform'].toLowerCase();
+                    let social = document.getElementById(id)
+                    social.setAttribute("href", value['link'])
+                    social.classList.remove('hidden');
+                })
+            }
 
             if (!localStorage.data[url]) {
                 ajaxRequest('GET', url, 'json', {'format': 'json'}, true);
             }
             else {
-                tooltipImage.attr('src', "/media/"+localStorage.data[url].image);
-                tooltipUsername.text(truncateString(localStorage.data[url].username, 10));
-                tooltipBio.text(truncateString(localStorage.data[url].about_me, 129));
+                insertDetails(localStorage.data[url])
                 instance.setContent(authorTooltip.html());
             }
             
@@ -409,9 +426,7 @@ $( document ).ready(function() {
                     // if the ajax request was successful and returns an appropriate
                     // response, add that url and its response to the localStorage
                     localStorage.data[url] = response;
-                    tooltipImage.attr('src', "/media/"+localStorage.data[url].image);
-                    tooltipUsername.text(truncateString(localStorage.data[url].username, 10));
-                    tooltipBio.text(truncateString(localStorage.data[url].about_me, 129));
+                    insertDetails(localStorage.data[url]);
                     instance.setContent(authorTooltip.html());
                 })
                 .fail(function(xhr, status, err) {
