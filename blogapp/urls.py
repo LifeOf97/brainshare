@@ -11,7 +11,7 @@ app_name = 'blogapp'
 urlpatterns = [
     path('blog/', include([
         path('', PostListView.as_view(), name='post-list'),
-        path('search/', PostSearchView, name='post-search'),
+        path('search/', PostSearchView.as_view(), name='post-search'),
         path('tagged/<tag>', PostTagView.as_view(), name='post-tag'),
         path('concerning_only/<str:concern>', PostConcernView.as_view(), name='post-concern'),
         path('read/<slug:slug>', PostDetailView.as_view(), name='post-detail'),

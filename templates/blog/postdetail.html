@@ -1,6 +1,6 @@
 {% extends '../basement.html' %}
 {% load customfilters %}
-{% block title %} {{postdetail.title|truncatewords:2}} | {{postdetail.author}} {% endblock title %}
+{% block title %} {{postdetail.title|truncatechars:13}} | {{postdetail.author}} {% endblock title %}
 
 
 {% block section %}
@@ -82,7 +82,7 @@
             {% if postdetail.image %}
             <div id="postImage" class="w-4/5 mx-auto mt-8">
                 <div class="w-full h-65 md:h-69 shadow-lg rounded-lg overflow-hidden">
-                    <img src="{{postdetail.image.url}}" alt="" class="image w-full h-full object-cover cursor-pointer" data-tippy-content="Click to view best possible size">
+                    <img src="{{postdetail.image.url}}" alt="" class="image w-full h-full object-cover cursor-pointer">
                 </div>
                 {% if postdetail.image_copyright %}
                 <div class="text-center">
@@ -123,7 +123,7 @@
                 {% if morecontent.image %}
                 <div class="w-4/5 mx-auto mt-8">
                     <div class="w-full h-65 md:h-67 shadow-lg rounded-lg overflow-hidden">
-                        <img src="{{morecontent.image.url}}" alt="" class="image w-full h-full object-cover cursor-zoom-in" data-tippy-content="Click to view best possible size">
+                        <img src="{{morecontent.image.url}}" alt="" class="image w-full h-full object-cover cursor-zoom-in">
                     </div>
                     {% if morecontent.image_copyright %}
                     <div class="text-center">

@@ -84,14 +84,18 @@ class PostTagView(ListView):
         )
 
 
-def PostSearchView(request):
-    # function to query the database and return search results
-    query = request.GET.get("q")
-    posts = POST_DATA.filter(
-        Q(concern__icontains=query) | Q(tags__icontains=query) |
-        Q(title__icontains=query)
-    )
-    return render(request, 'blog/filter.html', {'posts': posts})
+class PostSearchView(ListView):
+    # classview to query the database and return search results
+    model = Post
+    template_name = 'blog/filter.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self, *args, **kwargs):
+        query = self.request.GET.get('q')
+        return POST_DATA.filter(
+            Q(concern__icontains=query) | Q(tags__icontains=query) |
+            Q(title__icontains=query)
+        )
 
 
 class PostDetailView(DetailView):

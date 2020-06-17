@@ -77,12 +77,12 @@
                     <div class="w-full md:w-3/5 space-y-6">
                         <!-- profile info -->
                         <div class="w-full md:w-3/5 space-y-6">
-                            <div class="flex space-x-12">
-                                <div class="flex flex-col leading-6">
+                            <div class="flex flex-wrap">
+                                <div class="flex flex-col leading-6 mr-10">
                                     <span class="text-xs md:text-sm text-button font-bold">FIRST NAME</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.first_name|default_if_none:""|capfirst}}</span>
                                 </div>
-                                <div class="flex flex-col leading-6">
+                                <div class="flex flex-col leading-6 mr-10">
                                     <span class="text-xs md:text-sm text-button font-bold">LAST NAME</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.last_name|default_if_none:""|capfirst}}</span>
                                 </div>
@@ -91,12 +91,12 @@
                                     <span class="text-faint text-xl md:text-2xl">{{profile.other_name|default_if_none:""|capfirst}}</span>
                                 </div>
                             </div>
-                            <div class="flex space-x-12">
-                                <div class="flex flex-col leading-6">
+                            <div class="flex flex-wrap">
+                                <div class="flex flex-col leading-6 mr-10">
                                     <span class="text-xs md:text-sm text-button font-bold">COUNTRY</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.country.name|default_if_none:""|capfirst}}</span>
                                 </div>
-                                <div class="flex flex-col leading-6">
+                                <div class="flex flex-col leading-6 mr-10">
                                     <span class="text-xs md:text-sm text-button font-bold">STATE</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.state|default_if_none:""|capfirst}}</span>
                                 </div>
@@ -105,8 +105,8 @@
                                     <span class="text-faint text-xl md:text-2xl">{{profile.postal|default_if_none:""|capfirst}}</span>
                                 </div>
                             </div>
-                            <div class="flex space-x-12">
-                                <div class="flex flex-col leading-6">
+                            <div class="flex flex-wrap">
+                                <div class="flex flex-col leading-6 mr-10">
                                     <span class="text-xs md:text-sm text-button font-bold">DATE OF BIRTH</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.dob|date:"M d, Y"|default_if_none:""|capfirst}}</span>
                                 </div>
@@ -129,8 +129,8 @@
                                     <span class="text-xs md:text-sm text-button font-bold">WEBSITE</span>
                                     <span class="text-faint text-xl md:text-2xl iflinks">{{profile.website|urlize|default_if_none:""}}</span>
                                 </div>
-                                <div class="flex space-x-12">
-                                    <div class="flex flex-col leading-6">
+                                <div class="flex flex-wrap">
+                                    <div class="flex flex-col leading-6 mr-10">
                                         <span class="text-xs md:text-sm text-button font-bold">PHONE 1</span>
                                         <span class="text-faint text-xl md:text-2xl">{{profile.phone_1|default_if_none:""|capfirst}}</span>
                                     </div>

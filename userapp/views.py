@@ -146,10 +146,16 @@ class JsonUserProfileView(LoginRequiredMixin, JsonResponseMixin, SingleObjectTem
 
     def get(self, request, **kwargs):
         # First make sure the user who made this request
-        # is the logged in user. You can make use of the
-        # UserPassesTestMixin, but i never tried it so..
+        # is the logged in user. Then update all post status
+        # based on date_to_publish.
         if request.user.slug != kwargs['slug']:
             return HttpResponseForbidden("Who the hell are you?")
+
+        for post in Post.objects.all():
+            if post.date_to_publish <= timezone.now():
+                post.status = "Published"
+        post.save()
+
         return super().get(request, **kwargs)
 
     def render_to_response(self, context, **response_kwargs):

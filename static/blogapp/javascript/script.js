@@ -337,11 +337,19 @@ $( document ).ready(function() {
     // TOOLTIPS AND POPOVER MENU FUNCTIONS/SETTINGS
     //tippyjs to show tooltip on images
     tippy('.image', {
-        content: "View image",
+        content: "View image in best possible size",
         followCursor: true,
+        touch: 'hold',
+        theme: 'nav',
+        hideOnClick: true,
         moveTransition: 'transform 0.2s ease-out',
-    })
+    });
 
+    tippy('[data-tippy-content]', {
+        trigger: 'mouseenter click',
+        theme: 'light',
+    });
+    
     //set the global url variable to be used by the tippyjs to render a tooltip
     // for each post author
     $(".authorTooltipBtn").on("mouseenter", function() {
