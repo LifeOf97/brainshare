@@ -1,10 +1,11 @@
+from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 from django.urls import path, include
 from .views import (
     Home, SignUpView, SignInView, SignOutView, SignOutConfirm,
     JsonUserProfileView, ChangeUsernameView, ChangeEmailView,
     ChangePassView, ChangeBioView, ChangeSiteView,
-    ChangeLocaleView, ChangeImageView, PasswordReset,
+    ChangeLocaleView, PasswordReset, ChangeAvatarView,
     PasswordResetDone, PasswordResetConfirm,
     PasswordResetComplete, SocialFormView,
 )
@@ -29,7 +30,7 @@ urlpatterns = [
     ])),
 
 
-    path('<slug:slug>/dashboard', JsonUserProfileView.as_view(), name='user-profile'),
+    path('<slug:slug>/dashboard', cache_page(60*30)(JsonUserProfileView.as_view()), name='user-profile'),
     # user edit urls, removed redundancy
     path('<slug:slug>/profile/settings/', include([
         path('username/', ChangeUsernameView.as_view(), name='edit-username'),
@@ -38,7 +39,7 @@ urlpatterns = [
         path('website/', ChangeSiteView.as_view(), name='edit-website'),
         path('bio/', ChangeBioView.as_view(), name='edit-bio'),
         path('locale/', ChangeLocaleView.as_view(), name='edit-locale'),
-        path('avatar/', ChangeImageView.as_view(), name='edit-avatar'),
+        path('avatar/', ChangeAvatarView.as_view(), name='edit-avatar'),
         path('socials/', SocialFormView, name='edit-social'),
     ])),
 

@@ -98,6 +98,12 @@ CACHES = {
     }
 }
 
+# MESSAGE SETTINGS
+# 'django.contrib.messages.storage.session.SessionStorage'
+# session storage keeps the message even after navigating other pages and back
+# so cookie storage is best
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -122,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'userapp.User'
 
 # URLS to redirect to on successful actions
-LOGIN_REDIRECT_URL = 'sign-in'
+LOGIN_REDIRECT_URL = 'blogapp:post-list'
 # LOGOUT_REDIRECT_URL = 'sign-in'
 
 # Internationalization

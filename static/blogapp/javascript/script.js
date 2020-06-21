@@ -334,10 +334,24 @@ $( document ).ready(function() {
         })
     })
 
+    // message popup settings for form update and sign-in
+    setTimeout(function() {
+        if ($("#msg").length > 0) {
+            gsap.to("#msgBox", {
+                y: -50, opacity: 0, duration: 0.5,
+                onComplete: function() { $("#msgBox").remove() }
+            })
+        }
+    }, 4000)
+
+    gsap.from("#msgBox", {
+        y: -50, opacity: 0, duration: 0.5
+    })
+
     // TOOLTIPS AND POPOVER MENU FUNCTIONS/SETTINGS
     //tippyjs to show tooltip on images
     tippy('.image', {
-        content: "View image in best possible size",
+        content: "Click to view image in best possible size",
         followCursor: true,
         touch: 'hold',
         theme: 'nav',
@@ -390,9 +404,9 @@ $( document ).ready(function() {
         },
         onShown(instance) {
             // tippyjs prop to change the tooltip when the ajax call is successfull
-            let tooltipImage = $(".tooltipImage");
-            let tooltipUsername = $(".tooltipUsername");
-            let tooltipBio = $(".tooltipBio");
+            let tooltipImage = $("#tooltipImage");
+            let tooltipUsername = $("#tooltipUsername");
+            let tooltipBio = $("#tooltipBio");
             let tooltipSocial = $("#tooltipSocial a");
 
             tooltipSocial.each(function() {
@@ -403,8 +417,8 @@ $( document ).ready(function() {
             function insertDetails(data) {
                 // function to insert retrieved ajax data to appropriate location
                 tooltipImage.attr('src', "/media/"+data.image);
-                tooltipUsername.text(truncateString(data.username, 10));
                 tooltipBio.text(truncateString(data.about_me, 129));
+                tooltipUsername.text(truncateString(data.username, 10)).attr("href", data.author_url);
                 $.each(data.social.slice(0, 6), function(key, value) {
                     id = value['platform'].toLowerCase();
                     let social = document.getElementById(id)

@@ -253,6 +253,19 @@
 
     </div>
 
+
+    {% block messages %}
+    <!-- popup messages -->
+        {% if messages %}
+        <div id="msgBox" class="fixed top-20 w-full text-center z-50">
+            {% for message in messages %}
+            <span id="msg" class="{{message.tags}} p-2 text-sm text-white bg-green-500 rounded-md shadow-white-lg">{{message}}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endblock messages %}
+
+
     <!-- this is the form div -->
     {% block forms %}
     <div id="formBox" class="fixed top-0 right-0 h-full w-full bg-transparent flex justify-center z-20 hidden">

@@ -283,15 +283,6 @@ class ChangeLocationForm(forms.ModelForm):
 
 
 ###########################################
-# form to change authors image and banner
-###########################################
-class ChangeImageForm(forms.ModelForm):
-    class Meta:
-        model = Author
-        fields = ('image', 'banner')
-
-
-###########################################
 # form to change users added website
 ###########################################
 class WebsiteForm(forms.Form):
@@ -377,6 +368,9 @@ class SocialForm(forms.ModelForm):
         fields = ['platform', 'handle', 'link']
 
 
+###########################################
+# form to change authors image and banner
+###########################################
 class AvatarForm(forms.ModelForm):
     class Meta:
         model = Author

@@ -1,10 +1,4 @@
 @tailwind base;
-
-/* custom default */
-input[type="checkbox"] {
-  @apply w-5 h-5;
-}
-
 @tailwind components;
 @tailwind utilities;
 

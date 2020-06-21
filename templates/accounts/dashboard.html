@@ -21,7 +21,7 @@
                 </div>
                 <div class="flex font-black text-nav">
                     <span class="text-xl md:text-2xl mr-2">{{profile.username}}</span>
-                    <span class="text-xs self-center text-gray">(AUTHOR <code class="text-nav">|</code> Joined - {{profile.date_joined|date:"M d, Y."}})</span>
+                    <span class="text-xs self-center text-gray">(AUTHOR <code class="text-nav">|</code> Joined - {{profile.date_joined|date:"M d, Y"}})</span>
                 </div>
                 {% if profile.author.social_set.all.count > 0 %}
                 <div class="flex space-x-2 items-start text-gray mt-3">
@@ -78,11 +78,11 @@
                         <!-- profile info -->
                         <div class="w-full md:w-3/5 space-y-6">
                             <div class="flex flex-wrap">
-                                <div class="flex flex-col leading-6 mr-10">
+                                <div class="flex flex-col leading-6 mr-10 mb-5">
                                     <span class="text-xs md:text-sm text-button font-bold">FIRST NAME</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.first_name|default_if_none:""|capfirst}}</span>
                                 </div>
-                                <div class="flex flex-col leading-6 mr-10">
+                                <div class="flex flex-col leading-6 mr-10 mb-5">
                                     <span class="text-xs md:text-sm text-button font-bold">LAST NAME</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.last_name|default_if_none:""|capfirst}}</span>
                                 </div>
@@ -92,11 +92,11 @@
                                 </div>
                             </div>
                             <div class="flex flex-wrap">
-                                <div class="flex flex-col leading-6 mr-10">
+                                <div class="flex flex-col leading-6 mr-10 mb-5">
                                     <span class="text-xs md:text-sm text-button font-bold">COUNTRY</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.country.name|default_if_none:""|capfirst}}</span>
                                 </div>
-                                <div class="flex flex-col leading-6 mr-10">
+                                <div class="flex flex-col leading-6 mr-10 mb-5">
                                     <span class="text-xs md:text-sm text-button font-bold">STATE</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.state|default_if_none:""|capfirst}}</span>
                                 </div>
@@ -106,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="flex flex-wrap">
-                                <div class="flex flex-col leading-6 mr-10">
+                                <div class="flex flex-col leading-6 mr-10 mb-5">
                                     <span class="text-xs md:text-sm text-button font-bold">DATE OF BIRTH</span>
                                     <span class="text-faint text-xl md:text-2xl">{{profile.dob|date:"M d, Y"|default_if_none:""|capfirst}}</span>
                                 </div>
@@ -127,10 +127,10 @@
                                 </div>
                                 <div class="flex flex-col leading-6">
                                     <span class="text-xs md:text-sm text-button font-bold">WEBSITE</span>
-                                    <span class="text-faint text-xl md:text-2xl iflinks">{{profile.website|urlize|default_if_none:""}}</span>
+                                    <span class="text-faint text-xl md:text-2xl iflinks">{{profile.website|default_if_none:""|urlize}}</span>
                                 </div>
                                 <div class="flex flex-wrap">
-                                    <div class="flex flex-col leading-6 mr-10">
+                                    <div class="flex flex-col leading-6 mr-10 mb-5">
                                         <span class="text-xs md:text-sm text-button font-bold">PHONE 1</span>
                                         <span class="text-faint text-xl md:text-2xl">{{profile.phone_1|default_if_none:""|capfirst}}</span>
                                     </div>
@@ -150,8 +150,8 @@
                                 <span class="text-2xl text-nav">Social</span>
                                 <span class="text-xs text-gray">ACTIVE</span>
                             </div>
-                            <div class="px-2">
-                                <span class="text-xs leading-3 text-gray">
+                            <div class="leading-3 mt-1">
+                                <span class="text-xs text-gray">
                                     Over here you can see the social media accounts you have provided to BrainShare.
                                     Head over to the settings tab to edit your social details.
                                 </span>

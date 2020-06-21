@@ -15,6 +15,7 @@ from django.contrib.auth.views import (
     PasswordResetView, PasswordResetDoneView,
     PasswordResetConfirmView, PasswordResetCompleteView,
 )
+from django.contrib import messages
 from django.contrib.auth import (
     get_user_model, authenticate,
     login,
@@ -22,9 +23,8 @@ from django.contrib.auth import (
 from .forms import (
     SignUpForm, SignInForm, ChangeUsernameForm,
     ChangeEmailForm, ChangeBioForm, ChangeLocationForm,
-    ChangeImageForm, ResetPassForm, SocialForm,
-    WebsiteForm, SetNewPassForm, ChangePasswordForm,
-    AvatarForm,
+    ResetPassForm, SocialForm, WebsiteForm, SetNewPassForm,
+    ChangePasswordForm, AvatarForm,
 )
 from django.shortcuts import render, redirect
 from .mixins import JsonResponseMixin
@@ -119,6 +119,7 @@ class SignInView(FormView):
             password = form.cleaned_data['password']
             # authenticate the user
             user = authenticate(request, email=email, password=password)
+            messages.success(request, F"{email} signed in successfully")
             if user:
                 # login the user if authentication passed
                 login(request, user)
@@ -210,6 +211,7 @@ class ChangeUsernameView(LoginRequiredMixin, FormView):
             author = Author.objects.get(profile=request.user)
             author.slug = slugify(new_username)
             author.save()
+            messages.success(request, "Username updated")
             return HttpResponseRedirect(
                 reverse('userapp:user-profile', kwargs={'slug': user.slug})
             )
@@ -249,6 +251,7 @@ class ChangeEmailView(LoginRequiredMixin, FormView):
             user.email = email
             user.save()
 
+            messages.success(request, "Email updated")
             return HttpResponseRedirect(
                 reverse('userapp:user-profile', kwargs={'slug': user.slug})
             )
@@ -283,6 +286,7 @@ class ChangeSiteView(LoginRequiredMixin, FormView):
             user.website = website
             user.save()
 
+            messages.success(request, "Website updated")
             return HttpResponseRedirect(
                 reverse(
                     'userapp:user-profile',
@@ -306,6 +310,10 @@ class ChangePassView(LoginRequiredMixin, PasswordChangeView):
             return HttpResponseForbidden("Who the hell are you")
         form = self.get_form()
         return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        messages.success(self.request, "Password changed successfully")
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse(
@@ -347,6 +355,8 @@ class ChangeBioView(LoginRequiredMixin, FormView):
         form = self.form_class(request.POST, instance=user)
         if form.is_valid():
             form.save()
+
+            messages.success(request, "Bio updated")
             return HttpResponseRedirect(
                 reverse(
                     'userapp:user-profile',
@@ -387,44 +397,12 @@ class ChangeLocaleView(LoginRequiredMixin, FormView):
         form = self.form_class(request.POST, instance=user)
         if form.is_valid():
             form.save()
+
+            messages.success(request, "Location updated")
             return HttpResponseRedirect(
                 reverse(
                     'userapp:user-profile',
                     kwargs={'slug': user.slug}
-                )
-            )
-
-
-class ChangeImageView(LoginRequiredMixin, FormView):
-    """
-    This view is to edit  profile picture and banner of
-    users who are authors. So it is mandatry to pass the
-    Author as an instance to the form on post request.
-    """
-    form_class = ChangeImageForm
-    template_name = 'accounts/settings.html'
-    login_url = 'userapp:sign-in'
-
-    def get(self, request, *args, **kwargs):
-        # First make sure the user who made this request
-        # is the logged in user.
-        if request.user.slug != kwargs['slug']:
-            return HttpResponseForbidden("Who the hell are you")
-
-        form = self.form_class()
-        return super().get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        # initialize the user
-        author = Author.objects.get(slug=kwargs['slug'])
-        form = self.form_class(request.POST, request.FILES, instance=author)
-
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(
-                reverse(
-                    'userapp:user-profile',
-                    kwargs={'slug': kwargs['slug']}
                 )
             )
 
@@ -447,7 +425,7 @@ class ChangeAvatarView(LoginRequiredMixin, FormView):
         form = self.form_class(request.POST or None, request.FILES or None)
         if form.is_valid():
             form.save()
-
+            
             return HttpResponseRedirect(
                 reverse("userapp:user-profile", kwargs={'slug': request.user.slug})
             )
@@ -536,6 +514,7 @@ def SocialFormView(request, slug):
             for to_delete in forms.deleted_objects:
                 to_delete.delete()
 
+            messages.success(request, "Updated social accounts")
             # redirect to the users profile page after all is done.
             return HttpResponseRedirect(
                 reverse('userapp:user-profile', kwargs={'slug': slug})

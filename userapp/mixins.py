@@ -1,7 +1,8 @@
 from blogapp.models import Author, Post, Social
 from django.contrib.auth import get_user_model
-from django.http import JsonResponse
 from django_countries import countries
+from django.http import JsonResponse
+from django.urls import reverse
 import datetime
 
 # user model instanciation
@@ -44,7 +45,10 @@ class JsonResponseMixin:
             'dob', 'website', 'country', 'state', 'postal', 'gender', 'date_joined'
         ).first()
         
-        # add the number of post for each user to the dictionary
+        
+        # add other neccessary info
+        context['author_url'] = reverse("blogapp:author-detail", kwargs={"slug": slug})
+        context['user_url'] = reverse("userapp:user-profile", kwargs={"slug": slug})
         context['number_of_post'] = POST.filter(author__profile__slug=slug).count()
 
         # add neccessary data from other models belonging to the user
@@ -59,7 +63,8 @@ class JsonResponseMixin:
         for data in list(range(more_details_social.count())):
             social['social'].append(more_details_social[data])
         context.update(social)
-
+        
+        
         # convert the country code to return the full country name
         # convert the dates to return a strftime format
         if context['dob'] is not None:
