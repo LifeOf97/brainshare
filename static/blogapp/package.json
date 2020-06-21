@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build:tailwind": "npx tailwindcss build styles/css/tailwind.css -o styles/css/styledwithtailwind.css",
-    "build:postcss": "postcss styles/tailwind.css -o styles/styledwithtailwind.css",
+    "build:tailwind:min": "npx tailwindcss build styles/css/tailwind.css -o styles/css/styledwithtailwind.min.css",
+    "build:postcss": "postcss styles/css/tailwind.css -o styles/css/styledwithtailwind.min.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kelvin Mayowa Ayeni",
@@ -17,12 +18,5 @@
     "scrollmagic": "^2.0.7",
     "tailwindcss": "^1.4.6",
     "tippy.js": "^6.2.3"
-  },
-  "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^2.2.0",
-    "autoprefixer": "^9.8.0",
-    "cssnano": "^4.1.10",
-    "postcss": "^7.0.31",
-    "postcss-cli": "^7.1.1"
   }
 }
