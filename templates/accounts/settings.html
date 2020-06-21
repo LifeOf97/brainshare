@@ -376,11 +376,13 @@
                                 </div>
                                 {% endif %}
                             </div>
-                            <div class="cursor-pointer">
-                                {{form.DELETE}}
+                            <div class="cursor-pointer flex">
+                                <span class="mr-1">{{form.DELETE}}</span>
                                 <span class="deleteSocialBtn text-red-500 text-sm font-black ml-2">Delete</span>
                             </div>
                             <div>
+                                <!-- this is required when you manually render the form fields. it renders
+                                the the author and form id in oder to save/edit/delete appropriately -->
                                 {{form.author}}
                                 {{form.id}}
                             </div>

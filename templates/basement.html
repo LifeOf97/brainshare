@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block  title %}Welcome to BrainShare{% endblock title %}</title>
-    <!-- <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.css' %}"> -->
     <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.min.css' %}">
-    <link rel="stylesheet" href="{% static 'blogapp/styles/fontawesome/css/all.css' %}">
-    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/tippy.css' %}">
-    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/backdrop.css' %}">
-    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/animations/scale.css' %}">
-    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/themes/light.css' %}">
-    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/themes/translucent.css' %}">
-    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/animations/shift-toward.css' %}">
-    <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/animations/shift-toward-extreme.css' %}">
+    <link  rel="stylesheet"  href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
+    <script src="https://kit.fontawesome.com/caac272d42.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/tippy.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/backdrop.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/animations/scale.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'blogapp/styles/fontawesome/css/all.css' %}"> -->
     {% block head %}{% endblock head %}
     <style>
         .width300 {
@@ -46,7 +44,7 @@
 </head>
 <body class="bg-body-500 w-full h-full">
 
-    <!-- 
+    <!--
         THE WORKS OF MY HAND AND MIND IS POWERED BY GOD ALMIGHTY.
         IF I DON'T DO IT, SOMEONE ELSE WILL.
         :)
@@ -57,7 +55,7 @@
         <!-- start of the top navigation -->
         {% block topnav %}
         <div id="topNav" class="{% block topnavpos %}fixed top-0{% endblock topnavpos %} {% block topnavzindex %} z-10 {% endblock topnavzindex %} w-full flex flex-row h-16 px-2 md:px-4 items-center md:justify-between bg-nav shadow-lg transition-all duration-500">
-            
+
             {% block logo %}
             <div class="flex-1 order-1 md:flex-initial"><a href="{% url 'userapp:home-page' %}" class="text-3xl text-white font-black">BrainShare</a></div>
             {% endblock logo %}
@@ -66,11 +64,11 @@
             <div class="relative flex-initial order-5 md:order-2 md:flex-1">
                 <!-- these button shows up on smaller screens and it is used to open/close the dropdown nav -->
                 <button id="mobileMenuBtn" class="outline-none bg-blue-500 text-white text-base text-center font-medium p-1 border-2 border-transparent rounded-lg md:hidden hover:border-white transition-colors duration-300">Menu</button>
-               
+
                 <div id="mobileMenu" class="absolute top-16 right-0 bg-nav z-10 w-64 shadow-white-lg rounded-lg overflow-hidden hidden md:top-0 md:block md:bg-transparent md:z-0 md:w-full md:shadow-none md:relative md:rounded-none">
 
                     <div class="flex flex-col p-3 md:flex-row md:justify-between md:items-center">
-    
+
                         {% block topnavlinks %}
                         <div id="topNavLinks" class="flex-1 flex flex-col pb-3 space-y-1 text-lg md:text-base md:pb-0 md:flex-row md:items-center md:justify-center md:space-y-0 md:space-x-3">
                             {% block homeordashboard %}
@@ -85,7 +83,7 @@
                             {% endblock linkblog %}
                         </div>
                         {% endblock topnavlinks %}
-                        
+
                         {% block accounts %}
                         <div class="flex-initial flex items-center justify-center border-t border-body-500 pt-3 md:pt-0 md:border-none">
                             <!-- if no account is signed in show this -->
@@ -100,9 +98,9 @@
                                 {% endblock signup %}
                             </div>
                             {% endif %}
-                            {% endblock sign %} 
+                            {% endblock sign %}
                         </div>
-                        {% endblock accounts %} 
+                        {% endblock accounts %}
                     </div>
                     <!-- button to close the dropdown on mobile screens these only shows on mobile screens or screens before the md: prefix -->
                     <div class="bg-body-500 w-full md:hidden">
@@ -140,7 +138,7 @@
                 </div>
             </div>
             {% endblock search %}
-            
+
             <!-- the users avarter as a button for more options and is only available if the user is logged in  -->
             {% block user %}
             {% if user.is_authenticated %}
@@ -183,7 +181,7 @@
                 </div>
             </div>
             {% endif %}
-            {% endblock user %} 
+            {% endblock user %}
 
         </div>
         {% endblock topnav %}
@@ -246,8 +244,8 @@
                     <div><span class="tracking-tighter">Aces & Coup, inc.</span></div>
                 </div>
                 {% endblock footercmp %}
-            </div>   
-            
+            </div>
+
         </div>
         {% endblock footer %}
 
@@ -281,17 +279,21 @@
         </div>
     </div>
     {% endblock forms %}
-    
+
 
     {% block javascript %}
     <div id="javascript">
-        <!-- <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
-        <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script> -->
-        <script src="{% static 'blogapp/node_modules/@popperjs/core/dist/umd/popper.js' %}"></script>
-        <script src="{% static 'blogapp/node_modules/tippy.js/dist/tippy-bundle.umd.js' %}"></script>
-        <script src="{% static 'blogapp/node_modules/gsap/dist/gsap.js' %}"></script>
-        <script src="{% static 'blogapp/node_modules/gsap/dist/ScrollToPlugin.js' %}"></script>
-        <script src="{% static 'blogapp/node_modules/jquery/dist/jquery.js' %}"></script>
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollToPlugin.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- <script src="{% static 'blogapp/node_modules/@popperjs/core/dist/umd/popper.js' %}"></script> -->
+        <!-- <script src="{% static 'blogapp/node_modules/tippy.js/dist/tippy-bundle.umd.js' %}"></script> -->
+        <!-- <script src="{% static 'blogapp/node_modules/gsap/dist/gsap.js' %}"></script> -->
+        <!-- <script src="{% static 'blogapp/node_modules/gsap/dist/ScrollToPlugin.js' %}"></script> -->
+        <!-- <script src="{% static 'blogapp/node_modules/jquery/dist/jquery.js' %}"></script> -->
         <script src="{% static 'blogapp/javascript/script.js' %}"></script>
         {% block addjs %}{% endblock addjs %}
     </div>

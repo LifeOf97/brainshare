@@ -1,6 +1,6 @@
 // make sure all resources are downloaded before running the javascript file 
 $( document ).ready(function() {
-    console.log("#@#@#@#@#@#All is well, Thank God@#@#@#@#@#@");
+    console.log("ALL IS WELL, THANK GOD.");
 
     const topNav = $("#topNav"), topNavLinks = $("#topNavLinks a");
     // variables for search form
