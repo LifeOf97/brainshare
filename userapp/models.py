@@ -34,7 +34,7 @@ class User(AbstractUser):
     )
     about_me = models.TextField(
         _("About me"), blank=True, null=True, default="",
-        help_text=_("Over here, write few things about yourself that you think will interest those that read your post and check out your profile. Feel free.")
+        help_text=_("Over here, write few things about yourself that you think will interest those that read your post and check out your profile.Feel free.")
     )
     website = models.URLField(
         _("My website"), max_length=255, blank=True, null=True

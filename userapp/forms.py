@@ -217,8 +217,7 @@ class ChangeBioForm(forms.ModelForm):
             "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
         self.fields['dob'].widget.attrs.update({
-            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg",
-            "type": "date"
+            "class": "txt w-full outline-none h-12 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg"
         })
         self.fields['about_me'].widget.attrs.update({
             "class": "txt w-full outline-none h-32 p-2 text-ph text-lg bg-body-500 border-b-2 border-button transition-all duration-300 focus:border-white rounded-lg resize-none"
@@ -233,7 +232,8 @@ class ChangeBioForm(forms.ModelForm):
         # widgets are used to change how a specific field
         # should be rendered
         widgets = {
-            'gender': forms.RadioSelect
+            'gender': forms.RadioSelect,
+            'dob': forms.DateInput(attrs={'type':'date'})
         }
 
 
