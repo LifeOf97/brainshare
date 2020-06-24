@@ -2,11 +2,12 @@
 {% block title %}{{user.username}} | Edit
 {% if form.first_name %}Bio{% elif form.new_username %}Username{% elif form.new_password1 %}password
 {% elif form.new_website %}Website{% elif form.new_email %}Email{% elif form.country %}Location
-{% elif form.image %}Avatar{% else %}Social{% endif %}
+{% elif form.image %}Avatar{% else %}Social{% endif %} | Clusstar
 {% endblock title %}
 
 {% block topnavpos %}{% endblock topnavpos %}
 {% block footer %}{% endblock footer %}
+
 
 {% block auth %}
 <div class="h-full w-full mx-auto flex justify-center items-center my-16">
@@ -24,8 +25,8 @@
 
         <div class="flex-1">
 
-            <div class="text-center leading-8 md:hidden mb-10">
-                <div><h1 class="text-4xl text-white font-black">BrainShare</h1></div>
+            <div class="flex flex-col items-center leading-8 md:hidden mb-10">
+                <div>{% include '../micro/logosvg.html' %}</div>
                 <div>
                     <span class="text-lg text-gray font-black">Edit
                         {% if form.first_name %}Bio{% elif form.new_username %}Username{% elif form.new_password1 %}password

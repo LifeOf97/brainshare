@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block  title %}Welcome to BrainShare{% endblock title %}</title>
-    <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.min.css' %}">
+    <title>{% block  title %}Welcome to Clusstar{% endblock title %}</title>
+    <link rel="shortcut icon" href="{% static 'blogapp/styles/vectors/favicon.png' %}" type="image/png">
+    <!-- <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.min.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.css' %}">
     <link  rel="stylesheet"  href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
+    <link  rel="stylesheet"  href="https://unpkg.com/tippy.js@6/themes/light.css"/>
     <script src="https://kit.fontawesome.com/caac272d42.js" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/tippy.css' %}"> -->
     <!-- <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/backdrop.css' %}"> -->
-    <!-- <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.css' %}"> -->
     <!-- <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/animations/scale.css' %}"> -->
     <!-- <link rel="stylesheet" href="{% static 'blogapp/styles/fontawesome/css/all.css' %}"> -->
     {% block head %}{% endblock head %}
@@ -57,7 +59,9 @@
         <div id="topNav" class="{% block topnavpos %}fixed top-0{% endblock topnavpos %} {% block topnavzindex %} z-10 {% endblock topnavzindex %} w-full flex flex-row h-16 px-2 md:px-4 items-center md:justify-between bg-nav shadow-lg transition-all duration-500">
 
             {% block logo %}
-            <div class="flex-1 order-1 md:flex-initial"><a href="{% url 'userapp:home-page' %}" class="text-3xl text-white font-black">BrainShare</a></div>
+            <div class="flex-1 order-1 md:flex-initial"><a href="{% url 'blogapp:home-page' %}" class="text-3xl text-white font-black">
+                {% include './micro/logofullsvg.html' %}
+            </a></div>
             {% endblock logo %}
 
             <!-- on mobile screens this div converts to the neccessary view format and back on larger screens -->
@@ -75,7 +79,7 @@
                                 {% if user.is_authenticated %}
                                 <div id="linkDashboard" class="flex-1 md:flex-initial flex"><a href="{% url 'userapp:user-profile' user.slug %}" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Dashboard</a></div>
                                 {% else %}
-                                <div id="linkHome" class="flex-1 md:flex-initial flex"><a href="{% url 'userapp:home-page' %}" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Home</a></div>
+                                <div id="linkHome" class="flex-1 md:flex-initial flex"><a href="{% url 'blogapp:home-page' %}" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Home</a></div>
                                 {% endif %}
                             {% endblock homeordashboard %}
                             {% block linkblog %}
@@ -187,15 +191,15 @@
         {% endblock topnav %}
         <!-- end of the top navigation  -->
 
-        <!-- authentication forms -->
-        {% block auth %}
-        <div id="auth"></div>
-        {% endblock auth %}
-
         <!-- other views comes here -->
         {% block section %}
         <div id="section"></div>
         {% endblock section %}
+
+        <!-- authentication forms -->
+        {% block auth %}
+        <div id="auth"></div>
+        {% endblock auth %}
 
         <!-- this is the footer -->
         {% block footer %}
@@ -205,8 +209,8 @@
                 <div class="flex flex-wrap justify-between items-center py-4 space-y-10 md:space-y-0">
                     {% block footerlinks %}
                     <div class="flex flex-row md:flex-col">
-                        <div><a href="{% url 'userapp:home-page' %}" class="outline-none inline-block px-4 py-1 text-faint text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Home</a></div>
-                        <div><a href="{% url 'blogapp:post-list' %}" class="outline-none inline-block px-4 py-1 text-faint text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Blog</a></div>
+                        <div><a href="{% url 'blogapp:home-page' %}" class="outline-none inline-block px-4 py-1 text-ph text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Home</a></div>
+                        <div><a href="{% url 'blogapp:post-list' %}" class="outline-none inline-block px-4 py-1 text-ph text-base font-bold text-center rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Blog</a></div>
                     </div>
                     {% endblock footerlinks %}
 
@@ -236,10 +240,10 @@
 
                 {% block footercmp %}
                 <div class="flex justify-between text-sm text-white">
-                    <div class="space-x-1">
-                        <span class="">BrainShare</span>
-                        <span class=""><code class="text-faint pr-1">&copy;</code>2019</span>
-                        <span class="text-button">All Rights Reserved</span>
+                    <div class="flex space-x-1">
+                        <span class="flex-initial">{% include './micro/logofullsvgcolor.html' %}</span>
+                        <span class="flex-initial"><code class="text-faint pr-1">&copy;</code>2020</span>
+                        <span class="flex-initial text-button">All Rights Reserved</span>
                     </div>
                     <div><span class="tracking-tighter">Aces & Coup, inc.</span></div>
                 </div>

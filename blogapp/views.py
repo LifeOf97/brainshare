@@ -1,8 +1,8 @@
 from django.views.generic.detail import BaseDetailView, SingleObjectTemplateResponseMixin
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseForbidden
 from userapp.mixins import JsonResponseMixin
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from django.utils import timezone
 from .models import Author, Post
 from django.views.generic import (
@@ -19,6 +19,17 @@ from django.db.models import Q
 POST_DATA, AUTHOR_DATA = Post.objects.all(), Author.objects.all()
 [data for data in POST_DATA]
 [data for data in AUTHOR_DATA]
+
+
+def Home(request):
+    # if a user is authenticated return the dashboard of that user else:
+    # return the sites homepage
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(
+            reverse('userapp:user-profile', kwargs={'slug': request.user.slug})
+        )
+    else:
+        return render(request, 'blog/index.html')
 
 
 class PostListView(ListView):

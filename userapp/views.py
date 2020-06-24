@@ -40,18 +40,6 @@ POST_ALL = Post.objects.all()
 [data for data in POST_ALL]
 
 
-
-def Home(request):
-    # if a user is authenticated return the dashboard of that user else:
-    # return the sites homepage
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(
-            reverse('userapp:user-profile', kwargs={'slug': request.user.slug})
-        )
-    else:
-        return render(request, 'basement.html')
-
-
 # Create your views here.
 class SignUpView(FormView):
     """
@@ -125,14 +113,14 @@ class SignInView(FormView):
                 login(request, user)
                 if next:
                     return HttpResponseRedirect(next)
-                return HttpResponseRedirect(reverse('userapp:home-page'))
+                return HttpResponseRedirect(reverse('blogapp:home-page'))
         return super().post(request, *args, **kwargs)
 
 
 class SignOutView(TemplateView):
     template_name = 'accounts/signout.html'
 class SignOutConfirm(LogoutView):
-    next_page = 'userapp:home-page'
+    next_page = 'blogapp:home-page'
 
 
 class JsonUserProfileView(LoginRequiredMixin, JsonResponseMixin, SingleObjectTemplateResponseMixin, BaseDetailView):

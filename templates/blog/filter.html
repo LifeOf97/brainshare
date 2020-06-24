@@ -1,5 +1,8 @@
 {% extends '../basement.html' %}
-{% block title %}BrainShare{% endblock title %}
+{% block title %}
+{% if tag %}Tag{% else %}Search{% endif %} result |
+Clusstar
+{% endblock title %}
 
 
 {% block section %}

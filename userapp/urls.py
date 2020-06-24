@@ -2,7 +2,7 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 from django.urls import path, include
 from .views import (
-    Home, SignUpView, SignInView, SignOutView, SignOutConfirm,
+    SignUpView, SignInView, SignOutView, SignOutConfirm,
     JsonUserProfileView, ChangeUsernameView, ChangeEmailView,
     ChangePassView, ChangeBioView, ChangeSiteView,
     ChangeLocaleView, PasswordReset, ChangeAvatarView,
@@ -13,7 +13,6 @@ from .views import (
 app_name = 'userapp'
 
 urlpatterns = [
-    path('', Home, name='home-page'),
     path('accounts/', include([
         path('signup', SignUpView.as_view(), name='sign-up'),
         path('signin', SignInView.as_view(), name='sign-in'),

@@ -2,13 +2,13 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-  purge: {
-    enabled: true,
-    content: [
-      '../../templates/*.html', '../../templates/**/*.html',
-      './javascript/*.js', '../../userapp/forms.py'
-    ],
-  },
+  // purge: {
+  //   enabled: true,
+  //   content: [
+  //     '../../templates/*.html', '../../templates/**/*.html',
+  //     './javascript/*.js', '../../userapp/forms.py'
+  //   ],
+  // },
   theme: { 
     colors: {
       transparent: 'transparent',
@@ -30,7 +30,8 @@ module.exports = {
       },
       red: {
         '100': '#F16D6D',
-        '500': '#EB5757'
+        '500': '#EB5757',
+        '900': '#ff0000'
       },
       green: {
         '100': '#6FCF97',
