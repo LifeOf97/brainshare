@@ -6,30 +6,34 @@
 {% block section %}
 <div id="postDetailContainer" class="mt-24 mb-8 bg-body-500">
 
-    <div id="" class="w-11/12 md:w-2/4 mx-auto flex justify-between items-center">
+    <div id="postTitle" class="w-11/12 md:w-2/4 mx-auto">
+        <h1 class="text-2xl md:text-3xl text-white font-medium md:text-justify tracking-tight leading-7 capitalize">{{postdetail.title|safe}}</h1>
+    </div>
+
+    <div id="" class="w-11/12 md:w-2/4 mx-auto mt-6 flex justify-between items-center">
         <div id="" class="flex items-center space-x-2">
             <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}">
-                <img src="{% if postdetail.author.image %}{{postdetail.author.image.url}}{% endif %}" alt="" class="h-20 w-20 object-cover rounded-full bg-nav border-2 border-gray">
+                <img src="{% if postdetail.author.image %}{{postdetail.author.image.url}}{% endif %}" alt="" class="h-12 w-12 object-cover rounded-full bg-nav border-2 border-gray">
             </a>
-            <div class="flex flex-col leading-5">
-                <div><a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="text-2xl text-white font-medium">{{postdetail.author.profile.username}}</a></div>
+            <div class="flex flex-col leading-3">
+                <div><a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="text-xl text-white font-medium">{{postdetail.author.profile.username}}</a></div>
                 {% if postdetail.author.social_set.all.count > 0 %}
                 <div class="flex space-x-2 items-start text-gray mt-2">
                     {% for account in postdetail.author.social_set.all %}
                         {% if account.platform|lower == 'facebook' %}
-                        <a href="{{account.link}}"><i class="fab fa-facebook-f text-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}"><i class="fab fa-facebook-f text-md hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'twitter' %}
-                        <a href="{{account.link}}"><i class="fab fa-twitter text-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}"><i class="fab fa-twitter text-md hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'github' %}
-                        <a href="{{account.link}}"><i class="fab fa-github text-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}"><i class="fab fa-github text-md hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'linkedin' %}
-                        <a href="{{account.link}}"><i class="fab fa-linkedin-in text-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}"><i class="fab fa-linkedin-in text-md hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'slack' %}
-                        <a href="{{account.link}}"><i class="fab fa-slack-hash text-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}"><i class="fab fa-slack-hash text-md hover:text-blue-500"></i></a>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -40,10 +44,6 @@
             <span class="text-base text-gray font-medium">{{postdetail.date_to_publish|date:"M d, Y"}}</span>
         </div>
     </div>
-
-    <div id="postTitle" class="w-11/12 md:w-2/4 mx-auto mt-6">
-        <h1 class="text-2xl md:text-3xl text-white font-medium md:text-justify tracking-tight leading-7 capitalize">{{postdetail.title|safe}}</h1>
-    </div>
     
     {% if postdetail.banner %}
     <div id="postBanner" class="mt-8 w-full mx-auto overflow-hidden">
@@ -53,7 +53,7 @@
         {% if postdetail.banner_copyright %}
         <div class="text-center">
             {% if postdetail.banner_copyright_link %}
-            <a href="{{postdetail.banner_copyright_link}}" class="inline-block text-xs italic text-gray font-hairline hover:text-blue-500">{{postdetail.banner_copyright|safe}}</a>
+            <a href="{{postdetail.banner_copyright_link}}" target="_blank" class="inline-block text-xs italic text-gray font-hairline hover:text-blue-500">{{postdetail.banner_copyright|safe}}</a>
             {% else %}
             <span class="text-xs italic text-gray font-hairline">{{postdetail.banner_copyright|safe}}</span>
             {% endif %}
@@ -86,7 +86,11 @@
                 </div>
                 {% if postdetail.image_copyright %}
                 <div class="text-center">
-                    <a href="{{postdetail.image_copyright_link}}" class="inline-block text-xs text-ph font-hairline hover:text-blue-500">{{postdetail.image_copyright|safe}}</a>
+                    {% if postdetail.image_copyright_link %}
+                    <a href="{{postdetail.image_copyright_link}}" target="_blank" class="inline-block text-xs italic text-gray font-hairline hover:text-blue-500">{{postdetail.image_copyright|safe}}</a>
+                    {% else %}
+                    <span class="text-xs italic text-gray font-hairline">{{postdetail.image_copyright|safe}}</span>
+                    {% endif %}
                 </div>
                 {% endif %}
             </div>
@@ -103,7 +107,7 @@
             {% endif %}
         
             {% if postdetail.code %}
-            <div class="w-4/5 h-48 border mx-auto mt-8 w-4/5 h-48 mx-auto mt-8 overflow-auto bg-gray shadow-lg rounded-lg p-3"><pre class="text-base font-medium overflow-auto">{{postdetail.code}}</pre></div>
+            <div class="w-4/5 h-48 mt-8 border overflow-auto bg-nav shadow-lg rounded-lg p-3"><pre class="text-base text-ph font-medium overflow-auto">{{postdetail.code}}</pre></div>
             {% endif %}
             
             <!-- this code block deals with the post more content section -->
@@ -144,7 +148,7 @@
                 {% endif %}
                 
                 {% if morecontent.code %}
-                <div class="w-4/5 h-48 mx-auto mt-8 overflow-auto bg-gray shadow-lg rounded-lg p-3"><pre class="text-nav text-base font-medium">{{morecontent.code|linenumbers}}</pre></div>
+                <div class="w-4/5 h-48 mx-auto mt-8 overflow-auto bg-nav shadow-lg rounded-lg p-3"><pre class="text-base text-ph font-medium">{{morecontent.code|linenumbers}}</pre></div>
                 {% endif %}
         
             {% endfor %}

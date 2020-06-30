@@ -10,10 +10,10 @@ Clusstar
 
     <div class="w-11/12 mx-auto text-center">
         {% if tag %}
-        <div class="flex flex-col">
+        <div class="flex flex-col leading-10">
             <div><span class="text-body-100 text-lg font-black">Tag</span></div>
             <div><h1 class="text-gray text-4xl md:text-6xl font-black">{{ tag|title }}</h1></div>
-            <div><span class="text-body-100 text-lg font-black">Result: {{ posts|length }}</span></div>
+            <div><span class="text-body-100 text-lg font-black">Results: {{ posts|length }}</span></div>
         </div>
         {% else %}
         <div>
@@ -30,7 +30,7 @@ Clusstar
         {% endif %}
     </div>
 
-    <div class="w-11/12 mx-auto border-t border-body-100 pt-4 mt-12">
+    <div class="w-11/12 mx-auto border-t border-body-100 pt-4 mt-8">
     {% if posts|length == 0 %}
         <div class="">
             <span class="text-white text-2xl md:text-6xl font-black">Sorry no results</span>

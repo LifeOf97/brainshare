@@ -8,6 +8,9 @@ $( document ).ready(function() {
     // variables for signed in user and side nav
     const user = $("#user"), userMenu = $("#userMenu"), closeUser = $("#closeUser"), accounts = $("#accounts");
     const mobileMenu = $("#mobileMenu"), mobileMenuBtn = $("#mobileMenuBtn"), clsMobileMenu = $("#clsMobileMenu");
+    // hero variables
+    const heroKnowledge = $("#heroKnowledge"), heroIs = $("#heroIs"), heroPower = $("#heroPower"), heroSignup = $("#heroSignup"),
+    heroWorld = $("#heroWorld")
     // variables for  forms
     const inputLabel = $(".inputLabel"), viewPass = $(".viewPass"), loadContainer = $("#loadContainer");
     const formBox = $("#formBox"), signOutBox = $("#signOutBox"), signOutBtn = $("#signOutBtn");
@@ -118,6 +121,14 @@ $( document ).ready(function() {
         closerUserMenu(user);
     });
 
+    // this section deals with the home/landing/hero page/section
+    const heroTimeline = gsap.timeline({defaults: {duration: 0.5, opacity: 0, ease: "power2"}});
+    heroTimeline.from(heroKnowledge, {y: -50, delay: 1})
+        .from(heroIs, {y: -50}, "+=0.2")
+        .from(heroPower, {y: 100, ease: "back"}, "+=0.5")
+        .from(heroSignup, {y: 100}, "+=1")
+        .from(heroWorld, {y: 100}, "-=0.5")
+    
 
     /* these section of code runs only on form fields.
     it slides fieldlabel up when its input field is focused on
@@ -232,7 +243,7 @@ $( document ).ready(function() {
             duration: 0.5
         });
         gsap.from($("#closeModal"), {
-            y: -60, duration: 0.2
+            y: -60, duration: 0.5
         })
     });
 
@@ -247,21 +258,21 @@ $( document ).ready(function() {
     // pagination function to change the page to the number entered into
     // the field, i also converted the max attribute value of the input
     // field from string to number so as to make sure the value entered does
-    // not exceed its max.
-    pageNumber.on("keyup", function() {
-        pageNumberBtn.attr("href", "?page="+$(this).val());
-    })
-    
+    // not exceed its max.    
     pageNumberBtn.on("click", function(event) {
-        if ( (+pageNumber.val() > 0) && (+pageNumber.val() < +pageNumber.attr("max")+1) ) {
+        if ( (pageNumber.val() > 0) && (pageNumber.val() < pageNumber.attr("max")+1) ) {
             $(this).attr("href", "?page="+pageNumber.val());
         }
         else {
             event.preventDefault();
-            console.log("Wrong Page number");
+            $(this).attr("href", "?page="+pageNumber.attr("max"));
         }
     })
 
+    pageNumber.on("keyup", function() {
+        pageNumberBtn.attr("href", "?page="+$(this).val());
+    })
+    
     // dashboard settings comes here
     // function to open/close the filter menu
     filterBtn.on("click", function() {
@@ -278,11 +289,10 @@ $( document ).ready(function() {
     // function to filter posts
     filterOptions.on("click", "button", function() {
         if ($(this).text() == 'Draft' ) {
-            console.log("Turn to Draft");
+            filter.text("Draft");
             mypost.each(function() {
                 if ($(this).find(".postStatus").text() == "Draft") {
                     $(this).removeClass("hidden");
-                    filter.text("Draft");
                 }
                 else {
                     $(this).addClass("hidden");
@@ -292,11 +302,10 @@ $( document ).ready(function() {
             replaceClass(filterBtn, 'border-white', 'border-ph')
         }
         else if ($(this).text() == 'Published') {
-            console.log("Turn to Published");
+            filter.text("Published");
             mypost.each(function() {
                 if ($(this).find(".postStatus").text() == "Published") {
                     $(this).removeClass("hidden");
-                    filter.text("Published");
                 }
                 else {
                     $(this).addClass("hidden");
@@ -359,19 +368,24 @@ $( document ).ready(function() {
         moveTransition: 'transform 0.2s ease-out',
     });
 
+    // all html element with data-tippy-content
     tippy('[data-tippy-content]', {
         trigger: 'mouseenter click',
         theme: 'light',
     });
     
-    //set the global url variable to be used by the tippyjs to render a tooltip
+    // settings for all authors ajax tooltip 
+    // set the global url variable to be used by the tippyjs to render a tooltip
     // for each post author
     $(".authorTooltipBtn").on("mouseenter", function() {
+        // make the url variable a global one  so it can be accessed from other
+        // function and all
         url = $(this).attr("href");
     })
-    // the tooltip div
-    // let authorTooltip = document.getElementById("authorTooltip");
+
+    // the tooltip div that holds the result of the ajax call
     let authorTooltip = $(".authorTooltip");
+
     // tippyjs settings, at first display a loading screen then make the ajax call
     // with the tippyjs onShown prop and then display the returned data, when the tooltip
     // is closed revert back to the loading screen.
@@ -419,6 +433,7 @@ $( document ).ready(function() {
                 tooltipImage.attr('src', "/media/"+data.image);
                 tooltipBio.text(truncateString(data.about_me, 129));
                 tooltipUsername.text(truncateString(data.username, 10)).attr("href", data.author_url);
+                // social data
                 $.each(data.social.slice(0, 6), function(key, value) {
                     id = value['platform'].toLowerCase();
                     let social = document.getElementById(id)
@@ -529,21 +544,6 @@ $( document ).ready(function() {
     function replaceClass(obj, toRemove, toAdd) {
         // replace a class with another
         obj.removeClass(toRemove).addClass(toAdd);
-    }
-
-    function activateView(obj) {
-        // remove class 'hidden' from the element you will like to display
-        replaceClass(obj, "hidden", "")
-        // give any effect you wish on how the element should then be displayed
-        obj.fadeIn(300)
-    }
-
-    function deactivateView(obj) {
-        // give the effect you wish, on how the element should then be hidden
-        obj.fadeOut(300, function() {
-            // then add the hidden css class to the element
-            replaceClass(obj, "", "hidden")
-        })
     }
 
     // function to close the user menu dropdown

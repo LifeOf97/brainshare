@@ -127,7 +127,9 @@
                                 </div>
                                 <div class="flex flex-col leading-6">
                                     <span class="text-xs md:text-sm text-button font-bold">WEBSITE</span>
-                                    <span class="text-faint text-xl md:text-2xl iflinks">{{profile.website|default_if_none:""|urlize}}</span>
+                                    <div class="iflinks">
+                                        <a href="{{profile.website|default_if_none:'#'}}" target="_blank">{{profile.website|default_if_none:""}}</a>
+                                    </div>
                                 </div>
                                 <div class="flex flex-wrap">
                                     <div class="flex flex-col leading-6 mr-10 mb-5">

@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block  title %}Welcome to Clusstar{% endblock title %}</title>
     <link rel="shortcut icon" href="{% static 'blogapp/styles/vectors/favicon.png' %}" type="image/png">
-    <!-- <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.min.css' %}"> -->
     <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.css' %}">
-    <link  rel="stylesheet"  href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
-    <link  rel="stylesheet"  href="https://unpkg.com/tippy.js@6/themes/light.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/caac272d42.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="{% static 'blogapp/styles/css/styledwithtailwind.min.css' %}"> -->
     <!-- <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/tippy.css' %}"> -->
     <!-- <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/dist/backdrop.css' %}"> -->
     <!-- <link rel="stylesheet" href="{% static 'blogapp/node_modules/tippy.js/animations/scale.css' %}"> -->
@@ -44,7 +46,7 @@
         }
     </style>
 </head>
-<body class="bg-body-500 w-full h-full">
+<body style="font-family: 'Open Sans', sans-serif;" class="bg-body-500 w-full h-full font-mono">
 
     <!--
         THE WORKS OF MY HAND AND MIND IS POWERED BY GOD ALMIGHTY.
@@ -56,7 +58,7 @@
 
         <!-- start of the top navigation -->
         {% block topnav %}
-        <div id="topNav" class="{% block topnavpos %}fixed top-0{% endblock topnavpos %} {% block topnavzindex %} z-10 {% endblock topnavzindex %} w-full flex flex-row h-16 px-2 md:px-4 items-center md:justify-between bg-nav shadow-lg transition-all duration-500">
+        <div id="topNav" class="{% block topnavpos %}fixed top-0{% endblock topnavpos %} {% block topnavzindex %} z-10 {% endblock topnavzindex %} w-full flex flex-row h-16 px-2 md:px-4 items-center md:justify-between bg-nav transition-all duration-500">
 
             {% block logo %}
             <div class="flex-1 order-1 md:flex-initial"><a href="{% url 'blogapp:home-page' %}" class="text-3xl text-white font-black">
@@ -95,7 +97,7 @@
                             {% if not user.is_authenticated %}
                             <div class="flex space-x-2">
                                 {% block signin %}
-                                <div class="flex-initial"><a href="{% url 'userapp:sign-in' %}" class="inline-block text-faint font-semibold px-4 py-1 transition-colors duration-300 hover:bg-body-500 hover:text-white rounded-lg">Sign In</a></div>
+                                <div class="flex-initial"><a href="{% url 'userapp:sign-in' %}" class="inline-block text-ph font-semibold px-4 py-1 transition-colors duration-300 hover:bg-body-500 hover:text-white rounded-lg">Sign In</a></div>
                                 {% endblock signin %}
                                 {% block signup %}
                                 <div class="flex-initial"><a href="#" data-tippy-content="Coming soon" class="inline-block text-white font-semibold px-4 py-1 border border-white transition-colors duration-300 hover:bg-white hover:text-nav rounded-lg">Sign Up</a></div>
@@ -225,7 +227,7 @@
                         </div>
                         <div class="flex flex-wrap mt-4">
                             <div class="flex-initial mr-2 mb-1"><input type="email" placeholder="Enter email address" class="p-2 rounded-lg text-nav bg-white hover:shadow-outline focus:shadow-outline placeholder-button"></div>
-                            <div class="flex-initial"><button type="submit" class="outline-none p-2 rounded-lg bg-blue-500 text-white hover:bg-blue-100 focus:bg-blue-100">Subscribe</button></div>
+                            <div class="flex-initial"><button type="submit" data-tippy-content="Coming soon" class="outline-none p-2 rounded-lg bg-blue-500 text-white hover:bg-blue-100 focus:bg-blue-100">Subscribe</button></div>
                         </div>
                     </div>
                     {% endblock footermail %}
@@ -239,11 +241,11 @@
                 {% endblock footersite %}
 
                 {% block footercmp %}
-                <div class="flex justify-between text-sm text-white">
-                    <div class="flex space-x-1">
-                        <span class="flex-initial">{% include './micro/logofullsvgcolor.html' %}</span>
-                        <span class="flex-initial"><code class="text-faint pr-1">&copy;</code>2020</span>
-                        <span class="flex-initial text-button">All Rights Reserved</span>
+                <div class="flex justify-between text-sm text-white flex-wrap">
+                    <div class="flex space-x-1 items-center flex-wrap">
+                        <div><span class="flex-initial">{% include './micro/clusstar.html' %}</span></div>
+                        <div><span class="flex-initial"><code class="text-faint pr-1">&copy;</code>2020</span></div>
+                        <div><span class="flex-initial text-button">All Rights Reserved</span></div>
                     </div>
                     <div><span class="tracking-tighter">Aces & Coup, inc.</span></div>
                 </div>
@@ -277,8 +279,8 @@
                 <span class="text-faint font-semibold text-base">Are you sure you want to sign out?</span>
             </div>
             <div class="p-2 bg-button h-auto flex justify-end space-x-2">
-                <div><span id="closeSignOut" class="inline-block cursor-pointer px-2 py-1 text-white text-base text-sm text-center bg-body-500 transition-all duration-300 border-2 border-transparent hover:border-white rounded-md">No, Cancle</span></div>
-                <div><a href="{% url 'userapp:sign-out-confirm' %}" class="inline-block px-2 py-1 text-white text-base text-sm text-center bg-red-500 transition-all duration-300 border-2 border-transparent hover:border-white rounded-md">Yes, Sign out</a></div>
+                <div><span id="closeSignOut" class="inline-block cursor-pointer px-2 py-1 text-white text-sm text-center bg-body-500 transition-all duration-300 border-2 border-transparent hover:border-white rounded-md">No, Cancle</span></div>
+                <div><a href="{% url 'userapp:sign-out-confirm' %}" class="inline-block px-2 py-1 text-white text-sm text-center bg-red-500 transition-all duration-300 border-2 border-transparent hover:border-white rounded-md">Yes, Sign out</a></div>
             </div>
         </div>
     </div>

@@ -1,9 +1,38 @@
 {% extends '../basement.html' %} {% load static %}
 {% block title %}Clusstar -- Bring the world closer{% endblock title %}
 
+{% block topnavzindex %}z-20{% endblock topnavzindex %}
 
 {% block section %}
 <div class="w-full h-full bg-body-100">
-   
+
+    <!-- hero section -->
+    <div class="relative w-full h-auto flex bg-nav pt-16">
+        <div class="flex-1 p-4 hidden md:block">
+            <img src="{% static 'blogapp/styles/vectors/imgtxt.png' %}" alt="Img Text" class="w-full h-68 rounded-lg">
+        </div>
+        <div class="relative w-full md:w-69 h-65 flex-none flex justify-center items-center p-4 overflow-hidden">
+            <div style="font-family: 'Bungee', cursive;" class="flex-initial flex flex-col text-5xl text-white font-black tracking-wider z-10">
+                <span id="heroKnowledge" class="leading-8">Knowledge</span>
+                <span id="heroIs">is</span>
+            </div>
+            <div class="absolute top-12 left-64">
+                <img src="{% static 'blogapp/styles/vectors/power.png' %}" alt="Hand white" class="w-64 h-65" id="heroPower">
+            </div>
+        </div>
+        
+        <!-- this code block is absolutly positioned and will only be visible on large enough screens -->
+        <div class="absolute w-68 bottom-32 right-0 justify-evenly hidden md:flex text-white text-2xl">
+            <div id="heroSignup" class="w-56 flex flex-col">
+                <div><a href="#" data-tippy-content="Coming soon" class="inline-block w-full p-2 rounded-lg text-center font-black border-2 border-white hover:bg-white hover:text-nav transition duration-500">Sign up</a></div>
+                <div class="leading-3"><span class="text-xs text-body-100 font-bold font-sans">Click here, become an author and start sharing your journeys, stories, facts, how to's, DIY and all.</span></div>
+            </div>
+            <div id="heroWorld" class="w-56 flex flex-col">
+                <div><a href="{% url 'blogapp:post-list' %}" class="inline-block w-full p-2 rounded-lg text-center font-black border-2 border-blue-500 bg-blue-500 hover:bg-blue-100 transition duration-500">World</a></div>
+                <div class="leading-3"><span class="text-xs text-body-100 font-bold font-sans">Click here, see what others have shared and bring the world closer to you.</span></div>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock section %}

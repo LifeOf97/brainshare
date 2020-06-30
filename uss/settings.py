@@ -78,7 +78,6 @@ WSGI_APPLICATION = 'uss.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 # currently making use of mysql database
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -88,9 +87,13 @@ DATABASES = {
     }
 }
 
+
+# Session settings
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
+
 # Cache setting
 # Make sure to install the neccesary bindings
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
@@ -99,10 +102,16 @@ CACHES = {
 }
 
 # MESSAGE SETTINGS
-# 'django.contrib.messages.storage.session.SessionStorage'
-# session storage keeps the message even after navigating other pages and back
-# so cookie storage is best
+# session storage keeps the message even after navigating other pages and back so cookie storage is best
+# session storage - 'django.contrib.messages.storage.session.SessionStorage'
+# cookie storage - 'django.contrib.messages.storage.cookie.CookieStorage'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+
+# Deployment settings
+CSRF_COOKIE_HTTPONLY = True
+# CSRF_COOKIE_SECURE = True
+CSRF_USE_SESSIONS = True
 
 
 # Password validation

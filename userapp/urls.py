@@ -4,10 +4,10 @@ from django.urls import path, include
 from .views import (
     SignUpView, SignInView, SignOutView, SignOutConfirm,
     JsonUserProfileView, ChangeUsernameView, ChangeEmailView,
-    ChangePassView, ChangeBioView, ChangeSiteView,
-    ChangeLocaleView, PasswordReset, ChangeAvatarView,
+    ChangePassView, ChangeBioView, ChangeSiteView, SocialFormView,
+    ChangeLocaleView, ChangeAvatarView, PasswordReset,
     PasswordResetDone, PasswordResetConfirm,
-    PasswordResetComplete, SocialFormView,
+    PasswordResetComplete,
 )
 
 app_name = 'userapp'
@@ -20,16 +20,8 @@ urlpatterns = [
         path('signout-confirm', SignOutConfirm.as_view(), name='sign-out-confirm'),
     ])),
 
-    # password reset urls, removed redundancy
-    path('accounts/reset_password/', include([
-        path('', PasswordReset.as_view(), name='reset-password'),
-        path('done/', PasswordResetDone.as_view(), name='reset-password-done'),
-        path('<uidb64>/<token>/', PasswordResetConfirm.as_view(), name='reset-password-confirm'),
-        path('complete/', PasswordResetComplete.as_view(), name='reset-password-complete'),
-    ])),
 
-
-    path('<slug:slug>/dashboard', cache_page(60*30)(JsonUserProfileView.as_view()), name='user-profile'),
+    path('<slug:slug>/dashboard', JsonUserProfileView.as_view(), name='user-profile'),
     # user edit urls, removed redundancy
     path('<slug:slug>/profile/settings/', include([
         path('username/', ChangeUsernameView.as_view(), name='edit-username'),
@@ -40,6 +32,14 @@ urlpatterns = [
         path('locale/', ChangeLocaleView.as_view(), name='edit-locale'),
         path('avatar/', ChangeAvatarView.as_view(), name='edit-avatar'),
         path('socials/', SocialFormView, name='edit-social'),
+    ])),
+
+    # password reset urls, removed redundancy
+    path('accounts/reset_password/', include([
+        path('', PasswordReset.as_view(), name='reset-password'),
+        path('done/', PasswordResetDone.as_view(), name='reset-password-done'),
+        path('<uidb64>/<token>/', PasswordResetConfirm.as_view(), name='reset-password-confirm'),
+        path('complete/', PasswordResetComplete.as_view(), name='reset-password-complete'),
     ])),
 
 ]
