@@ -7,5 +7,5 @@
   @apply text-blue-500;
 }
 .iflinks a:hover {
-  @apply text-blue-100;
+  @apply text-blue-100 underline;
 }

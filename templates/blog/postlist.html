@@ -25,7 +25,10 @@
                     <a href="{% url 'blogapp:post-detail' post.slug %}" class="title text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
                 </div>
                 <div class="mt-2 textContent">
-                    <p class="text-sm text-faint leading-4">{{post.text_content|safe|capfirst|default_if_none:""|truncatechars:200}}</p>
+                    <p class="text-sm text-faint leading-4">
+                        {{post.text_content|safe|capfirst|default_if_none:""|truncatechars:200}}
+                        <a href="{% url 'blogapp:post-detail' post.slug %}" class="text-blue-100 text-sm">Read more <i class="fas fa-long-arrow-alt-right"></i></a>
+                    </p>
                 </div>
             </div>
             <!-- button to copy the post link to clipboard -->
@@ -34,7 +37,7 @@
                     <div class="rounded-full overflow-hidden"><img src="{% if post.author.image %}{{post.author.image.url}}{% endif %}" alt="" class="rounded-full object-cover h-12 w-12 bg-faint"></div>
                     <div class="flex flex-col -space-y-2">
                         <div id="authorTooltipBtn"><a href="{% url 'blogapp:author-detail' post.author.slug %}" class="authorTooltipBtn -space-y-2 text-white text-lg font-semibold">{{post.author.profile.username}}</a></div>
-                        <div><span class="text-gray text-sm">{{post.date_to_publish|date:"b d, Y"}}</span></div>
+                        <div><span class="text-button font-semibold text-sm">{{post.date_to_publish|date:"b d, Y"}}</span></div>
                     </div>
                 </div>
                 <div id="" class="self-end copyBtn opacity-0 group-hover:opacity-100 transition-all duration-150">

@@ -76,7 +76,10 @@
                         <a href="{% url 'blogapp:post-detail' post.slug %}" class="title text-lg text-white font-medium group-hover:underline hover:text-blue-100">{{post.title|truncatechars:80}}</a>
                     </div>
                     <div class="mt-2 textContent">
-                        <p class="text-sm text-faint leading-4">{{post.text_content|safe|capfirst|default_if_none:""|truncatechars:200}}</p>
+                         <p class="text-sm text-faint leading-4">
+                            {{post.text_content|safe|capfirst|default_if_none:""|truncatechars:200}}
+                            <a href="{% url 'blogapp:post-detail' post.slug %}" class="text-blue-100 text-sm">Read more <i class="fas fa-long-arrow-alt-right"></i></a>
+                        </p>
                     </div>
                 </div>
                 <!-- button to copy the post link to clipboard -->
