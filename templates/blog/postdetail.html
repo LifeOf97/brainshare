@@ -13,7 +13,7 @@
     <div id="" class="w-11/12 md:w-2/4 mx-auto mt-6 flex justify-between items-center">
         <div id="" class="flex items-center space-x-2">
             <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}">
-                <img src="{% if postdetail.author.image %}{{postdetail.author.image.url}}{% endif %}" alt="" class="h-12 w-12 object-cover rounded-full bg-nav border-2 border-gray">
+                <img src="{% if postdetail.author.image %}{{postdetail.author.image.url}}{% endif %}" alt="Author avatar" class="h-12 w-12 object-cover rounded-full bg-nav border-2 border-gray">
             </a>
             <div class="flex flex-col leading-3">
                 <div><a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="text-lg text-white font-medium">{{postdetail.author.profile.username|capfirst}}</a></div>
@@ -82,12 +82,12 @@
             {% if postdetail.image %}
             <div id="postImage" class="w-4/5 mx-auto mt-8">
                 <div class="w-full h-65 md:h-69 shadow-lg rounded-lg overflow-hidden">
-                    <img src="{{postdetail.image.url}}" alt="" class="image w-full h-full object-cover cursor-pointer">
+                    <img src="{{postdetail.image.url}}" alt=""  class="image w-full h-full object-cover cursor-pointer">
                 </div>
                 {% if postdetail.image_copyright %}
                 <div class="text-center leading-4">
                     {% if postdetail.image_copyright_link %}
-                    <a href="{{postdetail.image_copyright_link}}" target="_blank" class="inline-block text-xs italic text-gray font-hairline hover:text-blue-500">{{postdetail.image_copyright|safe}}</a>
+                    <a href="{{postdetail.image_copyright_link}}" rel="noreferrer" target="_blank" class="inline-block text-xs italic text-gray font-hairline hover:text-blue-500">{{postdetail.image_copyright|safe}}</a>
                     {% else %}
                     <span class="text-xs italic text-gray font-hairline">{{postdetail.image_copyright|safe}}</span>
                     {% endif %}
@@ -131,7 +131,7 @@
                     </div>
                     {% if morecontent.image_copyright %}
                     <div class="text-center leading-4">
-                        <a href="{{morecontent.image_copyright_link}}" target="_blank" class="inline-block text-xs text-ph font-hairline hover:text-blue-500">{{morecontent.image_copyright|safe}}</a>
+                        <a href="{{morecontent.image_copyright_link}}" rel="noreferrer" target="_blank" class="inline-block text-xs text-ph font-hairline hover:text-blue-500">{{morecontent.image_copyright|safe}}</a>
                     </div>
                     {% endif %}
                 </div>
