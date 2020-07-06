@@ -170,8 +170,8 @@
                                 <div><a href="{% url 'blogapp:author-detail' postdetail.author.slug %}" class="text-white text-2xl">{{postdetail.author}}</a></div>
                             </div>
                         </div>
-                        <div class="leading-5 iflinks">
-                            <span class="text-base text-faint">
+                        <div class="leading-5 text-xs md:text-sm iflinks">
+                            <span class="text-gray">
                                 {{postdetail.author.profile.about_me|capfirst|truncatewords:50}}
                             </span>
                             <a href="{% url 'blogapp:author-detail' postdetail.author.slug %}">View more</a>
