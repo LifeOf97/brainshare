@@ -362,8 +362,8 @@ $( document ).ready(function() {
     tippy('.image', {
         content: "Click to view image in best possible size",
         followCursor: true,
-        touch: 'hold',
-        theme: 'nav',
+        touch: false,
+        theme: 'light',
         hideOnClick: true,
         moveTransition: 'transform 0.2s ease-out',
     });

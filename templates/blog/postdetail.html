@@ -82,7 +82,7 @@
             {% if postdetail.image %}
             <div id="postImage" class="w-4/5 mx-auto mt-8">
                 <div class="w-full h-65 md:h-69 shadow-lg rounded-lg overflow-hidden">
-                    <img src="{{postdetail.image.url}}" alt=""  class="image w-full h-full object-cover cursor-pointer">
+                    <img src="{{postdetail.image.url}}" alt=""  class="image w-full h-full object-cover cursor-zoom-in">
                 </div>
                 {% if postdetail.image_copyright %}
                 <div class="text-center leading-4">
@@ -131,7 +131,11 @@
                     </div>
                     {% if morecontent.image_copyright %}
                     <div class="text-center leading-4">
-                        <a href="{{morecontent.image_copyright_link}}" rel="noreferrer" target="_blank" class="inline-block text-xs text-ph font-hairline hover:text-blue-500">{{morecontent.image_copyright|safe}}</a>
+                        {% if morecontent.image_copyright_link %}
+                        <a href="{{morecontent.image_copyright_link}}" rel="noreferrer" target="_blank" class="inline-block text-xs italic text-gray font-hairline hover:text-blue-500">{{morecontent.image_copyright|safe}}</a>
+                        {% else %}
+                        <span class="text-xs italic text-gray font-hairline">{{morecontent.image_copyright|safe}}</span>
+                        {% endif %}
                     </div>
                     {% endif %}
                 </div>

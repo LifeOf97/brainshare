@@ -80,9 +80,7 @@
                         {% block topnavlinks %}
                         <div id="topNavLinks" class="flex-1 flex flex-col pb-3 space-y-1 text-lg md:text-base md:pb-0 md:flex-row md:items-center md:justify-center md:space-y-0 md:space-x-3">
                             {% block homeordashboard %}
-                                {% if user.is_authenticated %}
-                                <div id="linkDashboard" class="flex-1 md:flex-initial flex"><a href="{% url 'userapp:user-profile' user.slug %}" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Dashboard</a></div>
-                                {% else %}
+                                {% if not user.is_authenticated %}
                                 <div id="linkHome" class="flex-1 md:flex-initial flex"><a href="{% url 'blogapp:home-page' %}" class="flex-1 text-left outline-none inline-block px-4 py-1 text-ph font-bold rounded-lg transition-colors duration-300 hover:bg-body-500 hover:text-white">Home</a></div>
                                 {% endif %}
                             {% endblock homeordashboard %}
