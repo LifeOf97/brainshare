@@ -1,4 +1,3 @@
-from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 from django.urls import path, include
 from .views import (

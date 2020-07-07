@@ -6,23 +6,23 @@ $( document ).ready(function() {
     // variables for search form
     const searchBox = $("#searchBox"), openSearchBtn = $("#openSearchBtn"), closeSearchBtn = $("#closeSearchBtn");
     // variables for signed in user and side nav
-    const user = $("#user"), userMenu = $("#userMenu"), closeUser = $("#closeUser"), accounts = $("#accounts");
+    const user = $("#user"), userMenu = $("#userMenu"), closeUser = $("#closeUser");
     const mobileMenu = $("#mobileMenu"), mobileMenuBtn = $("#mobileMenuBtn"), clsMobileMenu = $("#clsMobileMenu");
     // hero variables
     const heroKnowledge = $("#heroKnowledge"), heroIs = $("#heroIs"), heroPower = $("#heroPower"), heroSignup = $("#heroSignup"),
     heroWorld = $("#heroWorld")
     // variables for  forms
-    const inputLabel = $(".inputLabel"), viewPass = $(".viewPass"), loadContainer = $("#loadContainer");
+    const inputLabel = $(".inputLabel"), viewPass = $(".viewPass");
     const formBox = $("#formBox"), signOutBox = $("#signOutBox"), signOutBtn = $("#signOutBtn");
     // variables for post detail
     const pageNumber = $("#pageNumber"), pageNumberBtn = $("#pageNumberBtn");
     // variables for posts list
-    const postCard = $(".postCard"), textContent = $(".textContent"), copyBtn = $(".copyBtn"),
+    const postCard = $(".postCard"), copyBtn = $(".copyBtn"),
     postConcern = $("#postConcern a");
     // variables for dashboard
     const filterBtn = $("#filterBtn"), filterMenu = $("#filterMenu"), filter = $("#filterText"),
     filterOptions = $("#filterOptions"), mypost = $(".mypost"),
-    dashboardLinks = $("#dashboardLinks"), dashContainer = $("#dashContainer")
+    dashboardBtn = $("#dashboardBtn"), dashboardTabs = $("#dashboardTabs");
     // variables for social form
     
     
@@ -322,25 +322,28 @@ $( document ).ready(function() {
         }
     })
 
+
+    // dashboard links settings to show its respective div content
+    // when the specified link is clicked
+    dashboardBtn.on("click", "button", function() {
+        // close the open tab
+        dashboardTabs.children('div').each(function() {
+            if ( !$(this).hasClass('hidden') ) {
+                $(this).addClass('hidden')
+            }
+        });
+        // remove the styling of active links
+        dashboardBtn.children('button').each(function() {
+            replaceClass($(this), "text-white bg-body-500", "text-black bg-transparent")
+        });
+        // then open requested tab and style active link
+        dashboardTabs.find('#'+$(this).attr('data-id')).removeClass('hidden')
+        replaceClass($(this), 'text-black bg-transparent', 'text-white bg-body-500');
+    });
+
     // dashboard forms settings functions
     $("#clsForm").on("click", function() {
         window.location.assign("/");
-    })
-
-    // dashboard links settings > move in panels with effect
-    // when the specified link is clicked
-    dashboardLinks.on("click", "a", function() {
-        // remove the styling of active links first
-        dashboardLinks.children().each(function() {
-            replaceClass($(this), "text-white border-white", "text-black border-transparent")
-        })
-        // then run effect and style active link
-        gsap.to(dashContainer, {
-            scrollTo: $(this).attr("data-panel"),
-            duration: 0.2,
-            ease: "none",
-            onStart: replaceClass($(this), "text-black border-transparent", "text-white border-white")
-        })
     })
 
     // message popup settings for form update and sign-in

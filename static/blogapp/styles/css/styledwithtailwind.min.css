@@ -909,6 +909,11 @@ video {
   border-radius: 9999px;
 }
 
+.rounded-t-lg {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
 .border-dashed {
   border-style: dashed;
 }
@@ -1628,10 +1633,6 @@ video {
   padding-top: 6rem;
 }
 
-.pb-px {
-  padding-bottom: 1px;
-}
-
 .placeholder-button::-moz-placeholder {
   --placeholder-opacity: 1;
   color: #495052;
@@ -2309,10 +2310,6 @@ video {
 
   .md\:pb-0 {
     padding-bottom: 0;
-  }
-
-  .md\:pb-1 {
-    padding-bottom: 0.25rem;
   }
 
   .md\:pl-2 {
