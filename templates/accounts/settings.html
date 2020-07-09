@@ -1,8 +1,8 @@
 {% extends '../basement.html' %}
 {% block title %}{{user.username}} | Edit
-{% if form.first_name %}Bio{% elif form.new_username %}Username{% elif form.new_password1 %}password
-{% elif form.new_website %}Website{% elif form.new_email %}Email{% elif form.country %}Location
-{% elif form.image %}Avatar{% else %}Social{% endif %} | Clusstar
+{% if form.first_name %}bio{% elif form.new_username %}username{% elif form.new_password1 %}password
+{% elif form.new_website %}website{% elif form.new_email %}email{% elif form.country %}location
+{% elif form.image %}avatar{% else %}social{% endif %} | Clusstar
 {% endblock title %}
 
 {% block topnavpos %}{% endblock topnavpos %}
@@ -17,7 +17,7 @@
         <div class="flex-1 h-auto items-center justify-center hidden md:flex">
             <span id="formPlace" class="text-4xl text-body-100 font-bold">
                 Edit Account 
-                {% if form.first_name %}Bio{% elif form.new_username %}Username{% elif form.new_password1 %}password
+                {% if form.first_name %}Bio{% elif form.new_username %}Username{% elif form.new_password1 %}Password
                 {% elif form.new_website %}Website{% elif form.new_email %}Email{% elif form.country %}Location
                 {% elif form.image %}Avatar{% else %}Social{% endif %}
             </span>
