@@ -1,4 +1,3 @@
-from django.views.decorators.cache import cache_page
 from django.urls import path, include
 from .views import (
     Home,
@@ -16,7 +15,7 @@ urlpatterns = [
         path('search/', PostSearchView.as_view(), name='post-search'),
         path('tagged/<tag>', PostTagView.as_view(), name='post-tag'),
         path('concerning_only/<str:concern>', PostConcernView.as_view(), name='post-concern'),
-        path('read/<slug:slug>', cache_page(900)(PostDetailView.as_view()), name='post-detail'),
+        path('read/<slug:slug>', PostDetailView.as_view(), name='post-detail'),
     ])),
     path('author/<slug:slug>', AuthorDetailView.as_view(), name='author-detail'),
 ]
