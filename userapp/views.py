@@ -415,6 +415,7 @@ class ChangeAvatarView(LoginRequiredMixin, FormView):
         if form.is_valid():
             form.save()
             
+            messages.success(request, 'Avatar updated')
             return HttpResponseRedirect(
                 reverse("userapp:user-profile", kwargs={'slug': request.user.slug})
             )

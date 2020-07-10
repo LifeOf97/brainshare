@@ -819,6 +819,12 @@ video {
   background-color: rgba(55, 132, 236, var(--bg-opacity));
 }
 
+.active\:bg-body-500:active {
+  --bg-opacity: 1;
+  background-color: #222224;
+  background-color: rgba(34, 34, 36, var(--bg-opacity));
+}
+
 .border-transparent {
   border-color: transparent;
 }
@@ -878,12 +884,6 @@ video {
 }
 
 .focus\:border-white:focus {
-  --border-opacity: 1;
-  border-color: #FFFFFF;
-  border-color: rgba(255, 255, 255, var(--border-opacity));
-}
-
-.active\:border-white:active {
   --border-opacity: 1;
   border-color: #FFFFFF;
   border-color: rgba(255, 255, 255, var(--border-opacity));
@@ -1477,14 +1477,6 @@ video {
   overflow-x: auto;
 }
 
-.overflow-y-auto {
-  overflow-y: auto;
-}
-
-.overflow-x-hidden {
-  overflow-x: hidden;
-}
-
 .overflow-y-scroll {
   overflow-y: scroll;
 }
@@ -2050,10 +2042,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-screen {
-  width: 100vw;
 }
 
 .z-10 {
