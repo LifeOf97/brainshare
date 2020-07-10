@@ -160,14 +160,14 @@ STATIC_URL = '/static/'
 # if your static folder is in the same level directory
 # as the app, use this intead
 STATIC_ROOT = ''
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
 # else use this
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 
 # Media files (Images, Files, and Others)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 # My Email backend settings

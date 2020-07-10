@@ -1,6 +1,4 @@
 from django.utils import timezone
-import subprocess
-import pathlib
 """
 The functions in these module are used to direct where uploaded
 files are to be stored. files will have a date in the it the
@@ -18,25 +16,20 @@ pre_url = 'blogapp/authors'
 
 
 def AuthorBanner(instance, filename):
-    location = F"{pre_url}/{instance.profile.id}/bio/ab_{date}{filename}"
-    return location
+    return F"{pre_url}/{instance.profile.id}/bio/ab_{date}{filename}"
 
 
 def AuthorImage(instance, filename):
-    location = F"{pre_url}/{instance.profile.id}/bio/ai_{date}{filename}"
-    return location
+    return F"{pre_url}/{instance.profile.id}/bio/ai_{date}{filename}"
 
 
 def PostBanner(instance, filename):
-    location = F"{pre_url}/{instance.author.profile.id}/posts/{instance.title}/pb_{filename}"
-    return location
+    return F"{pre_url}/{instance.author.profile.id}/posts/{instance.title}/pb_{filename}"
 
 
 def PostImage(instance, filename):
-    location = F"{pre_url}/{instance.author.profile.id}/posts/{instance.title}/pi_{filename}"
-    return location
+    return F"{pre_url}/{instance.author.profile.id}/posts/{instance.title}/pi_{filename}"
 
 
 def MorePostImage(instance, filename):
-    location = F"{pre_url}/{instance.post.author.profile.id}/posts/{instance.post.title}/mpi_{filename}"
-    return location
+    return F"{pre_url}/{instance.post.author.profile.id}/posts/{instance.post.title}/mpi_{filename}"

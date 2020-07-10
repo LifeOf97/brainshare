@@ -143,7 +143,7 @@ class JsonUserProfileView(LoginRequiredMixin, JsonResponseMixin, SingleObjectTem
         for post in Post.objects.all():
             if post.date_to_publish <= timezone.now():
                 post.status = "Published"
-        post.save()
+            post.save()
 
         return super().get(request, **kwargs)
 
@@ -410,7 +410,8 @@ class ChangeAvatarView(LoginRequiredMixin, FormView):
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST or None, request.FILES or None)
+        author = Author.objects.get(slug=kwargs['slug'])
+        form = self.form_class(request.POST, request.FILES, instance=author)
         if form.is_valid():
             form.save()
             
