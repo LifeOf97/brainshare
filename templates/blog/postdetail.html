@@ -1,6 +1,10 @@
 {% extends '../basement.html' %}
 {% load customfilters %}
-{% block title %} {{postdetail.title|truncatechars:13}} | {{postdetail.author}} {% endblock title %}
+{% block title %} {{postdetail.title|truncatechars:50}} | {{postdetail.author}} {% endblock title %}
+{% block meta %}
+<meta name="description" content="{% for tag in postdetail.tags|listify %}{{tag}} {% endfor %}">
+<meta name="keywords" content="{% for tag in postdetail.tags|listify %}{{tag}} {% endfor %}">
+{% endblock meta %}
 
 
 {% block section %}

@@ -325,7 +325,7 @@ $( document ).ready(function() {
 
     // dashboard links settings to show its respective div content
     // when the specified link is clicked
-    dashboardBtn.on("click", "button", function() {
+    dashboardBtn.on("click", "input[type='button']", function() {
         // close the open tab
         dashboardTabs.children('div').each(function() {
             if ( !$(this).hasClass('hidden') ) {
@@ -333,7 +333,7 @@ $( document ).ready(function() {
             }
         });
         // remove the styling of active links
-        dashboardBtn.children('button').each(function() {
+        dashboardBtn.children("input[type='button']").each(function() {
             replaceClass($(this), "text-white bg-body-500", "text-black bg-transparent")
         });
         // then open requested tab and style active link

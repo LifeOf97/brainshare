@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     # My installed apps. You can just write the
     # name of the app like 'userapp'
     'userapp.apps.UserappConfig',
@@ -74,6 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'uss.wsgi.application'
 
+SITE_ID = 1
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
