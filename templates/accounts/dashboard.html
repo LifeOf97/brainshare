@@ -27,34 +27,34 @@
                 <div class="flex space-x-2 items-start text-gray mt-3">
                     {% for account in profile.author.social_set.all %}
                         {% if account.platform|lower == 'discord' %}
-                        <a href="{{account.link}}"><i class="fab fa-discord fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-discord fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'facebook' %}
-                        <a href="{{account.link}}"><i class="fab fa-facebook-f fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-facebook-f fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'twitter' %}
-                        <a href="{{account.link}}"><i class="fab fa-twitter fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-twitter fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'github' %}
-                        <a href="{{account.link}}"><i class="fab fa-github fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-github fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'instagram' %}
-                        <a href="{{account.link}}"><i class="fab fa-instagram fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-instagram fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'linkedin' %}
-                        <a href="{{account.link}}"><i class="fab fa-linkedin-in fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-linkedin-in fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'pinterest' %}
-                        <a href="{{account.link}}"><i class="fab fa-pinterest-p fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-pinterest-p fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'slack' %}
-                        <a href="{{account.link}}"><i class="fab fa-slack-hash fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-slack-hash fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'telegram' %}
-                        <a href="{{account.link}}"><i class="fab fa-telegram-plane fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-telegram-plane fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                         {% if account.platform|lower == 'youtube' %}
-                        <a href="{{account.link}}"><i class="fab fa-youtube fa-lg hover:text-blue-500"></i></a>
+                        <a href="{{account.link}}" target="_blank" tar><i class="fab fa-youtube fa-lg hover:text-blue-500"></i></a>
                         {% endif %}
                     {% endfor %}
                 </div>
